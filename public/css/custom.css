@@ -1,0 +1,151 @@
+  .card {
+      border: none;
+      box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15);
+      transition: all 0.3s ease;
+      border-radius: 1rem;
+  }
+
+  .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 1rem 2rem rgba(0, 0, 0, .2);
+  }
+
+  .card-header {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      border-radius: 1rem 1rem 0 0 !important;
+      padding: 1.5rem;
+  }
+
+  .form-control,
+  .form-select {
+      border-radius: 0.5rem;
+      border: 1px solid #ddd;
+      padding: 0.75rem;
+      transition: all 0.3s ease;
+  }
+
+  .form-control:focus,
+  .form-select:focus {
+      border-color: #80bdff;
+      box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  }
+
+  .btn-success {
+      background: linear-gradient(to right, #2575fc, #6a11cb);
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+  }
+
+  .btn-success:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
+  }
+
+  .btn{
+       padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+  }
+
+  .btn-danger {
+      background: linear-gradient(to right, #ff416c, #ff4b2b);
+      border: none;
+  }
+
+  .btn-danger:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
+  }
+
+  .trix-content {
+      border: 1px solid #ddd;
+      border-radius: 0.5rem;
+      min-height: 150px;
+      padding: 0.75rem;
+  }
+
+  .form-group {
+      margin-bottom: 1.5rem;
+  }
+
+  .form-group label {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 0.5rem;
+      display: block;
+  }
+
+  .chosen-container {
+      border-radius: 0.5rem;
+      border: 1px solid #ddd;
+  }
+
+  .chosen-container-single .chosen-single {
+      border-radius: 0.5rem;
+      border: 1px solid #ddd;
+  }
+
+  .chosen-container-multi .chosen-choices {
+      border-radius: 0.5rem;
+      border: 1px solid #ddd;
+  }
+
+  .mt-5 {
+      margin-top: 2rem !important;
+  }
+
+  .container {
+      padding: 2rem 0;
+  }
+
+  .btn-group {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+  }
+
+
+  .me-1 {
+      margin-inline-end: 0.25rem !important;
+  }
+
+  .ms-1 {
+      margin-inline-start: 0.25rem !important;
+  }
+
+  .me-2 {
+      margin-inline-end: 0.5rem !important;
+  }
+
+  .ms-2 {
+      margin-inline-start: 0.5rem !important;
+  }
+
+  .me-3 {
+      margin-inline-end: 0.75rem !important;
+  }
+
+  .ms-3 {
+      margin-inline-start: 0.75rem !important;
+  }
+
+  .me-4 {
+      margin-inline-end: 1rem !important;
+  }
+
+  .ms-4 {
+      margin-inline-start: 1rem !important;
+  }
+
+  .me-5 {
+      margin-inline-end: 1.25rem !important;
+  }
+
+  .ms-5 {
+      margin-inline-start: 1.25rem !important;
+  }
