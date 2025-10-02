@@ -66,7 +66,7 @@
                                     @csrf
                                     @method('PUT')
                                     <button type="submit" class="btn btn-success">
-                                        {!! trans('usersmanagement.buttons.restore-user') !!}
+                                        {!! trans('buttons.restore_user') !!}
                                     </button>
                                 </form>
                                 <button type="button" class="btn btn-danger d-inline" data-toggle="modal" data-target="#confirmDelete" title="{{ trans('usersmanagement.tooltips.permanentlyDelete') }}">

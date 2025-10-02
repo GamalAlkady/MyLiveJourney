@@ -38,9 +38,8 @@
                     <div class="float-right">
                         <a href="{{ route('admin.users.index') }}" class="btn btn-light btn-sm float-right"
                             data-toggle="tooltip" data-placement="left"
-                            title="{{ trans('usersmanagement.tooltips.back-users') }}">
-                            <i class="fa fa-fw fa-mail-reply" aria-hidden="true"></i>
-                            {!! trans('usersmanagement.buttons.back-to-users') !!}
+                            title="{{ trans('usersmanagement.tooltips.back-to-users') }}">
+                            {!! trans('buttons.back_to', ['name' => __('usersmanagement.users')]) !!}
                         </a>
                     </div>
                 </div>

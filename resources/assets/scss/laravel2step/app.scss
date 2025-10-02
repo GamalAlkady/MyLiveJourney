@@ -1,5 +1,6 @@
-@import "variables";
-@import "mixins";
-@import "animations";
-@import "modals";
-@import "verification";
+@use "variables" as *;
+@use "~bootstrap/scss/bootstrap";
+@use "mixins";
+@use "animations";
+@use "modals";
+@use "verification";

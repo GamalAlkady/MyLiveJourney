@@ -40,8 +40,12 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <h3 class="card-title float-left p-0 m-0"><strong>Manage District</strong>
                             </h3>
-                            <a href="{{ route('admin.district.create') }}"
-                                class="btn btn-success btn-md float-right c-white">Add New <i class="fa fa-plus"></i></a>
+                            {{-- <a href="{{ route('admin.district.create') }}"
+                                class="btn btn-success btn-md float-right c-white">Add New <i class="fa fa-plus"></i></a> --}}
+                            <button type="button" id="submitFormNew" class="btn btn-success btn-md float-right c-white"
+                                data-target="#submitForm" data-modalClass="modal-success" data-toggle="modal"
+                                data-title="{{ trans('titles.create', ['name' => __('titles.district')]) }}"
+                                data-action="{{ route('admin.district.store') }}">{!! __('buttons.add_new') !!}</button>
                         </div>
                     </div>
                     <!-- card-header -->
@@ -63,9 +67,17 @@
                                                 <td>{{ $district->name }}</td>
                                                 <td>{{ $district->created_at->toFormattedDateString() }}</td>
                                                 <td>{{ $district->places->count() }}</td>
-                                                <td>
-                                                    <a href="{{ route('admin.district.edit', $district->id) }}"
-                                                        class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
+                                                <td class="d-flex justify-content-between align-items-center">
+                                                    {{-- <a href="{{ route('admin.district.edit', $district->id) }}"
+                                                        class="btn btn-info"><i class="fa fa-edit"></i></a> --}}
+
+                                                    <button type="button" id="submitFormNew"
+                                                        class="btn btn-success d-inline-block c-white"
+                                                        data-value="{{ $district->name }}" data-target="#submitForm"
+                                                        data-modalClass="modal-success" data-toggle="modal"
+                                                        data-title="{{ trans('titles.edit', ['name' => __('titles.district')]) }}"
+                                                        data-action="{{ route('admin.district.update', $district->id) }}"><i
+                                                            class="fa fa-edit"></i></button>
 
                                                     {!! Form::open([
                                                         'url' => route('admin.district.destroy', $district->id),
@@ -74,8 +86,8 @@
                                                         'title' => 'Delete',
                                                     ]) !!}
                                                     {!! Form::hidden('_method', 'DELETE') !!}
-                                                    {!! Form::button(trans('usersmanagement.buttons.delete'), [
-                                                        'class' => 'btn btn-danger btn-sm d-inline-block',
+                                                    {!! Form::button(trans('buttons.delete'), [
+                                                        'class' => 'btn btn-danger d-inline-block',
                                                         'type' => 'button',
                                                         'id' => 'deleteDistrict' . $district->id,
                                                         'data-toggle' => 'modal',
@@ -115,6 +127,7 @@
         </div>
     </div><!-- /.container -->
     @include('modals.modal-delete')
+    @include('modals.modal-submit')
 
 @endsection
 
@@ -124,7 +137,8 @@
         @include('scripts.datatables')
     @endif
     @include('scripts.delete-modal-script')
-    @include('scripts.save-modal-script')
+    @include('scripts.submit-modal-script')
+
     @if (config('usersmanagement.tooltipsEnabled'))
         @include('scripts.tooltips')
     @endif

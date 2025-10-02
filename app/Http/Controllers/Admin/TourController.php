@@ -21,7 +21,12 @@ class TourController extends Controller
      */
     public function index()
     {
-        $tours = Tour::latest()->get();
+           $paginationEnabled = config('usersmanagement.enablePagination');
+        if ($paginationEnabled) {
+            $tours = Tour::latest()->paginate(config('usersmanagement.paginateListSize'));
+        } else {
+            $tours = Tour::latest()->get();
+        }
         return view('pages.admin.tour.index', compact('tours'));
     }
 

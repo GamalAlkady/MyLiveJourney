@@ -39,9 +39,9 @@
                             </div>
                             <div>
                                 @auth
-                                    @if (Auth::user()->role_id == 2)
+                                    @role('user')
                                         <a href="{{ route('package.booking', $package->id) }}" class="btn btn-success">Book Now</a>
-                                    @endif
+                                    @endrole
                                 @endauth
                             </div>
                         </div>

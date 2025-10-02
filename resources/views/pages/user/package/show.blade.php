@@ -10,18 +10,18 @@
                 <div class="card">
                     <div class="card-header">
                             <h2><strong>Package Details: </strong></h2>
-                            <a href="{{ route('user.package') }}" class="btn btn-danger">Back</a> 
+                            <a href="{{ route('user.package') }}" class="btn btn-danger">Back</a>
                             @auth
-                                @if (Auth::user()->role_id == 2)
+                                @role('user')
                                     <a href="{{ route('package.booking', $package->id) }}" class="btn btn-success">Book Now</a>
-                                @endif
-                            @endauth 
+                                @endrole
+                            @endauth
                     </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            
+
             <table class="table">
                 <tr>
                     <th>Package Name</th>

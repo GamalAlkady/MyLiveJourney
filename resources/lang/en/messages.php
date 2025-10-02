@@ -47,6 +47,7 @@ return [
     'tour_details'      => 'Tour Details',
     'tour_info'         => 'Tour Information',
     'tour_image'        => 'Tour Image',
-    'back_to_tours'     => 'Back to Tours',
     'no_tours_found'    => 'No Tours Found'
+
+
 ];

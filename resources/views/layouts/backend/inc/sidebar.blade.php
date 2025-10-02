@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar elevation-4">
     <!-- Brand Logo -->
     <a href="" class="brand-link text-center">
         <span class="brand-text font-weight-bold">{{ Auth::user()->isAdmin() ? 'Admin Panel' : 'User Panel' }}</span>
@@ -60,10 +60,10 @@
                 <div class="dropdown-divider"></div>
                 <li class="nav-item has-treeview">
                     <a href="{{ route($role . '.placetype.index') }}"
-                        class="nav-link {{ Request::is($role . '/type*') ? 'active' : '' }}">
+                        class="nav-link {{ Request::is($role . '/placetype') ? 'active' : '' }}">
                         <i class="fas fa-atlas"></i>
                         <p class="ml-2">
-                            Place Type
+                            {{ trans('titles.placeType') }}
                         </p>
                     </a>
                 </li>
@@ -71,10 +71,10 @@
                 <div class="dropdown-divider"></div>
                 <li class="nav-item has-treeview">
                     <a href="{{ route($role . '.place.index') }}"
-                        class="nav-link {{ Request::is($role . '/place*') ? 'active' : '' }}">
+                        class="nav-link {{ Request::is($role . '/place') ? 'active' : '' }}">
                         <i class="fa fa-info-circle" aria-hidden="true"></i>
                         <p class="ml-2">
-                            Places
+                            {{ trans('titles.place') }}
                         </p>
                     </a>
                 </li>
@@ -150,8 +150,8 @@
                         </a>
                     </li>
 
-                    <div class="dropdown-divider"></div>
-                    <li class="nav-item">
+                    {{-- <div class="dropdown-divider"></div> --}}
+                    <li class="nav-item d-none">
                         <a class="nav-link {{ Request::is('roles') || Request::is('permissions') ? 'active' : null }}"
                             href="{{ route('laravelroles::roles.index') }}">
                             <i class="fas fa-user-shield"></i>
@@ -211,7 +211,7 @@
                     </li>
                 @endrole
 
-                @if (Request::is('user*'))
+                @role('user')
                     <li class="nav-item has-treeview">
                         <a href="{{ route('user.guide') }}"
                             class="nav-link {{ Request::is('user/guide*') ? 'active' : '' }}">
@@ -232,7 +232,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item has-treeview">
+                    {{-- <li class="nav-item has-treeview">
                         <a href="{{ route('user.profile.show') }}"
                             class="nav-link {{ Request::is('user/profile-info*') ? 'active' : '' }}">
                             <i class="far fa-id-badge"></i>
@@ -240,7 +240,7 @@
                                 Your Profile
                             </p>
                         </a>
-                    </li>
+                    </li> --}}
 
                     <li class="nav-item has-treeview">
                         <a href="{{ route('user.pending.booking') }}"
@@ -271,7 +271,7 @@
                             </p>
                         </a>
                     </li>
-                @endif
+                @endrole
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -288,7 +288,6 @@
 
             $('#adminToolsIcon').removeClass('fa-angle-down').addClass('fa-angle-up');
         })
-        console.log('collapse hidden');
 
         $('#collapseAdminTools').on('hidden.bs.collapse', function() {
 

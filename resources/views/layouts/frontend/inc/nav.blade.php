@@ -4,7 +4,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon" style="background-color:  #fff;"></span>
     </button>
-  
+
      <div class="collapse navbar-collapse"></div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
@@ -20,7 +20,7 @@
          <li class="nav-item">
           <a class="nav-link" href="{{ route('all.package') }}">Packages</a>
         </li>
-        
+
               @guest
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('login') }}">Login</a>
@@ -29,18 +29,24 @@
                   <a class="btn btn-info my-2 px-4 py-2" href="{{ route('register') }}" type="submit"><b>Sign Up</b></a>
                 </form>
                 @else
-                    @if (Auth::user()->role_id == 1)
+                    @role('admin')
                         <li class="nav-item">
                           <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
                         </li>
-                    @endif
-                    @if (Auth::user()->role_id == 2)
+                    @endrole
+                    @role('guide')
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{ route('guide.dashboard') }}">Dashboard</a>
+                        </li>
+                    @endrole
+                    @role('user')
                     <li class="nav-item">
                       <a class="nav-link" href="{{ route('user.dashboard') }}">Dashboard</a>
-                    </li>                    @endif
+                    </li>
+                    @endrole
                 @endguest
       </ul>
-      
+
     </div>
   </nav>
   </section>

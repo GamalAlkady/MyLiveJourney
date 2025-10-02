@@ -99,14 +99,15 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Placetype $type)
+    public function destroy(Placetype $placetype)
     {
 
-        if(Place::where('placetype_id', $type->id)->count() > 0 ){
+        // dd($placetype->id);
+        if(Place::where('placetype_id', $placetype->id)->count() > 0 ){
             session()->flash('danger', 'Place type do not removed, because it has some places');
             return redirect()->back();
         }
-        $type->delete();
+        $placetype->delete();
         return redirect(route('admin.placetype.index'))->with('success', 'Place Type Deleted Successfully');
     }
 }

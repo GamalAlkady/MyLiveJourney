@@ -35,7 +35,7 @@ class RolesTableSeeder extends Seeder
                 'name'        => 'Guide',
                 'slug'        => 'guide',
                 'description' => 'Guide Role',
-                'level'       => 0,
+                'level'       => 3,
             ],
         ];
 

@@ -32,7 +32,6 @@
                     <div>
                         <a href="{{ route('admin.users.index') }}"
                             class="btn btn-outline-light btn-sm px-3 py-2 rounded hover-effect">
-                            <i class="fas fa-arrow-left me-1"></i>
                             <span class="d-none d-md-inline">{!! trans('buttons.back_to',['name'=>'users']) !!}</span>
                         </a>
                     </div>

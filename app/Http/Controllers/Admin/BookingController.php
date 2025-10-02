@@ -16,6 +16,12 @@ class BookingController extends Controller
         return view('pages.admin.booking.pendinglist', compact('pendinglists'));
     }
 
+    /**
+     * Approve a booking request by admin
+     *
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function bookingApprove($id){
         $req = Booking::find($id);
         $req->approved_status = "yes";
@@ -40,6 +46,7 @@ class BookingController extends Controller
         session()->flash('success', 'Booking Request Removed Successfully');
         return redirect()->back();
     }
+
 
     public function runningPackage(){
         $runningLists = Booking::where('approved_status', 'yes')->where('is_completed', 'no')->get();

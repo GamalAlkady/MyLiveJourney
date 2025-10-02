@@ -54,7 +54,7 @@ class UsersManagementController extends Controller
      */
     public function create()
     {
-        $roles = Role::where('slug','!=','admin')->get();
+        $roles = Role::where('slug', '!=', 'admin')->get();
 
         return view('pages.admin.usersmanagement.create-user', compact('roles'));
     }
@@ -95,32 +95,31 @@ class UsersManagementController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
-    // Get Form Image
-          $image = $request->file('image');
+        // Get Form Image
+        $image = $request->file('image');
 
 
-          if (isset($image)) {
+        if (isset($image)) {
 
 
-             // Make Unique Name for Image
+            // Make Unique Name for Image
             $currentDate = Carbon::now()->toDateString();
-            $imageName =$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+            $imageName = $currentDate . '-' . uniqid() . '.' . $image->getClientOriginalExtension();
 
 
-          // Check Category Dir is exists
+            // Check Category Dir is exists
 
-              if (!Storage::disk('public')->exists('guide')) {
-                 Storage::disk('public')->makeDirectory('guide');
-              }
+            if (!Storage::disk('public')->exists('guide')) {
+                Storage::disk('public')->makeDirectory('guide');
+            }
 
 
-              // Resize Image for category and upload
-              $GuideImage = Image::make($image)->resize(180,210)->stream();
-              Storage::disk('public')->put('guide/'.$imageName,$GuideImage);
-
-     }else{
-      $imageName = null;
-     }
+            // Resize Image for category and upload
+            $GuideImage = Image::make($image)->resize(180, 210)->stream();
+            Storage::disk('public')->put('guide/' . $imageName, $GuideImage);
+        } else {
+            $imageName = null;
+        }
 
         $ipAddress = new CaptureIpTrait();
         $profile = new Profile();
@@ -200,7 +199,7 @@ class UsersManagementController extends Controller
             ]);
         } else {
             $validator = Validator::make($request->all(), [
-                'name'          => 'required|max:255|alpha_dash|unique:users,name,'.$user->id,
+                'name'          => 'required|max:255|alpha_dash|unique:users,name,' . $user->id,
                 'first_name'    => 'alpha_dash',
                 'last_name'     => 'alpha_dash',
                 'password'      => 'nullable|confirmed|min:6',
@@ -294,9 +293,9 @@ class UsersManagementController extends Controller
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         }
 
-        $results = User::where('id', 'like', $searchTerm.'%')
-                            ->orWhere('name', 'like', $searchTerm.'%')
-                            ->orWhere('email', 'like', $searchTerm.'%')->get();
+        $results = User::where('id', 'like', $searchTerm . '%')
+            ->orWhere('name', 'like', $searchTerm . '%')
+            ->orWhere('email', 'like', $searchTerm . '%')->get();
 
         // Attach roles to results
         foreach ($results as $result) {
@@ -309,5 +308,24 @@ class UsersManagementController extends Controller
         return response()->json([
             json_encode($results),
         ], Response::HTTP_OK);
+    }
+
+    public function activeUser(Request $request, User $user)
+    {
+        $user->activated = 1;
+        $message=trans('usersmanagement.activeSuccess');
+        if ($request->has('deactivate')) {
+            $user->activated = 0;
+            $message=trans('usersmanagement.inactiveSuccess');
+        }
+        $user->save();
+        return back()->with('success', $message);
+    }
+
+    public function inactiveUser(User $user)
+    {
+        $user->activated = 0;
+        $user->save();
+        return back()->with('success', trans('usersmanagement.inactiveSuccess'));
     }
 }

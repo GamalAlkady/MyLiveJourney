@@ -4,6 +4,10 @@
     {{ trans('profile.templateTitle') }}
 @endsection
 
+@section('css')
+    <link href="{{ asset('css/password.min.css') }}" rel="stylesheet">
+
+@endsection
 {{-- TODO: error when save changes --}}
 @section('content')
 
@@ -397,10 +401,7 @@
                                                                         'placeholder' => trans('forms.create_user_ph_password'),
                                                                         'autocomplete' => 'new-password',
                                                                     ]) !!}
-                                                                    <div class="input-group-text bg-light">
-                                                                        <a href=""><i class="fa fa-eye-slash"
-                                                                                aria-hidden="true"></i></a>
-                                                                    </div>
+
                                                                 </div>
                                                                 @if ($errors->has('password'))
                                                                     <span class="help-block">
@@ -523,10 +524,12 @@
 @endsection
 
 @section('scripts')
+    <script src="{{ asset('js/password.min.js') }}"></script>
+    <script src="{{ asset('js/hideShowPassword.min.js') }}"></script>
     @include('scripts.form-modal-script')
 
     @if (config('settings.googleMapsAPIStatus'))
-        @include('scripts.gmaps-address-lookup-api3')
+        {{-- @include('scripts.gmaps-address-lookup-api3') --}}
     @endif
 
     @include('scripts.user-avatar-dz')
@@ -615,6 +618,7 @@
                 $("#pw_status").html("Passwords match.");
             }
         }
+
 
         function enableSubmitPWCheck() {
             var password = $("#password").val();

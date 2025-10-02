@@ -56,7 +56,7 @@
 
     <div class="col-xl-12 col-lg-12">
         <div class="card shadow-lg border-0 rounded-lg">
-            <div class="card-header bg-white py-3">
+            <div class="card-header py-3">
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center">
                         <div class="bg-success rounded-circle p-2 me-3">
@@ -66,17 +66,16 @@
                     </div>
                     <div class="d-flex">
                         <a href="{{ route('admin.users.index') }}"
-                            class="mx-1 btn btn-outline-secondary btn-sm px-3 py-2 rounded hover-effect me-2"
+                            class="mx-1 btn btn-outline-primary btn-sm px-3 py-2 rounded hover-effect me-2"
                             data-toggle="tooltip" data-placement="top"
-                            title="{{ trans('usersmanagement.tooltips.back-users') }}">
-                            <i class="fas fa-arrow-left me-1"></i>
-                            <span class="d-none d-md-inline">{!! trans('usersmanagement.buttons.back-to-users') !!}</span>
+                            title="{{ trans('usersmanagement.tooltips.back-to-users') }}">
+                            <span class="d-none d-md-inline">{!! trans('buttons.back_to',['name' => trans('usersmanagement.users')]) !!}</span>
                         </a>
                         <a href="{{ url('/admin/users/' . $user->id) }}"
-                            class="btn btn-outline-secondary btn-sm px-3 py-2 rounded hover-effect" data-toggle="tooltip"
+                            class="btn btn-outline-primary btn-sm px-3 py-2 rounded hover-effect" data-toggle="tooltip"
                             data-placement="top" title="{{ trans('usersmanagement.tooltips.back-to-user') }}">
-                            <i class="fas fa-reply me-1"></i>
-                            <span class="d-none d-md-inline">{!! trans('usersmanagement.buttons.back-to-user') !!}</span>
+
+                            <span class="d-none d-md-inline">{!! trans('buttons.back_to1',['name' => trans('usersmanagement.user')]) !!}</span>
                         </a>
                     </div>
                 </div>
@@ -219,7 +218,7 @@
                     <div class="pw-change-container">
                         <h5 class="mb-4 text-gray-700 font-medium">
                             <i class="fas fa-key text-primary me-2"></i>
-                            {!! trans('forms.change-password-title') !!}
+                            {!! trans('forms.change-pw') !!}
                         </h5>
 
                         <div class="row mb-4">
@@ -283,8 +282,7 @@
                             <button type="button" class="btn btn-success btn-block mt-3 mb-2 btn-save"
                                 data-toggle="modal" data-target="#confirmSave" data-title="{!! trans('modals.edit_user__modal_text_confirm_title') !!}"
                                 data-message="{!! trans('modals.edit_user__modal_text_confirm_message') !!}">
-                                <i class="fas fa-save me-2"></i>
-                                {!! trans('forms.save-changes') !!}
+                                {!! trans('buttons.save') !!}
                             </button>
                         </div>
                     </div>

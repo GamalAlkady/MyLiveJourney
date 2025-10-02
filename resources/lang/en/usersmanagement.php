@@ -3,6 +3,8 @@
 return [
 
     // Titles
+    'users'                 => 'Users',
+    'user'                  => 'User',
     'showing-all-users'     => 'Showing All Users',
     'users-menu-alt'        => 'Show Users Management Menu',
     'create-new-user'       => 'Create New User',
@@ -17,6 +19,9 @@ return [
     'updateSuccess'   => 'Successfully updated user! ',
     'deleteSuccess'   => 'Successfully deleted user! ',
     'deleteSelfError' => 'You cannot delete yourself! ',
+    'activeSuccess'   => 'Successfully activated User!',
+    'inactiveSuccess' => 'Successfully deactivated User!',
+
 
     // Show User Tab
     'viewProfile'            => 'View Profile',
@@ -48,6 +53,7 @@ return [
     'usersDeletedPanelTitle' => 'Deleted User Information',
     'usersBackDelBtn'        => 'Back to Deleted Users',
 
+
     'successRestore'    => 'User successfully restored.',
     'successDestroy'    => 'User record successfully destroyed.',
     'errorUserNotFound' => 'User not found.',
@@ -74,7 +80,8 @@ return [
         'show'          => 'Show',
         'edit'          => 'Edit',
         'create-new'    => 'Create New User',
-        'back-users'    => 'Back to users',
+        'back-to-users'    => 'Back to users',
+        'back-to-user'    => 'Back to user',
         'email-user'    => 'Email :user',
         'submit-search' => 'Submit Users Search',
         'clear-search'  => 'Clear Search Results',

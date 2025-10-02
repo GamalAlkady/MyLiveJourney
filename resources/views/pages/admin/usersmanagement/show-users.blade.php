@@ -50,8 +50,8 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <a class="dropdown-item" href="{{ route('admin.users.create') }}">
-                                        <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i>
-                                        {!! trans('usersmanagement.buttons.create-new') !!}
+                                        {{-- <i class="fa fa-fw fa-user-plus" aria-hidden="true"></i> --}}
+                                        {!! trans('buttons.create_user') !!}
                                     </a>
                                     <a class="dropdown-item" href="{{ route('admin.users.deleted') }}">
                                         <i class="fa fa-fw fa-group" aria-hidden="true"></i>
@@ -98,12 +98,8 @@
                                             <td class="hidden-xs">{{ $user->last_name }}</td>
                                             <td>
                                                 @foreach ($user->roles as $user_role)
-                                                    @if ($user_role->name == 'User')
+                                                    @if ($user_role->name == 'Guide')
                                                         @php $badgeClass = 'primary' @endphp
-                                                    @elseif ($user_role->name == 'Admin')
-                                                        @php $badgeClass = 'warning' @endphp
-                                                    @elseif ($user_role->name == 'Unverified')
-                                                        @php $badgeClass = 'danger' @endphp
                                                     @else
                                                         @php $badgeClass = 'default' @endphp
                                                     @endif
@@ -114,6 +110,7 @@
                                             <td class="hidden-sm hidden-xs hidden-md">{{ $user->created_at }}</td>
                                             <td class="hidden-sm hidden-xs hidden-md">{{ $user->updated_at }}</td>
                                             <td>
+                                                {{-- Button for delete user --}}
                                                 {!! Form::open([
                                                     'url' => 'admin/users/' . $user->id,
                                                     'class' => 'd-inline-block',
@@ -121,8 +118,8 @@
                                                     'title' => 'Delete',
                                                 ]) !!}
                                                 {!! Form::hidden('_method', 'DELETE') !!}
-                                                {!! Form::button(trans('usersmanagement.buttons.delete'), [
-                                                    'class' => 'btn btn-danger btn-sm',
+                                                {!! Form::button(trans('buttons.delete'), [
+                                                    'class' => 'btn btn-danger',
                                                     'type' => 'button',
                                                     'data-toggle' => 'modal',
                                                     'data-target' => '#confirmDelete',
@@ -131,17 +128,37 @@
                                                 ]) !!}
                                                 {!! Form::close() !!}
 
-                                                <a class="btn btn-sm btn-success btn-inline-block"
+                                                {{-- Button for show user --}}
+                                                <a class="btn btn-success btn-inline-block"
                                                     href="{{ route('admin.users.show', $user->id) }}" data-toggle="tooltip"
                                                     title="Show">
-                                                    {!! trans('usersmanagement.buttons.show') !!}
+                                                    {!! trans('buttons.show') !!}
                                                 </a>
 
-                                                <a class="btn btn-sm btn-info btn-inline-block"
-                                                    href="{{ route('admin.users.edit', $user->id) }}"
-                                                    data-toggle="tooltip" title="Edit">
-                                                    {!! trans('usersmanagement.buttons.edit') !!}
+                                                {{-- Button for edit user --}}
+                                                <a class="btn btn-info btn-inline-block"
+                                                    href="{{ route('admin.users.edit', $user->id) }}" data-toggle="tooltip"
+                                                    title="Edit">
+                                                    {!! trans('buttons.edit') !!}
                                                 </a>
+
+
+                                                <form class="d-inline-block" action="{{ route('admin.activeUser', $user->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('PUT')
+                                                    @if ($user->activated == 1)
+                                                        <button type="submit" class="btn btn-warning btn-inline-block"
+                                                            data-toggle="tooltip" title="Deactivate" name="deactivate">
+                                                            {!! trans('buttons.deactivate') !!}
+                                                        </button>
+                                                    @else
+                                                        <button type="submit" class="btn btn-primary btn-inline-block"
+                                                            data-toggle="tooltip" title="Activate" name="activate">
+                                                            {!! trans('buttons.activate') !!}
+                                                        </button>
+                                                    @endif
+                                                </form>
+
                                             </td>
                                         </tr>
                                     @endforeach

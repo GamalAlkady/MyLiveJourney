@@ -35,9 +35,9 @@
                                 </div>
                                 <div>
                                     @auth
-                                        @if (Auth::user()->role_id == 2)
+                                        @role ('user')
                                             <a href="{{ route('package.booking', $package->id) }}" class="btn btn-success">Book Now</a>
-                                        @endif
+                                        @endrole
                                     @endauth
 
                                     @guest
@@ -46,8 +46,8 @@
                                 </div>
                             </div>
                         </div>
-                    </div>    
-                </div> 
+                    </div>
+                </div>
                 @empty
                     <h2 class="my-5 bg-info text-white text-center p-3">No Package Found. Please add some place.</h2>
                 @endforelse
@@ -69,10 +69,10 @@
 @endsection
 
 @section('scripts')
-   
+
 @endsection
 
 @section('css')
 
 @endsection
-      
+

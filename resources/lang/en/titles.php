@@ -39,4 +39,20 @@ return [
 
     'laravelroles'      => 'Roles Administration',
     'log_info'          => 'Log Information',
+
+    'create'            => 'Create :name',
+    'edit'              => 'Edit :name',
+    'details'           => ':name Details',
+
+    'placeType'        => 'Place Type',
+    'placeTypes'       => 'Place Types',
+
+    'district'         => 'District',
+    'districts'        => 'Districts',
+
+    'place'            => 'Place',
+    'places'           => 'Places',
+
+    'tour'             => 'Tour',
+    'tours'             => 'Tours',
 ];

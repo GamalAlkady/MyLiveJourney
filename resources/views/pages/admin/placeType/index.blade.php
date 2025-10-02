@@ -13,8 +13,13 @@
                     <div class="card-header">
                         <h3 class="card-title float-left"><strong>Manage Place Type ({{ $typescount }})</strong></h3>
 
-                        <a href="{{ route('admin.placetype.create') }}" class="btn btn-success btn-md float-right c-white">Add
-                            New <i class="fa fa-plus"></i></a>
+                        <button type="button" id="submitFormNew" class="btn btn-success btn-md float-right c-white"
+                            data-target="#submitForm" data-modalClass="modal-success" data-toggle="modal"
+                            data-title="{{ trans('titles.create', ['name' => __('titles.placetype')]) }}"
+                            data-action="{{ route('admin.placetype.store') }}">{!! __('buttons.add_new') !!}</button>
+
+                        {{-- <a href="{{ route('admin.placetype.create') }}" class="btn btn-success btn-md float-right c-white">Add
+                            New <i class="fa fa-plus"></i></a> --}}
                     </div>
                     <!-- /.card-header -->
                     @if ($types->count() > 0)
@@ -38,8 +43,16 @@
                                                 <td>{{ $type->places->count() }}</td>
                                                 <td>
 
-                                                    <a href="{{ route('admin.placetype.edit', $type->id) }}"
-                                                        class="btn btn-info btn-sm"><i class="fa fa-edit"></i></a>
+                                                    {{-- <a href="{{ route('admin.placetype.edit', $type->id) }}"
+                                                        class="btn btn-info "><i class="fa fa-edit"></i></a> --}}
+
+                                                    <button type="button" id="submitFormNew"
+                                                        class="btn btn-success d-inline-block c-white"
+                                                        data-value="{{ $type->name }}"
+                                                        data-target="#submitForm" data-modalClass="modal-success"
+                                                        data-toggle="modal"
+                                                        data-title="{{ trans('titles.edit', ['name' => __('titles.placetype')]) }}"
+                                                        data-action="{{ route('admin.placetype.update', $type->id) }}"><i class="fa fa-edit"></i></button>
 
                                                     {!! Form::open([
                                                         'url' => route('admin.placetype.destroy', $type->id),
@@ -49,7 +62,7 @@
                                                     ]) !!}
                                                     {!! Form::hidden('_method', 'DELETE') !!}
                                                     {!! Form::button(trans('buttons.delete'), [
-                                                        'class' => 'btn btn-danger btn-sm d-inline-block',
+                                                        'class' => 'btn btn-danger d-inline-block',
                                                         'type' => 'button',
                                                         'data-toggle' => 'modal',
                                                         'data-target' => '#confirmDelete',
@@ -81,16 +94,16 @@
         </div>
     </div><!-- /.container -->
     @include('modals.modal-delete')
+    @include('modals.modal-submit')
 
 @endsection
 
 @section('scripts')
-    @if (count($types) > config('usersmanagement.datatablesJsStartCount') &&
-            config('usersmanagement.enabledDatatablesJs'))
+    @if (count($types) > config('usersmanagement.datatablesJsStartCount') && config('usersmanagement.enabledDatatablesJs'))
         @include('scripts.datatables')
     @endif
     @include('scripts.delete-modal-script')
-    @include('scripts.save-modal-script')
+    @include('scripts.submit-modal-script')
     @if (config('usersmanagement.tooltipsEnabled'))
         @include('scripts.tooltips')
     @endif

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\User;
 
-use App\Booking;
-use App\Guide;
+use App\Models\Booking;
+use App\Models\Guide;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -16,13 +16,13 @@ class BookingController extends Controller
                     ->where('tourist_id', Auth::id())
                     ->get();
         $currentDate = Carbon::now()->format('F d, Y');
-        return view('user.booking.historyList', compact('historyList', 'currentDate'));
+        return view('pages.user.booking.historyList', compact('historyList', 'currentDate'));
     }
 
 
     public function pendingBookingList(){
         $pendinglists = Booking::where('approved_status', 'no')->where('tourist_id', Auth::id())->get();
-        return view('user.booking.pendinglist', compact('pendinglists'));
+        return view('pages.user.booking.pendinglist', compact('pendinglists'));
     }
 
     public function cancelBookingRequest($id){

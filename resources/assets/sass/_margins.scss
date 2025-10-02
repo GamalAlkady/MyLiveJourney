@@ -1,3 +1,7 @@
+// @use "variables" as *;
+
+$phone: 576px; // Added missing variable
+
 .margin-half {
     margin: 0.5em;
 }

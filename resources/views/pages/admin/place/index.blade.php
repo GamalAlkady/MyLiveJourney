@@ -42,13 +42,13 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('admin.place.show', $place->id) }}"
-                                                class="btn btn-success">{!! trans('usersmanagement.buttons.show') !!}</a>
+                                                class="btn btn-success">{!! trans('buttons.show') !!}</a>
 
                                             <a href="{{ route('admin.place.edit', $place->id) }}"
-                                                class="btn btn-info">{!! trans('usersmanagement.buttons.edit') !!}</a>
+                                                class="btn btn-info">{!! trans('buttons.edit') !!}</a>
 
                                             <button type="submit" onclick="handleDeletePlace( {{ $place->id }}) "
-                                                class="btn btn-danger">{!! trans('usersmanagement.buttons.delete') !!}</button>
+                                                class="btn btn-danger">{!! trans('buttons.delete') !!}</button>
                                         </td>
                                     </tr>
                                 @endforeach

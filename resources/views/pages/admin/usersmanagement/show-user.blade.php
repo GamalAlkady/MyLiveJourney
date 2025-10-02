@@ -9,13 +9,13 @@
 
     <div class="col-lg-12 col-md-12">
       <div class="card shadow-lg border-0 rounded-lg">
-        <div class="card-header bg-gradient-primary text-white">
+        <div class="card-header">
           <h5 class="mb-0 float-left">
             <i class="fa fa-user-circle mr-2"></i>
             {{ $user->name }}
           </h5>
-          <a href="{{ route('admin.users.index') }}" class="btn btn-light btn-sm float-right">
-            <i class="fa fa-arrow-left"></i> {!! trans('usersmanagement.buttons.back-to-users') !!}
+          <a href="{{ route('admin.users.index') }}" class="btn btn-outline-primary btn-sm float-right">
+            {!! trans('buttons.back_to', ['name' => __('usersmanagement.users')]) !!}
           </a>
         </div>
         <div class="card-body">
@@ -135,7 +135,7 @@
           </div>
           <div class="d-flex justify-content-around mt-3">
             <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-info mx-1">
-              {!! trans('usersmanagement.buttons.edit-user') !!}
+              {!! trans('buttons.edit_user') !!}
             </a>
             {!! Form::open(['url' => route('admin.users.destroy', $user->id), 'class' => 'd-inline']) !!}
               {!! Form::hidden('_method', 'DELETE') !!}

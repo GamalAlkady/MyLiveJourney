@@ -19,7 +19,7 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    {{-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"> --}}
     <link rel="shortcut icon" href="/favicon.ico">
     {{-- <link rel="preconnect" href="https://fonts.bunny.net"> --}}
     <!--[if lt IE 9]>
@@ -67,7 +67,7 @@
         <!-- Main Sidebar Container -->
         @include('layouts.backend.inc.sidebar')
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper bg-transparent">
             <div class="container-fluid mt-2">
                 <div class="row">
                     <div class="col-12">
@@ -78,7 +78,7 @@
             <!-- Main content -->
 
             <div class="container-fluid">
-                <div class="row">
+                <div class="row mt-3 p-3">
                     @yield('content')
                 </div>
             </div>
@@ -98,9 +98,9 @@
     </script>
 
 
-    <script src="{{ asset('assets/admin/js/custom.js') }}"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('assets/admin/js/custom.js') }}"></script>
     @yield('scripts')
 
 </body>

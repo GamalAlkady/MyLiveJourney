@@ -7,7 +7,7 @@ use App\Models\Booking;
 use App\Models\District;
 use App\Models\Guide;
 use App\Models\Place;
-use App\Models\Package;
+use App\Models\Tour;
 use App\Models\Placetype;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +21,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-       
+
     }
 
     /**
@@ -33,7 +33,7 @@ class HomeController extends Controller
     {
         $places = Place::with('placetype')->get()->take(4);
         $placetypes = Placetype::all();
-        $packages = Package::all()->take(3);
+        $packages = Tour::all()->take(3);
         $districts = District::latest()->get();
 
         return view('welcome', compact('places', 'packages', 'districts', 'placetypes'));
@@ -68,7 +68,7 @@ class HomeController extends Controller
 
     public function packageDetails($id)
     {
-        $package = Package::find($id);
+        $package = Tour::find($id);
         return view('packageDetails', compact('package'));
     }
 
@@ -79,7 +79,7 @@ class HomeController extends Controller
 
 
     public function allPackage(){
-        $packages = Package::latest()->paginate(12);
+        $packages = Tour::latest()->paginate(12);
         return view('allPackages', compact('packages'));
     }
 
@@ -91,9 +91,9 @@ class HomeController extends Controller
 
     public function packageBooking($id){
 
-       
+
         $guides = Guide::where('status', 1)->get();
-        $package = Package::where('id', $id)->first();
+        $package = Tour::where('id', $id)->first();
         return view('bookingForm', compact('guides', 'package'));
     }
 
@@ -104,7 +104,7 @@ class HomeController extends Controller
             'guide' => 'required',
             'date' => 'required',
         ]);
-    
+
 
 
         $guide_id = $request->guide;

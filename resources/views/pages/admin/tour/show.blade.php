@@ -11,18 +11,16 @@
         <div class="card-header bg-gradient text-white">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex align-items-center">
-                    <div class="bg-white bg-opacity-20 rounded-circle p-2 me-3">
-                        <i class="fas fa-map-marked-alt text-white fs-4"></i>
+                    <div class="bg-primary bg-opacity-20 rounded-circle p-2 me-3">
+                        <i class="fas fa-map-marked-alt fs-4"></i>
                     </div>
                     <h2 class="mb-0">{{ __('messages.tour_details') }}: {{ $tour->name }}</h2>
                 </div>
                 <div class="d-flex">
-                    <a href="{{ route('admin.tour.index') }}" class="btn btn-light btn-md px-4 py-2 rounded hover-effect me-2">
+                    <a href="{{ route('admin.tour.index') }}" class="btn btn-outline-light btn-md px-4 py-2 rounded hover-effect me-2">
                         {!! __('buttons.back_to',['name' => __('messages.tours')]) !!}
                     </a>
-                    <a href="{{ route('admin.tour.edit', ['tour'=>$tour->id]) }}" class="btn btn-info btn-md px-4 py-2 ml-2 rounded hover-effect">
-                        {!! __('buttons.edit_name',['name' => __('messages.tour')]) !!}
-                    </a>
+
                 </div>
             </div>
         </div>
@@ -34,10 +32,12 @@
         <div class="col-lg-4 mb-4">
             <div class="card shadow">
                 <div class="card-header bg-light py-3">
-                    <h4 class="mb-0 text-center">{{ __('messages.tour_image') }}</h4>
+                    <h4 class="mb-0 text-center text-white">{{ __('messages.tour_image') }}</h4>
                 </div>
+
                 <div class="card-body p-3">
                     <div class="tour-image-container">
+                        {{-- @dd($tour->image) --}}
                         <img src="{{ asset('storage/tourImage/'.$tour->image) }}"
                              alt="{{ $tour->name }}"
                              class="img-fluid rounded shadow"
@@ -51,7 +51,7 @@
         <div class="col-lg-8 mb-4">
             <div class="card shadow h-100">
                 <div class="card-header bg-light py-3">
-                    <h4 class="mb-0 text-center">{{ __('messages.tour_info') }}</h4>
+                    <h4 class="mb-0 text-center text-white">{{ __('messages.tour_info') }}</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">

@@ -113,25 +113,25 @@
                                 </div>
                                 <div>
                                     @auth
-                                        @if (Auth::user()->role_id == 2)
+                                        @role ('user')
                                             <a href="{{ route('package.booking', $package->id) }}" class="btn btn-success">Book Now</a>
-                                        @endif
+                                        @endrole
                                     @endauth
-                                        
+
                                     @guest
                                         <a href="{{ route('login') }}" class="btn btn-success">Book Now</a>
                                     @endguest
                                 </div>
                             </div>
                         </div>
-    
-                    </div>    
-                </div> 
+
+                    </div>
+                </div>
                 @empty
                     <h2 class="m-auto my-5 bg-info text-white text-center p-3">No Package Found. Please add some place.</h2>
                 @endforelse
-    </div>    
-    
+    </div>
+
     <div class="row">
         <div class="d-flex justify-content-center m-auto">
             <div>
@@ -173,8 +173,8 @@
 			<a target="_blank" href="https://www.instagram.com/"><img src="{{ asset('frontend/img/instagram.png') }}"></a>
 			<a target="_blank" href="https://www.linkedin.com/"><img src="{{ asset('frontend/img/linkedin.png') }}">
             </a>
-			
-			
+
+
 		</div>
 	</div>
 </section>
@@ -196,10 +196,10 @@
                 <div class="row justify-content-center">
                     @if(session('search'))
                         <div class="alert alert-danger mt-3" id="alert" roles="alert">
-                            {{ session('search') }} 
-                        </div> 
-                    @endif 
-                </div> 
+                            {{ session('search') }}
+                        </div>
+                    @endif
+                </div>
                 <div class="d-flex flex-row  justify-content-center py-5">
                     <div class="form-group" style="width: 60%">
                         <input type="text" placeholder="search a place" class="form-control" name="query">
@@ -218,10 +218,10 @@
 @endsection
 
 @section('scripts')
-   
+
 @endsection
 
 @section('css')
 
 @endsection
-      
+

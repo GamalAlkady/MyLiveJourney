@@ -1,4 +1,4 @@
-  .card {
+  /* .card {
       border: none;
       box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .15);
       transition: all 0.3s ease;
@@ -15,7 +15,7 @@
       color: white;
       border-radius: 1rem 1rem 0 0 !important;
       padding: 1.5rem;
-  }
+  } */
 
   .form-control,
   .form-select {
@@ -34,7 +34,7 @@
   .btn-success {
       background: linear-gradient(to right, #2575fc, #6a11cb);
       border: none;
-      padding: 0.75rem 1.5rem;
+      /* padding: 0.75rem 1.5rem; */
       border-radius: 0.5rem;
       font-weight: 600;
       transition: all 0.3s ease;
@@ -45,8 +45,8 @@
       box-shadow: 0 5px 15px rgba(37, 117, 252, 0.4);
   }
 
-  .btn{
-       padding: 0.75rem 1.5rem;
+  .btn {
+      /* padding: 0.75rem 1.5rem; */
       border-radius: 0.5rem;
       font-weight: 600;
       transition: all 0.3s ease;

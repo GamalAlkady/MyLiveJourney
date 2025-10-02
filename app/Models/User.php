@@ -169,6 +169,21 @@ class User extends Authenticatable
         });
     }
 
+    public function scopeGuides($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('name', 'guide');
+        });
+    }
+
+
+    public function scopeUsers($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('name', 'user');
+        });
+    }
+
     public function scopeWhereRoleNot($query, $role)
     {
         return $query->whereHas('roles', function ($q) use ($role) {

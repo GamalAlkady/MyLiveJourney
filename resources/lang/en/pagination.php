@@ -15,5 +15,6 @@ return [
 
     'previous' => '&laquo; Previous',
     'next'     => 'Next &raquo;',
+    'caption'   => '{1} :count :name total|[2,*] :count total :name',
 
 ];

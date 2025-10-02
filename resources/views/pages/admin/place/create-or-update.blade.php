@@ -23,7 +23,7 @@
                     </h1>
                     <a href="{{ route('admin.place.index') }}" class="btn btn-primary">
                         <i class="fas fa-arrow-left mr-2"></i>
-                        {{ __('messages.back_to',['name' => __('messages.places')]) }}
+                        {!! __('buttons.back_to',['name' => __('messages.places')]) !!}
                     </a>
                 </div>
             </div>
@@ -170,10 +170,10 @@
 
                                 <div class="form-group w-100 text-right d-flex justify-content-around">
                                     <button type="submit" class="btn btn-success">
-                                        {!! trans('forms.save-changes') !!}
+                                        {!! trans('buttons.save') !!}
                                     </button>
                                     <a href="{{ route('admin.place.index') }}" class="btn btn-danger d-inline-block">
-                                        {!! trans('forms.cancel') !!}
+                                        {!! trans('buttons.cancel') !!}
                                     </a>
                                 </div>
                             </div>
