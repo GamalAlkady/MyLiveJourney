@@ -75,7 +75,7 @@
 
   .form-group label {
       font-weight: 600;
-      color: #333;
+      /* color: #333; */
       margin-bottom: 0.5rem;
       display: block;
   }
@@ -95,6 +95,12 @@
       border: 1px solid #ddd;
   }
 
+  /* تأثيرات بصرية إضافية */
+  .hover-effect:hover {
+      transform: translateY(-2px);
+      transition: all 0.3s ease;
+  }
+
   .mt-5 {
       margin-top: 2rem !important;
   }
@@ -109,6 +115,22 @@
       margin-top: 1rem;
   }
 
+  .container-table {
+      border: 0;
+  }
+
+  .container-table tr td:first-child {
+      padding-left: 15px;
+  }
+
+  .container-table tr td:last-child {
+      padding-right: 15px;
+  }
+
+  .container-table.table-responsive,
+  .container-table.table-responsive table {
+      margin-bottom: 0;
+  }
 
   .me-1 {
       margin-inline-end: 0.25rem !important;

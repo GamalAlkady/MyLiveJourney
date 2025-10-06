@@ -20,7 +20,7 @@
             usersTable.hide();
             clearSearchTrigger.show();
             let noResulsHtml = '<tr>' +
-                                '<td>{!! trans("usersmanagement.search.no-results") !!}</td>' +
+                                '<td>{!! trans("messages.no_results") !!}</td>' +
                                 '<td></td>' +
                                 '<td class="hidden-xs"></td>' +
                                 '<td class="hidden-xs"></td>' +
@@ -35,7 +35,7 @@
 
             $.ajax({
                 type:'POST',
-                url: "{{ route('admin.search-users') }}",
+                url: "{{ route('user.search-users') }}",
                 data: searchform.serialize(),
                 success: function (result) {
                     let jsonData = JSON.parse(result);
@@ -43,8 +43,8 @@
                         $.each(jsonData, function(index, val) {
                             let rolesHtml = '';
                             let roleClass = '';
-                            let showCellHtml = '<a class="btn btn-sm btn-success btn-block" href="users/' + val.id + '" data-toggle="tooltip" title="{{ trans("usersmanagement.tooltips.show") }}">{!! trans("buttons.show") !!}</a>';
-                            let editCellHtml = '<a class="btn btn-sm btn-info btn-block" href="users/' + val.id + '/edit" data-toggle="tooltip" title="{{ trans("usersmanagement.tooltips.edit") }}">{!! trans("buttons.edit") !!}</a>';
+                            let showCellHtml = '<a class="btn btn-sm btn-success btn-block" href="users/' + val.id + '" data-toggle="tooltip" title="{{ trans("tooltips.show") }}">{!! trans("buttons.show") !!}</a>';
+                            let editCellHtml = '<a class="btn btn-sm btn-info btn-block" href="users/' + val.id + '/edit" data-toggle="tooltip" title="{{ trans("tooltips.edit") }}">{!! trans("buttons.edit") !!}</a>';
                             let deleteCellHtml = '<form method="POST" action="/users/'+ val.id +'" accept-charset="UTF-8" data-toggle="tooltip" title="Delete">' +
                                     '{!! Form::hidden("_method", "DELETE") !!}' +
                                     '{!! csrf_field() !!}' +

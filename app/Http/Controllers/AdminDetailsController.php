@@ -29,7 +29,7 @@ class AdminDetailsController extends Controller
             'routes' => $routes,
         ];
 
-        return view('pages.admin.route-details', $data);
+        return view('pages.route-details', $data);
     }
 
     /**
@@ -41,6 +41,6 @@ class AdminDetailsController extends Controller
     {
         $users = User::count();
 
-        return view('pages.admin.active-users', ['users' => $users]);
+        return view('pages.active-users', ['users' => $users]);
     }
 }

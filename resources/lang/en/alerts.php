@@ -24,4 +24,8 @@ return [
     'tourUpdated' => 'Tour updated successfully.',
     'tourDeleted' => 'Tour deleted successfully.',
     'tourError'   => 'There was an error processing the tour. Please try again.',
+
+    // Approved
+    'bookingRequestApproved' => 'Booking request approved successfully.',
+    'bookingRequestRejected' => 'Booking request rejected successfully.',
 ];

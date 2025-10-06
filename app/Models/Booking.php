@@ -13,7 +13,7 @@ class Booking extends Model
         return $this->belongsTo(Guide::class, 'guide_id');
     }
 
-    public function package(){
-        return $this->belongsTo(Package::class, 'package_id');
+    public function tour(){
+        return $this->belongsTo(Tour::class, 'tour_id');
     }
 }

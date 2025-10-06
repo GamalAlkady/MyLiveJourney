@@ -39,7 +39,7 @@
                             <img style="height: 60px; width: 100px;" class="img-fluid" src="{{ asset('storage/place/'.$place->image) }}" alt="image">
                           </td>
                           <td>
-                            <a href="{{ route('user.place.show', $place->id) }}" class="btn btn-success">Details</a>
+                            <a href="{{ route('user.places.show', $place->id) }}" class="btn btn-success">Details</a>
 
                           </td>
                         </tr>

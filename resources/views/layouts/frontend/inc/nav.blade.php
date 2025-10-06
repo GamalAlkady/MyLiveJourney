@@ -31,7 +31,7 @@
                 @else
                     @role('admin')
                         <li class="nav-item">
-                          <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                          <a class="nav-link" href="{{ route('user.dashboard') }}">Dashboard</a>
                         </li>
                     @endrole
                     @role('guide')

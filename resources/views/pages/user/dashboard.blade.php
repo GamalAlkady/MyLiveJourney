@@ -17,7 +17,7 @@
             <p>{{ $districts->count() }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('user.district.index') }}">More Info </a>
+            <a href="{{ route('user.districts.index') }}">More Info </a>
         </div>
     </div>
     <div class="dashbord dashbord-green">
@@ -27,7 +27,7 @@
             <p>{{ $placetypes->count() }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('user.placetype.index') }}">More Info </a>
+            <a href="{{ route('user.placetypes.index') }}">More Info </a>
         </div>
     </div>
     <div class="dashbord dashbord-orange">
@@ -37,7 +37,7 @@
                 <p>{{ $places->count() }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('user.place.index') }}">More Info </a>
+            <a href="{{ route('user.places.index') }}">More Info </a>
         </div>
     </div>
     <div class="dashbord dashbord-blue">

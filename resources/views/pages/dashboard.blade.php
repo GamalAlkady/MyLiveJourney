@@ -1,13 +1,13 @@
 @extends('layouts.backend.master')
 @section('title')
-    Tourist Guide - Dashboard
+    {{ __('titles.dashboard') }}
 @endsection
 @section('content')
-<div class="container">
+{{-- <div class="container">
     <div class="row pt-5">
         <h2 class="m-auto" style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif"><strong>Admin Dashboard</strong></h2>
     </div>
-</div>
+</div> --}}
 <div class="main-section">
     <div class="dashbord">
         <div class="icon-section">
@@ -16,7 +16,7 @@
             <p>{{ $districts->count() }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('admin.district.index') }}">More Info </a>
+            <a href="{{ route('user.districts.index') }}">More Info </a>
         </div>
     </div>
     <div class="dashbord dashbord-green">
@@ -26,7 +26,7 @@
             <p>{{ $placetypes->count() }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('admin.placetype.index') }}">More Info </a>
+            <a href="{{ route('user.placetypes.index') }}">More Info </a>
         </div>
     </div>
     <div class="dashbord dashbord-orange">
@@ -36,7 +36,7 @@
                 <p>{{ $places->count() }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('admin.place.index') }}">More Info </a>
+            <a href="{{ route('user.places.index') }}">More Info </a>
         </div>
     </div>
     <div class="dashbord dashbord-blue">
@@ -46,7 +46,7 @@
             <p>{{ $guides->count() }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('admin.guide.index') }}">More Info </a>
+            <a href="{{ route('user.guides') }}">More Info </a>
         </div>
     </div>
     <div class="dashbord dashbord-red">
@@ -56,7 +56,7 @@
             <p>{{ $packages->count() }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('admin.tour.index') }}">More Info </a>
+            <a href="{{ route('user.tours.index') }}">More Info </a>
         </div>
     </div>
     <div class="dashbord dashbord-skyblue">
@@ -66,7 +66,7 @@
             <p>{{ $users->count() }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('admin.users.index') }}">More Info </a>
+            <a href="{{ route('user.users.index') }}">More Info </a>
         </div>
     </div>
 </div>

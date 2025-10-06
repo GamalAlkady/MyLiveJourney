@@ -20,18 +20,21 @@ class RolesTableSeeder extends Seeder
          */
         $RoleItems = [
             [
+                'id'           =>1,
                 'name'        => 'Admin',
                 'slug'        => 'admin',
                 'description' => 'Admin Role',
                 'level'       => 5,
             ],
             [
+                'id'           =>2,
                 'name'        => 'User',
                 'slug'        => 'user',
                 'description' => 'User Role',
-                'level'       => 1,
+                'level'       => 0,
             ],
             [
+                'id'           =>3,
                 'name'        => 'Guide',
                 'slug'        => 'guide',
                 'description' => 'Guide Role',
@@ -47,6 +50,7 @@ class RolesTableSeeder extends Seeder
             $newRoleItem = Role::where('slug', '=', $RoleItem['slug'])->first();
             if (null === $newRoleItem) {
                 $newRoleItem = Role::create([
+                    'id'            =>$RoleItem['id'],
                     'name'        => $RoleItem['name'],
                     'slug'        => $RoleItem['slug'],
                     'description' => $RoleItem['description'],

@@ -162,6 +162,16 @@ class User extends Authenticatable
         return $this->profiles()->detach($profile);
     }
 
+    public function tours()
+    {
+        return $this->hasMany(Tour::class);
+    }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
+
     public function scopeWhereRoleIs($query, $role)
     {
         return $query->whereHas('roles', function ($q) use ($role) {

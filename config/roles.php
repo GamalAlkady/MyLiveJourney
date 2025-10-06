@@ -44,6 +44,7 @@ return [
     |
     */
 
+    
     'models' => [
         'role'          => \App\Models\Role::class,
         'permission'    => \App\Models\Permission::class,

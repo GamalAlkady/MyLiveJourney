@@ -26,12 +26,12 @@ class UserController extends Controller
     {
         $user = FacadesAuth::user();
 
-        if ($user->isAdmin()) {
-            return redirect()->route('admin.dashboard');
-            // return view('pages.admin.home');
-        }
+        // if ($user->isAdmin()) {
+            return redirect()->route('user.dashboard');
+            // return view('pages.home');
+        // }
 
-        return redirect()->route('user.dashboard');
+        // return redirect()->route('user.dashboard');
         // return view('pages.user.home');
     }
 }

@@ -68,7 +68,7 @@
         @include('layouts.backend.inc.sidebar')
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper bg-transparent">
-            <div class="container-fluid mt-2">
+            <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
                         @include('partials.successMessage')
@@ -77,10 +77,10 @@
             </div>
             <!-- Main content -->
 
-            <div class="container-fluid">
-                <div class="row mt-3 p-3">
+            <div class="container-fluid py-4 mt-3 px-4">
+
                     @yield('content')
-                </div>
+
             </div>
         </div>
 
@@ -100,7 +100,8 @@
 
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="{{ asset('assets/admin/js/custom.js') }}"></script>
+
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
     @yield('scripts')
 
 </body>

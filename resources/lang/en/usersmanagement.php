@@ -75,18 +75,18 @@ return [
         'updated'   => 'Updated',
     ],
 
-    'tooltips' => [
-        'delete'        => 'Delete',
-        'show'          => 'Show',
-        'edit'          => 'Edit',
-        'create-new'    => 'Create New User',
-        'back-to-users'    => 'Back to users',
-        'back-to-user'    => 'Back to user',
-        'email-user'    => 'Email :user',
-        'submit-search' => 'Submit Users Search',
-        'clear-search'  => 'Clear Search Results',
-        'permanentlyDelete'=>'Permanently Delete User',
-    ],
+    // 'tooltips' => [
+    //     'delete'        => 'Delete',
+    //     'show'          => 'Show',
+    //     'edit'          => 'Edit',
+    //     'create-new'    => 'Create New User',
+    //     'back-to-users'    => 'Back to users',
+    //     'back-to-user'    => 'Back to user',
+    //     'email-user'    => 'Email :user',
+    //     'submit-search' => 'Submit Users Search',
+    //     'clear-search'  => 'Clear Search Results',
+    //     'permanentlyDelete'=>'Permanently Delete User',
+    // ],
 
     'messages' => [
         'userNameTaken'          => 'Username is taken',

@@ -61,7 +61,7 @@ Route::group(['middleware' => ['web', 'activity', 'checkblocked']], function () 
 Route::group(['middleware' => ['auth', 'activated', 'activity', 'checkblocked']], function () {
     // Activation Routes
     Route::get('/activation-required', ['uses' => 'App\Http\Controllers\Auth\ActivateController@activationRequired'])->name('activation-required');
-    // Route::get('/logout', ['uses' => 'App\Http\Controllers\Auth\LoginController@logout'])->name('logout');
+    Route::get('/logout', ['uses' => 'App\Http\Controllers\Auth\LoginController@logout'])->name('logout');
 });
 
 // Registered and Activated User Routes
@@ -124,159 +124,139 @@ Route::redirect('/php', '/phpinfo', 301);
 
 
 Route::group([
-    'as' => 'admin.',
-    'prefix' => 'admin',
-    'namespace' => 'App\Http\Controllers\Admin',
+    'as' => 'user.',
+    'prefix' => 'user',
+    'namespace' => 'App\Http\Controllers',
     'middleware' => [
         'auth',
         'activated',
-        'role:admin',
+        // 'role:admin',
         'activity',
         'twostep',
         'checkblocked'
     ]
 ], function () {
-    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
-    Route::resource('users', \App\Http\Controllers\Admin\UsersManagementController::class, [
-        'names' => [
-            // 'index'   => '',
-            // 'destroy' => 'user.destroy',
-        ],
-        'except' => [
-            // 'deleted',
-        ],
-    ]);
-    Route::resource('deleted-users', \App\Http\Controllers\Admin\SoftDeletesController::class, [
+    Route::resource('deleted-users', "SoftDeletesController", [
         'only' => ['index', 'show', 'update', 'destroy'],
     ])->names([
-        'index'   => 'users.deleted',
-        'show'    => 'users.deleted.show',
-        'destroy' => 'users.deleted.destroy',
+        'index'   => 'deleted',
+        'show'    => 'deleted.show',
+        'update'  => 'deleted.update',
+        'destroy' => 'deleted.destroy',
     ]);
-
-    // Route::get('deleted', [\App\Http\Controllers\Admin\SoftDeletesController::class,'index'])->name('deleted');
-
-    Route::post('search-users', 'App\Http\Controllers\Admin\UsersManagementController@search')->name('search-users');
-    Route::put('active-user/{user}', 'App\Http\Controllers\Admin\UsersManagementController@activeUser')->name('activeUser');
-
-
 
     Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
     Route::get('routes', 'App\Http\Controllers\AdminDetailsController@listRoutes');
     Route::get('active-users', 'App\Http\Controllers\AdminDetailsController@activeUsers');
-    Route::resource('district', 'DistrictController');
-    Route::resource('placetype', 'TypeController');
-    Route::resource('place', 'PlaceController');
-    Route::resource('about', 'AboutController');
-    Route::resource('guide', 'GuideController');
-    // Route::resource('users', 'UsersController');
-    Route::resource('tour', 'TourController');
-    Route::get('list', 'UsersController@guideList')->name('list');
-
-
-    Route::get('booking-request/list', 'BookingController@pendingBookingList')->name('pending.booking');
-    Route::post('booking-request/approve/{id}', 'BookingController@bookingApprove')->name('booking.approve');
-    Route::post('booking-request/remove/{id}', 'BookingController@bookingRemoveByAdmin')->name('booking.remove');
-    Route::get('running/packages/', 'BookingController@runningPackage')->name('package.running');
-    Route::post('running/package/complete/{id}', 'BookingController@runningPackageComplete')->name('package.running.complete');
-    Route::get('tour-history/list', 'BookingController@tourHistory')->name('tour.history');
-});
-
-
-Route::group([
-    'as' => 'guide.',
-    'prefix' => 'guide',
-    'namespace' => 'App\Http\Controllers\Guide',
-    'middleware' => [
-        'auth',
-        'activated',
-        'role:guide',
-        'activity',
-        'twostep',
-        'checkblocked'
-    ]
-], function () {
-    Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-
-    Route::resource('users', \App\Http\Controllers\Admin\UsersManagementController::class, [
-        'names' => [
-            // 'index'   => '',
-            // 'destroy' => 'user.destroy',
-        ],
-        'except' => [
-            // 'deleted',
-        ],
-    ]);
-    Route::resource('deleted-users', \App\Http\Controllers\Admin\SoftDeletesController::class, [
-        'only' => ['index', 'show', 'update', 'destroy'],
-    ])->names([
-        'index'   => 'users.deleted',
-        'show'    => 'users.deleted.show',
-        'destroy' => 'users.deleted.destroy',
-    ]);
-
-    // Route::get('deleted', [\App\Http\Controllers\Admin\SoftDeletesController::class,'index'])->name('deleted');
-
-    Route::post('search-users', 'App\Http\Controllers\Admin\UsersManagementController@search')->name('search-users');
-    Route::put('active-user/{user}', 'App\Http\Controllers\Admin\UsersManagementController@activeUser')->name('activeUser');
-
-
-
-    Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
-    Route::get('routes', 'App\Http\Controllers\AdminDetailsController@listRoutes');
-    Route::get('active-users', 'App\Http\Controllers\AdminDetailsController@activeUsers');
-    Route::resource('district', 'DistrictController');
-    Route::resource('placetype', 'TypeController');
-    Route::resource('place', 'PlaceController');
-    Route::resource('about', 'AboutController');
-    Route::resource('guide', 'GuideController');
-    // Route::resource('users', 'UsersController');
-    Route::resource('tour', 'TourController');
-    Route::get('list', 'UsersController@guideList')->name('list');
-
-
-    Route::get('booking-request/list', 'BookingController@pendingBookingList')->name('pending.booking');
-    Route::post('booking-request/approve/{id}', 'BookingController@bookingApprove')->name('booking.approve');
-    Route::post('booking-request/remove/{id}', 'BookingController@bookingRemoveByAdmin')->name('booking.remove');
-    Route::get('running/packages/', 'BookingController@runningPackage')->name('package.running');
-    Route::post('running/package/complete/{id}', 'BookingController@runningPackageComplete')->name('package.running.complete');
-    Route::get('tour-history/list', 'BookingController@tourHistory')->name('tour.history');
 });
 
 Route::group([
     'as' => 'user.',
     'prefix' => 'user',
-    'namespace' => 'App\Http\Controllers\User',
+    'namespace' => 'App\Http\Controllers',
     'middleware' => [
         'auth',
         'activated',
-        'role:user',
         'activity',
         'twostep',
         'checkblocked'
     ]
 ], function () {
-    Route::get('/', 'DashboardController@index');
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
-    Route::get('districts', 'DashboardController@getDistrict')->name('district.index');
-    Route::get('placetypes', 'DashboardController@getPlaceType')->name('placetype.index');
+    Route::resource('users',"UsersManagementController", [
+        'names' => [
+            // 'index'   => '',
+            // 'destroy' => 'user.destroy',
+        ],
+        'except' => [
+            // 'deleted',
+        ],
+    ]);
 
-    Route::get('places', 'DashboardController@getPlaces')->name('place.index');
-    Route::get('places/{id}', 'DashboardController@getPlaceDetails')->name('place.show');
 
-    Route::get('guides', 'DashboardController@getGuides')->name('guide');
-    Route::get('guide/{id}', 'DashboardController@getGuideDetails')->name('guide.show');
+    // Route::get('deleted', [\App\Http\Controllers\Admin\SoftDeletesController::class,'index'])->name('deleted');
 
-    Route::get('packages', 'DashboardController@getPackage')->name('package');
-    Route::get('packages/{id}', 'DashboardController@getPackageDetails')->name('package.show');
 
+    Route::post('search-users', 'UsersManagementController@search')->name('search-users');
+    Route::post('search-places', 'PlaceController@search')->name('search-places');
+    Route::post('search-placetypes', 'TypeController@search')->name('search-placetypes');
+    Route::post('search-districts', 'DistrictController@search')->name('search-districts');
+    // Route::post('search-guides', 'GuideController@search')->name('search-guides');
+    Route::post('search-tours', 'TourController@search')->name('search-tours');
+    Route::post('search-booking', 'BookingController@search')->name('search-booking');
+
+
+
+    Route::resource('districts', 'DistrictController');
+    Route::resource('placetypes', 'TypeController');
+    Route::resource('places', 'PlaceController');
+    Route::resource('tours', 'TourController');
+
+    // Route::get('list', 'UsersController@guideList')->name('list');
+    Route::get('booking-request/list', 'BookingController@pendingBookingList')->name('pending.booking');
 
     Route::get('tour-history/list', 'BookingController@tourHistory')->name('tour.history');
-    Route::get('booking-request/list', 'BookingController@pendingBookingList')->name('pending.booking');
-    Route::post('booking-request/cancel/{id}', 'BookingController@canceLBookingRequest')->name('booking.cancel');
+
+    Route::group(['middleware' => ['role:admin']], function () {
+    Route::get('guides', 'UsersManagementController@guideList')->name('guides');
+    Route::get('inactive-user/{user}', 'UsersManagementController@inactiveUser')->name('inactiveUser');
+
+    Route::put('active-user/{user}', 'UsersManagementController@activeUser')->name('activeUser');
+        // Route::get('settings', 'SettingsController@index')->name('settings');
+        // Route::post('settings', 'SettingsController@store')->name('settings.store');
+
+    });
+
+    Route::group(['middleware' => ['role:admin|guide']], function () {
+    Route::get('running/packages/', 'BookingController@runningPackage')->name('package.running');
+        Route::post('running/package/complete/{id}', 'BookingController@runningPackageComplete')->name('package.running.complete');
+    Route::post('booking-request/approve/{id}', 'BookingController@bookingApprove')->name('booking.approve');
+    Route::post('booking-request/remove/{id}', 'BookingController@bookingRemoveByAdmin')->name('booking.remove');
+    });
+
+
+    Route::group(['middleware' => ['role:user']], function () {
+
+    });
+
 });
+
+
+// Route::group([
+//     'as' => 'user.',
+//     'prefix' => 'user',
+//     'namespace' => 'App\Http\Controllers\User',
+//     'middleware' => [
+//         'auth',
+//         'activated',
+//         'role:user',
+//         'activity',
+//         'twostep',
+//         'checkblocked'
+//     ]
+// ], function () {
+//     Route::get('/', 'DashboardController@index');
+//     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
+
+//     Route::get('districts', 'DashboardController@getDistrict')->name('districts.index');
+//     Route::get('placetypes', 'DashboardController@getPlaceType')->name('placetypes.index');
+
+//     Route::get('places', 'DashboardController@getPlaces')->name('place.index');
+//     Route::get('places/{id}', 'DashboardController@getPlaceDetails')->name('place.show');
+
+//     Route::get('guides', 'DashboardController@getGuides')->name('guide');
+//     Route::get('guide/{id}', 'DashboardController@getGuideDetails')->name('guide.show');
+
+//     Route::get('packages', 'DashboardController@getPackage')->name('package');
+//     Route::get('packages/{id}', 'DashboardController@getPackageDetails')->name('package.show');
+
+
+//     Route::get('tour-history/list', 'BookingController@tourHistory')->name('tour.history');
+//     Route::get('booking-request/list', 'BookingController@pendingBookingList')->name('pending.booking');
+//     Route::post('booking-request/cancel/{id}', 'BookingController@canceLBookingRequest')->name('booking.cancel');
+// });
 
 Route::resource('themes', \App\Http\Controllers\ThemesManagementController::class, [
     'names' => [
