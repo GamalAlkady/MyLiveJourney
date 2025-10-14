@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePackagePlaceTable extends Migration
+class CreatePlaceTourTable extends Migration
 {
     /**
      * Run the migrations.
@@ -28,6 +28,6 @@ class CreatePackagePlaceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('package_place');
+        Schema::dropIfExists('place_tour');
     }
 }

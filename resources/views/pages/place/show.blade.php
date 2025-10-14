@@ -1,5 +1,5 @@
 @extends('layouts.backend.master')
-@
+
 @section('title')
     {{ __('titles.place') }} {{ $place->name }}
 @endsection
@@ -30,10 +30,8 @@
                 </div>
                 <div class="card-body">
                     <div class="image-gallery-container">
-                        <img src="{{ asset('storage/place/'.$place->image) }}"
-                             alt="{{ $place->name }}"
-                             class="img-fluid rounded shadow-sm"
-                             style="max-height: 500px; object-fit: cover; width: 100%;">
+                        <img src="{{ asset('storage/place/' . $place->image) }}" alt="{{ $place->name }}"
+                            class="img-fluid rounded shadow-sm" style="max-height: 500px; object-fit: cover; width: 100%;">
                     </div>
                 </div>
             </div>
@@ -78,57 +76,60 @@
                 </div>
             </div>
         </div>
+        </div>
 
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow mb-4">
-                <div class="card-header bg-primary py-3">
-                    <h6 class="m-0 font-weight-bold text-white">
-                        {{-- <i class="fas fa-file-alt mr-1"></i> --}}
-                        {!! __('labels.icon_text.description') !!}
-                    </h6>
-                </div>
-                <div class="card-body">
-                    <div class="description-content">
-                        <p style="text-align: justify">{!! $place->description !!}</p>
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow mb-4">
+                    <div class="card-header bg-primary py-3">
+                        <h6 class="m-0 font-weight-bold text-white">
+                            {{-- <i class="fas fa-file-alt mr-1"></i> --}}
+                            {!! __('forms.labels.icon.description') !!}
+                        </h6>
+                    </div>
+                    <div class="card-body">
+                        <div class="description-content">
+                            <p style="text-align: justify">{!! $place->description !!}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+
 
 @endsection
 
 @section('styles')
-<style>
-.image-gallery-container {
-    position: relative;
-    overflow: hidden;
-    border-radius: 0.35rem;
-}
+    <style>
+        .image-gallery-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.35rem;
+        }
 
-.description-content {
-    line-height: 1.8;
-}
+        .description-content {
+            line-height: 1.8;
+        }
 
-.card {
-    border-radius: 0.5rem;
-    border: none;
-}
+        .card {
+            border-radius: 0.5rem;
+            border: none;
+        }
 
-.card-body {
-    padding: 1.5rem;
-}
+        .card-body {
+            padding: 1.5rem;
+        }
 
-@media (max-width: 768px) {
-    .container-fluid {
-        padding: 0.5rem;
-    }
+        @media (max-width: 768px) {
+            .container-fluid {
+                padding: 0.5rem;
+            }
 
-    .card-body {
-        padding: 1rem;
-    }
-}
-</style>
+            .card-body {
+                padding: 1rem;
+            }
+        }
+    </style>

@@ -2,6 +2,11 @@
 @section('title')
     {{ __('titles.placetypes') }}
 @endsection
+@section('css')
+    @if (config('usersmanagement.enabledDatatablesJs'))
+        <link rel="stylesheet" type="text/css" href="{{ config('usersmanagement.datatablesCssCDN') }}">
+    @endif
+@endsection
 @section('content')
 
     <div class="row mb-4">
@@ -17,122 +22,126 @@
         </div>
     </div>
 
-        <div class="row">
-            <div class="col-md-12">
+    <div class="row">
+        <div class="col-md-12">
 
-                {{-- @include('partials.successMessage') --}}
+            {{-- @include('partials.successMessage') --}}
 
-                <div class="card mt-1">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <h1 class="h3 text-gray-800 card-title">
-                                {!! __('titles.showingAll',['name'=>__('titles.placetypes')]) !!}  ({{ $types->count() }})
-                            </h1>
-                            @permission('add.placetype')
-                                <button type="button" id="submitFormNew" class="btn btn-success btn-md float-right c-white"
-                                    data-target="#submitForm" data-modalClass="modal-success" data-toggle="modal"
-                                    data-title="{{ trans('titles.create', ['name' => __('titles.placetype')]) }}"
-                                    data-action="{{ route('user.placetypes.store') }}">{!! __('buttons.add_new') !!}</button>
-                            @endpermission
-                        </div>
-                        {{-- <a href="{{ route('user.placetypes.create') }}" class="btn btn-success btn-md float-right c-white">Add
-                            New <i class="fa fa-plus"></i></a> --}}
+            <div class="card mt-1">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1 class="h3 text-gray-800 card-title">
+                            {!! __('titles.showingAll', ['name' => __('titles.placetypes')]) !!} ({{ $types->count() }})
+                        </h1>
+                        @permission('create.placetypes')
+                            <button type="button" id="submitFormNew" class="btn btn-success btn-md float-right c-white"
+                                data-target="#submitForm" data-modalClass="modal-success" data-toggle="modal"
+                                data-title="{{ trans('titles.create', ['name' => __('titles.placetype')]) }}"
+                                data-action="{{ route('user.placetypes.store') }}">{!! __('buttons.add_new') !!}</button>
+                        @endpermission
                     </div>
-                    <!-- /.card-header -->
-                    @if ($types->count() > 0)
-                        <div class="card-body">
-                            @if (config('usersmanagement.enableSearchUsers'))
-                                @include('partials.search-form', ['route' => 'user.search-placetypes'])
-                            @endif
-                            <div class="table-responsive container-table">
+                    {{-- <a href="{{ route('user.placetypes.create') }}" class="btn btn-success btn-md float-right c-white">Add
+                            New <i class="fa fa-plus"></i></a> --}}
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    @if (config('usersmanagement.enableSearchUsers'))
+                        @include('partials.search-form', ['route' => 'user.placetypes.index'])
+                    @endif
+                    <div class="table-responsive container-table">
 
-                                <table id="data_table" class="table table-bordered table-striped data-table">
-                                    <thead>
-                                        <tr>
-                                            <th>{!! __('labels.icon_text.name') !!}</th>
-                                            <th>{!! __('labels.icon_text.placeCount') !!}</th>
-                                            <th>{!! __('labels.icon_text.created') !!}</th>
-                                            @permission('edit.placetype|delete.placetype|view.placetype')
-                                                <th width="10%">{!! __('labels.icon_text.actions') !!}</th>
-                                            @endpermission
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($types as $key => $type)
-                                            <tr>
-                                                <td>{{ $type->name }}</td>
-                                                <td>{{ $type->places->count() }}</td>
-                                                <td>{{ $type->created_at->toFormattedDateString() }}</td>
+                        <table id="data_table" class="table table-striped table-sm data-table">
+                            <thead>
+                                <tr>
+                                    <th>{!! __('forms.labels.icon.name') !!}</th>
+                                    <th>{!! __('forms.labels.icon.placeCount') !!}</th>
+                                    <th>{!! __('forms.labels.icon.created') !!}</th>
+                                    @permission('update.placetypes|delete.placetypes')
+                                        <th>{!! __('forms.labels.icon.actions') !!}</th>
+                                    @endpermission
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($types as $key => $type)
+                                    <tr>
+                                        <td>{{ $type->name }}</td>
+                                        <td>{{ $type->places->count() }}</td>
+                                        <td>{{ $type->created_at->toFormattedDateString() }}</td>
 
-                                                @permission('edit.placetype|delete.placetype|view.placetype')
-                                                    <td>
+                                        @permission('update.placetypes|delete.placetypes')
+                                            <td class="d-flex">
 
-                                                        {{-- <a href="{{ route('user.placetypes.edit', $type->id) }}"
+                                                {{-- <a href="{{ route('user.placetypes.edit', $type->id) }}"
                                                         class="btn btn-info "><i class="fa fa-edit"></i></a> --}}
 
-                                                        @permission('edit.placetype')
-                                                        <button type="button" id="submitFormNew"
-                                                            class="btn btn-success d-inline-block c-white"
-                                                            data-value="{{ $type->name }}" data-target="#submitForm"
-                                                            data-modalClass="modal-success" data-toggle="modal"
-                                                            data-title="{{ trans('titles.edit', ['name' => __('titles.placetype')]) }}"
-                                                            data-action="{{ route('user.placetypes.update', $type->id) }}"><i
-                                                                class="fa fa-edit"></i></button>
-                                                        @endpermission
-
-                                                        @permission('delete.placetype')
-                                                        {!! Form::open([
-                                                            'url' => route('user.placetypes.destroy', $type->id),
-                                                            'class' => 'd-inline-block',
-                                                            'data-toggle' => 'tooltip',
-                                                            'title' => 'Delete',
-                                                        ]) !!}
-                                                        {!! Form::hidden('_method', 'DELETE') !!}
-                                                        {!! Form::button(trans('buttons.delete'), [
-                                                            'class' => 'btn btn-danger d-inline-block',
-                                                            'type' => 'button',
-                                                            'data-toggle' => 'modal',
-                                                            'data-target' => '#confirmDelete',
-                                                            'data-title' => 'Delete Place Type',
-                                                            'data-message' => 'Are you sure you want to delete this place type ?',
-                                                        ]) !!}
-                                                        {!! Form::close() !!}
-                                                        @endpermission
-                                                    </td>
+                                                @permission('update.placetypes')
+                                                    <button type="button" id="btnUpdate"
+                                                        class="btn btn-success d-inline-block c-white flex-fill me-1"
+                                                        data-value="{{ $type->name }}" data-target="#submitForm"
+                                                        data-modalClass="modal-success" data-toggle="modal"
+                                                        data-title="{{ trans('titles.edit', ['name' => __('titles.placetype')]) }}"
+                                                        data-action="{{ route('user.placetypes.update', $type->id) }}">
+                                                        <i class="fa fa-edit"></i></button>
                                                 @endpermission
 
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                    @if (config('usersmanagement.enableSearchUsers'))
-                                        <tbody id="search_results"></tbody>
-                                    @endif
-                                </table>
-                            </div>
+                                                @permission('delete.placetypes')
+                                                    {!! Form::open([
+                                                        'url' => route('user.placetypes.destroy', $type->id),
+                                                        'class' => 'd-inline-block flex-fill me-1',
+                                                        'data-toggle' => 'tooltip',
+                                                        'title' => trans('titles.delete', ['name' => __('titles.placetype')]),
+                                                    ]) !!}
+                                                    {!! Form::hidden('_method', 'DELETE') !!}
+                                                    {!! Form::button(trans('buttons.delete'), [
+                                                        'class' => 'btn btn-danger d-inline-block w-100',
+                                                        'type' => 'button',
+                                                        'id' => 'btnDelete',
+                                                        'data-toggle' => 'modal',
+                                                        'data-target' => '#confirmDelete',
+                                                        'data-title' => trans('modals.ConfirmDeleteTitle', ['name' => __('titles.placetype')]),
+                                                        'data-message' => __('modals.ConfirmDeleteMessage', ['name' => $type->name]),
+                                                    ]) !!}
+                                                    {!! Form::close() !!}
+                                                @endpermission
+                                            </td>
+                                        @endpermission
+
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center text-info font-weight-bold">
+                                            {!! __('messages.no_data_found', ['name' => __('titles.placetypes')]) !!}
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                            @if (config('usersmanagement.enableSearchUsers'))
+                                <tbody id="search_results"></tbody>
+                            @endif
+                        </table>
+                    </div>
 
 
 
-                        </div> <!-- /.card-body -->
-                    @else
-                        <h2 class="text-center text-info font-weight-bold m-3">{!! __('messages.no_data_found', ['name' => __('titles.placetype')]) !!}/h2>
-                    @endif
-                    @if (config('settings.enablePagination'))
-                        <div class="pagination">
-                            {{ $types->links() }}
-                        </div>
-                    @endif
+                </div> <!-- /.card-body -->
 
-                </div>
-                <!-- /.card -->
+                @if (config('settings.enablePagination'))
+                    <div class="pagination">
+                        {{ $types->links() }}
+                    </div>
+                @endif
+
             </div>
+            <!-- /.card -->
         </div>
+    </div>
 
     @include('modals.modal-delete')
     @include('modals.modal-submit')
 
 @endsection
 
-@section('scripts')
+@push('scripts')
     @if (count($types) > config('usersmanagement.datatablesJsStartCount') && config('usersmanagement.enabledDatatablesJs'))
         @include('scripts.datatables')
     @endif
@@ -142,12 +151,11 @@
         @include('scripts.tooltips')
     @endif
     @if (config('usersmanagement.enableSearchUsers'))
-        @include('scripts.table-search')
-        {{-- <script src="{{ asset('assets/js/table-search.js') }}"></script> --}}
+        {{-- @include('scripts.table-search')
         <script>
             $(function() {
                 initAjaxSearch({
-                    route: "{{ route('user.search-placetypes') }}",
+                    route: "{{ route('search-placetypes') }}",
                     columns: [{
                             name: "name",
                             label: "Name"
@@ -183,6 +191,6 @@
                     defaultTitle: `{!! __('titles.icon_text.placetypes') !!}({{ $types->count() }})`,
                 });
             });
-        </script>
+        </script> --}}
     @endif
-@endsection
+@endpush

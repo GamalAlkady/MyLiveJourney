@@ -24,7 +24,7 @@ class PlaceController extends Controller
     public function index(Request $request)
     {
         $paginateSize = config('settings.paginateListSize', 10);
-        $searchTerm = $request->input('user_search_box');
+        $searchTerm = $request->input('search');
         if ($searchTerm) {
             $places = Place::where('id', 'like', $searchTerm . '%')
                 ->orWhere('name', 'like', $searchTerm . '%')
@@ -118,6 +118,7 @@ class PlaceController extends Controller
      */
     public function show(Place $place)
     {
+        // dd($place->name);
         return view('pages.place.show', compact('place'));
     }
 

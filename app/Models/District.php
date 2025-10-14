@@ -10,6 +10,7 @@ class District extends Model
          'created_at'                        => 'datetime',
     ];
 
+
     public function getCreatedAtAttribute($value)
     {
         return \Carbon\Carbon::parse($value)

@@ -11,6 +11,7 @@ return [
     |
     */
 
+
     // Default Save Modal;
     'confirm_modal_title_text'    => 'Confirm Save',
     'confirm_modal_title_std_msg' => 'Please confirm your request.',
@@ -26,11 +27,23 @@ return [
     // Confirm Delete Modal;
     'ConfirmDeleteTitle'   => 'Delete :name',
     'ConfirmDeleteMessage' => 'Are you sure you want to delete this :name?',
+
+    'rejectTitle'=> 'Reject Booking',
+    'rejectMessage' => 'Are you sure you want to reject this booking?',
+
+    'approveTitle' => 'Approve Booking',
+    'approveMessage' => 'Are you sure you want to approve this booking?',
+
+    'completeTitle' => 'Complete Tour' ,
+    'completeMessage' => 'Are you sure you want to complete this tour?',
     // Form Modal
     'form_modal_default_title'      => 'Confirm',
     'form_modal_submit_title'      => 'Submit',
     'form_modal_default_message'    => 'Please Confirm',
     'form_modal_default_btn_cancel' => 'Cancel',
     'form_modal_default_btn_submit' => 'Confirm Submit',
+
+    'bookingTour' => 'Booking Tour',
+    'editBooking' => 'Edit Booking',
 
 ];

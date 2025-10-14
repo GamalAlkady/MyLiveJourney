@@ -19,9 +19,12 @@ class CreatePlacesTable extends Migration
             $table->unsignedBigInteger('district_id');
             $table->unsignedBigInteger('placetype_id');
             $table->text('description');
-            $table->string('image');
-            $table->string('addedBy');
+            $table->text('image');
+            $table->spatialIndex('location');
+            $table->unsignedBigInteger('user_id');
             $table->timestamps();
+
+            $table->foreignId('user_id')->constrained()->restrictOnDelete();
         });
     }
 

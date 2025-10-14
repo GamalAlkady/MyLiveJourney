@@ -1,6 +1,6 @@
 @extends('layouts.backend.master')
 @section('title')
-    Tourist Guide - District
+    {{ __('titles.districts') }}
 @endsection
 
 
@@ -25,92 +25,98 @@
     </div>
 
     <div class="row">
-    <div class="col-sm-12">
+        <div class="col-sm-12">
 
-        {{-- @include('partials.successMessage') --}}
+            {{-- @include('partials.successMessage') --}}
 
-        <div class="card mt-1">
-            <div class="card-header">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h1 class="h3 text-gray-800 card-title">
-                        {!! __('titles.showingAll',['name'=>__('titles.districts')]) !!}  ({{ $districts->count() }})
-                    </h1>
-                    {{-- <a href="{{ route('user.districts.create') }}"
+            <div class="card mt-1">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h1 class="h3 text-gray-800 card-title">
+                            {!! __('titles.showingAll', ['name' => __('titles.districts')]) !!} ({{ $districts->count() }})
+                        </h1>
+                        {{-- <a href="{{ route('user.districts.create') }}"
                                 class="btn btn-success btn-md float-right c-white">Add New <i class="fa fa-plus"></i></a> --}}
-                    @permission('add.districts')
-                        <button type="button" id="submitFormNew" class="btn btn-success btn-md float-right c-white"
-                            data-target="#submitForm" data-modalClass="modal-success" data-toggle="modal"
-                            data-title="{{ trans('titles.create', ['name' => __('titles.district')]) }}"
-                            data-action="{{ route('user.districts.store') }}">{!! __('buttons.add_new') !!}</button>
-                    @endpermission
+                        @permission('create.districts')
+                            <button type="button" id="submitFormNew" class="btn btn-success btn-md float-right c-white"
+                                data-target="#submitForm" data-modalClass="modal-success" data-toggle="modal"
+                                data-title="{{ trans('titles.create', ['name' => __('titles.district')]) }}"
+                                data-action="{{ route('user.districts.store') }}">{!! __('buttons.add_new') !!}</button>
+                        @endpermission
+                    </div>
                 </div>
-            </div>
-            <!-- card-header -->
-            @if ($districts->count() > 0)
+                <!-- card-header -->
                 <div class="card-body">
                     @if (config('usersmanagement.enableSearchUsers'))
-                        @include('partials.search-form', ['route' => 'user.search-districts'])
+                        @include('partials.search-form', ['route' => 'user.districts.index'])
                     @endif
                     <div class="table-responsive container-table">
                         <table id="data_table" class="table table-striped table-sm data-table">
                             <thead>
                                 <tr>
-                                    <th>{!! trans('labels.icon_text.name') !!}</th>
-                                    <th>{!! trans('labels.icon_text.placeCount') !!}</th>
-                                    <th>{!! trans('labels.icon_text.created') !!}</th>
-                                    @permission('delete.districts|edit.districts')
-                                        <th width="10%">{!! trans('labels.icon_text.actions') !!}</th>
+                                    <th>{!! trans('forms.labels.icon.name') !!}</th>
+                                    <th>{!! trans('forms.labels.icon.placeCount') !!}</th>
+                                    <th>{!! trans('forms.labels.icon.created') !!}</th>
+                                    @permission('delete.districts|update.districts')
+                                        <th width="10%">{!! trans('forms.labels.icon.actions') !!}</th>
                                     @endpermission
                                 </tr>
+                                {{-- @if ($districts->count() > 0) --}}
                             </thead>
                             <tbody>
-                                @foreach ($districts as $key => $district)
+                                @forelse ($districts as $key => $district)
                                     <tr>
                                         <td>{{ $district->name }}</td>
                                         <td>{{ $district->places->count() }}</td>
                                         <td>{{ $district->created_at }}</td>
                                         {{-- <td>{{ $district->created_at->toFormattedDateString() }}</td> --}}
-                                        @role('admin')
+                                        @permission('delete.districts|update.districts')
                                             <td class="d-flex justify-content-between align-items-center">
                                                 {{-- <a href="{{ route('user.districts.edit', $district->id) }}"
                                                         class="btn btn-info"><i class="fa fa-edit"></i></a> --}}
 
-                                                <button type="button" id="submitFormNew"
-                                                    class="btn btn-success d-inline-block c-white"
-                                                    data-value="{{ $district->name }}" data-target="#submitForm"
-                                                    data-modalClass="modal-success" data-toggle="modal"
-                                                    data-title="{{ trans('titles.edit', ['name' => __('titles.district')]) }}"
-                                                    data-action="{{ route('user.districts.update', $district->id) }}"><i
-                                                        class="fa fa-edit"></i></button>
+                                                @permission('update.districts')
+                                                    <button type="button" id="submitFormNew"
+                                                        class="btn btn-success d-inline-block c-white flex-fill me-1"
+                                                        data-value="{{ $district->name }}" data-target="#submitForm"
+                                                        data-modalClass="modal-success" data-toggle="modal"
+                                                        data-title="{{ trans('titles.edit', ['name' => __('titles.district')]) }}"
+                                                        data-action="{{ route('user.districts.update', $district->id) }}"><i
+                                                            class="fa fa-edit"></i></button>
+                                                @endpermission
 
-                                                {!! Form::open([
-                                                    'url' => route('user.districts.destroy', $district->id),
-                                                    'class' => 'd-inline-block',
-                                                    'data-toggle' => 'tooltip',
-                                                    'title' => 'Delete',
-                                                ]) !!}
-                                                {!! Form::hidden('_method', 'DELETE') !!}
-                                                {!! Form::button(trans('buttons.delete'), [
-                                                    'class' => 'btn btn-danger d-inline-block',
-                                                    'type' => 'button',
-                                                    'data-toggle' => 'modal',
-                                                    'data-target' => '#confirmDelete',
-                                                    'data-title' => 'Delete District',
-                                                    'data-message' => trans('modals.ConfirmDeleteMessage', ['name' => $district->name]),
-                                                ]) !!}
-                                                {!! Form::close() !!}
+                                                @permission('delete.districts')
+                                                    {!! Form::open([
+                                                        'url' => route('user.districts.destroy', $district->id),
+                                                        'class' => 'd-inline-block flex-fill me-1',
+                                                        'data-toggle' => 'tooltip',
+                                                        'title' => trans('titles.delete', ['name' => __('titles.district')]),
+                                                    ]) !!}
+                                                    {!! Form::hidden('_method', 'DELETE') !!}
+                                                    {!! Form::button(trans('buttons.delete'), [
+                                                        'class' => 'btn btn-danger d-inline-block w-100',
+                                                        'type' => 'button',
+                                                        'data-toggle' => 'modal',
+                                                        'data-target' => '#confirmDelete',
+                                                        'data-title' => trans('modals.ConfirmDeleteTitle', ['name' => __('titles.district')]),
+                                                        'data-message' => trans('modals.ConfirmDeleteMessage', ['name' => $district->name]),
+                                                    ]) !!}
+                                                    {!! Form::close() !!}
+                                                @endpermission
                                                 {{-- <button type="submit"
                                                         onclick="handleDeleteDistrict( {{ $district->id }}) "
                                                         class="btn btn-danger">
                                                     </button> --}}
                                             </td>
-                                        @endrole
+                                        @endpermission
                                     </tr>
-                                @endforeach
-                            </tbody>
-                            @if (config('usersmanagement.enableSearchUsers'))
-                                <tbody id="search_results"></tbody>
-                            @endif
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="text-center text-info font-weight-bold">
+                                            {!! __('messages.no_data_found', ['name' => __('titles.district')]) !!}</td>
+                                    </tr>
+                                @endforelse
+
                         </table>
                         @if (config('settings.enablePagination'))
                             <div class="pagination">
@@ -120,22 +126,21 @@
                     </div>
 
                 </div>
-            @else
-                <h2 class="text-center text-info font-weight-bold m-3">{!! __('messages.no_data_found', ['name' => __('titles.district')]) !!}</h2>
-            @endif
+                {{-- @else
+                    <h2 class="text-center text-info font-weight-bold m-3">{!! __('messages.no_data_found', ['name' => __('titles.district')]) !!}</h2>
+                @endif --}}
 
-            <!-- /.card-body -->
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
         </div>
-        <!-- /.card -->
-    </div>
     </div>
 
     @include('modals.modal-delete')
     @include('modals.modal-submit')
-
 @endsection
 
-@section('scripts')
+@push('scripts')
     @if (count($districts) > config('usersmanagement.datatablesJsStartCount') &&
             config('usersmanagement.enabledDatatablesJs'))
         @include('scripts.datatables')
@@ -147,13 +152,12 @@
         @include('scripts.tooltips')
     @endif
 
-    @if (config('usersmanagement.enableSearchUsers'))
+    {{-- @if (config('usersmanagement.enableSearchUsers'))
         @include('scripts.table-search')
-        {{-- <script src="{{ asset('assets/js/table-search.js') }}"></script> --}}
         <script>
             $(function() {
                 initAjaxSearch({
-                    route: "{{ route('user.search-districts') }}",
+                    route: "{{ route('search-districts') }}",
                     columns: [{
                             name: "name",
                             label: "Name"
@@ -173,25 +177,25 @@
 
                     ],
                     @permission('delete.districts|edit.districts')
-                    actions: {
+                        actions: {
 
-                        @permission('edit.places')
-                            edit: '/place',
-                        @endpermission
-                        @permission('delete.places')
-                            delete: '/place',
-                        @endpermission
-                        // custom: function(val) {
-                        //     return `<a href="/users/${val.id}/roles" class="btn btn-warning btn-sm">Roles</a>`;
-                        // }
-                    },
+                            @permission('edit.places')
+                                edit: '/place',
+                            @endpermission
+                            @permission('delete.places')
+                                delete: '/place',
+                            @endpermission
+                            // custom: function(val) {
+                            //     return `<a href="/users/${val.id}/roles" class="btn btn-warning btn-sm">Roles</a>`;
+                            // }
+                        },
                     @endpermission
                     defaultTitle: `{!! __('titles.icon_text.districts') !!}({{ $districts->count() }})`,
                 });
             });
         </script>
-    @endif
-@endsection
+    @endif --}}
+@endpush
 {{-- @section('scripts')
     <script>
         function handleDeleteDistrict(id) {

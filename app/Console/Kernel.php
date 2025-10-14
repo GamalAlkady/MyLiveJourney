@@ -23,7 +23,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         $schedule->command('activations:clean')->daily();
-    }
+        $schedule->command('tours:update-status')->everyMinute();
+}
 
     /**
      * Register the commands for the application.

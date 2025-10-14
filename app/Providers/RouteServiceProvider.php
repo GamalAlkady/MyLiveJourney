@@ -34,11 +34,7 @@ class RouteServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureRateLimiting();
-        // Route::middleware(['web', 'auth', 'activated', 'checkblocked', 'twostep', 'activity'])
-        //     ->prefix('admin')
-        //     ->name('admin.')
-        //     ->middleware('role:admin')
-        //     ->group(base_path('routes/admin.php'));
+
         $this->routes(function () {
             Route::middleware('api')
                 ->prefix('api')
@@ -46,6 +42,21 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            // Route::middleware(['web', 'auth', 'role:admin', 'activated', 'checkblocked', 'twostep', 'activity'])
+            //     ->prefix('admin')
+            //     ->name('admin.')
+            //     ->group(base_path('routes/admin.php'));
+
+            // Route::middleware(['web', 'auth','role:guide', 'activated', 'checkblocked', 'twostep', 'activity'])
+            //     ->prefix('guide')
+            //     ->name('guide.')
+            //     ->group(base_path('routes/guide.php'));
+
+            // Route::middleware(['web', 'auth','role:user', 'activated', 'checkblocked', 'twostep', 'activity'])
+            //     ->prefix('user')
+            //     ->name('user.')
+            //     ->group(base_path('routes/user.php'));
         });
     }
 

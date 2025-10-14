@@ -16,26 +16,28 @@ class DistrictController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        if (config('settings.enablePagination')) {
-            $districts = District::latest()->paginate(config('settings.paginateListSize'));
+        $search = $request->input('search');
+        // dd($search);
+        if ($search) {
+            $districts = District::where('name', 'LIKE', "%$search%")->paginate(config('settings.paginateListSize'));
         } else {
-            $districts = District::all();
+            $districts = District::latest()->paginate(10);
         }
         // $districtcount = District::all()->count();
         return view('pages.district.index',compact('districts'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('pages.district.create');
-    }
+    // /**
+    //  * Show the form for creating a new resource.
+    //  *
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function create()
+    // {
+    //     return view('pages.district.create');
+    // }
 
     /**
      * Store a newly created resource in storage.
@@ -67,17 +69,17 @@ class DistrictController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(District $district)
-    {
+    // /**
+    //  * Show the form for editing the specified resource.
+    //  *
+    //  * @param  int  $id
+    //  * @return \Illuminate\Http\Response
+    //  */
+    // public function edit(District $district)
+    // {
 
-         return view('pages.district.edit',compact('district'));
-    }
+    //      return view('pages.district.edit',compact('district'));
+    // }
 
     /**
      * Update the specified resource in storage.

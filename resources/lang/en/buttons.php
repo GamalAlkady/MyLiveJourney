@@ -14,18 +14,20 @@ return [
     */
 
     'create_new'  => '<i class="fa fa-plus fa-fw" aria-hidden="true"></i> <span class="hidden-xs">Create New</span><span class="hidden-xs"> :name</span>',
-    'add_new'     => '<i class="fa fa-plus fa-fw" aria-hidden="true"></i> <span class="hidden-xs">Add New</span>',
+    'add_new'     => '<i class="fa fa-plus fa-fw" aria-hidden="true"></i> <span class="hidden-xs">Create New</span>',
     'delete'        => '<i class="fa fa-trash-o fa-fw" aria-hidden="true"></i>',
     'delete2'        => '<i class="fa fa-trash-o fa-fw" aria-hidden="true"></i> Delete',
     'show'          => '<i class="fa fa-eye fa-fw" aria-hidden="true"></i>',
     'edit'          => '<i class="fa fa-pencil fa-fw" aria-hidden="true"></i>',
     'edit_name'          => '<i class="fa fa-pencil fa-fw me" aria-hidden="true"></i> Edit :name',
+    'booking'          => '<i class="fa fa-calendar fa-fw" aria-hidden="true"></i> <span class="hidden-xs">Booking</span>',
 
     'details'       => '<i class="fa fa-eye fa-fw" aria-hidden="true"></i> <span class="hidden-xs">Details</span>',
 
 
     'back_to'       => '<i class="fas fa-arrow-left" style="margin-inline-end:5px;"></i><span class="hidden-sm hidden-xs">Back to </span><span class="hidden-xs">:name</span>',
     'back_to1'      => '<i class="fas fa-reply" style="margin-inline-end:5px;"></i><span class="hidden-sm hidden-xs">Back to </span><span class="hidden-xs">:name</span>',
+    'go_to'         => '<span class="hidden-xs">Go to </span><span class="hidden-xs">:name</span>',
     'restore'       => '<i class="fa fa-refresh fa-fw" aria-hidden="true"></i>  <span class="hidden-xs">Restore</span>',
     'cancel'         => '<i class="fa fa-fw fa-times" aria-hidden="true"></i> Cancel',
     'save'   => '<i class="fa fa-fw fa-save" aria-hidden="true"></i> Save',
@@ -37,5 +39,9 @@ return [
 
     'activate'     => '<i class="fa fa-check fa-fw" aria-hidden="true"></i>',
     'deactivate'   => '<i class="fa fa-times fa-fw" aria-hidden="true"></i>',
+
+    'complete'   => '<i class="fa fa-check fa-fw" aria-hidden="true"></i> Complete',
+    'approve'   => '<i class="fa fa-check fa-fw" aria-hidden="true"></i> Approve',
+    'reject'   => '<i class="fa fa-times fa-fw" aria-hidden="true"></i> Reject',
 
 ];

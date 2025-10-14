@@ -5,11 +5,7 @@
         $isEdit = isset($place);
     @endphp
 
-    @if ($isEdit)
-        {{ __('messages.edit_place') }} - {{ $place->name }}
-    @else
-        {!! __('messages.add_new_place') !!}
-    @endif
+    {{ trans_choice('titles.create', $place->id ?? 0, ['name' => __('titles.place')]) }}
 @endsection
 
 @section('content')
@@ -19,11 +15,11 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h1 class="h3 mb-0 text-gray-800">
                         <i class="fas fa-map-plus text-primary mr-2"></i>
-                        {!! $isEdit ? __('messages.edit_place') : __('messages.add_new_place') !!}
+                        {{ trans_choice('titles.create', $place->id ?? 0, ['name' => __('titles.place')]) }}
                     </h1>
                     <a href="{{ route('user.places.index') }}" class="btn btn-primary">
-                        <i class="fas fa-arrow-left mr-2"></i>
-                        {!! __('buttons.back_to',['name' => __('messages.places')]) !!}
+                        {{-- <i class="fas fa-arrow-left mr-2"></i> --}}
+                        {!! __('buttons.back_to', ['name' => __('titles.places')]) !!}
                     </a>
                 </div>
             </div>
@@ -35,13 +31,13 @@
                     <div class="card-header bg-primary py-3">
                         <h6 class="m-0 font-weight-bold text-white">
                             <i class="fas fa-plus-circle mr-1"></i>
-                            {{ __('messages.place_info') }}
+                            {{ __('titles.details') }}
                         </h6>
                     </div>
                     <div class="card-body">
                         {{-- @include('partials.errors') --}}
 
-                        <form action="{{ $isEdit ? route('user.place.update', $place->id) : route('user.place.store') }}"
+                        <form action="{{ $isEdit ? route('user.places.update', $place->id) : route('user.places.store') }}"
                             method="POST" enctype="multipart/form-data">
                             @csrf
                             @if ($isEdit)
@@ -51,7 +47,7 @@
                             <div class="row">
                                 <div
                                     class="col-md-12 form-group has-feedback row {{ $errors->has('name') ? ' has-error ' : '' }}">
-                                    <label for="name" class="col-md-12 control-label">{!! trans('forms.name') !!}</label>
+                                    <label for="name" class="col-md-12 control-label">{!! trans('forms.labels.icon.name') !!}</label>
                                     {{-- {!! Form::label('name', trans('forms.name'), array('class' => 'col-md-12 control-label')); !!} --}}
                                     <div class="col-md-12">
                                         <div class="input-group">
@@ -71,12 +67,15 @@
 
                                 <div
                                     class="col-md-6 form-group has-feedback row {{ $errors->has('district_id') ? ' has-error ' : '' }}">
-                                    <label for="district" class="col-md-12 control-label">{!! trans('forms.district') !!}</label>
+                                    <label for="district" class="col-md-12 control-label">{!! trans('forms.placeholders.choose_district') !!}</label>
                                     <div class="col-md-12 mb-4">
 
                                         <div class="input-group">
-                                            <select class="custom-select form-control" name="district_id" id="district">
-                                                <option value="">Select a district</option>
+                                            <select class="custom-select form-control" name="district_id" id="district"
+                                                required>
+                                                <option value="">
+                                                    {{ __('forms.placeholders.select', ['type' => __('titles.models.district')]) }}
+                                                </option>
                                                 @foreach ($districts as $district)
                                                     <option value="{{ $district->id }}"
                                                         {{ old('district_id', $isEdit ? $place->district_id : '') == $district->id ? 'selected' : '' }}>
@@ -96,14 +95,17 @@
                                 <div
                                     class="col-md-6 form-group has-feedback row {{ $errors->has('placetype_id') ? ' has-error ' : '' }}">
                                     <label for="type" class="col-md-12 control-label">
-                                        {!! trans('forms.placetype') !!}
+                                        {!! trans('forms.placeholders.choose_placetype') !!}
                                     </label>
 
                                     <div class="col-md-12 mb-4">
 
                                         <div class="input-group">
-                                            <select class="custom-select form-control" name="placetype_id" id="placetype">
-                                                <option value="">Select a place type</option>
+                                            <select class="custom-select form-control" name="placetype_id" id="placetype"
+                                                required>
+                                                <option value="">
+                                                    {{ __('forms.placeholders.select', ['type' => __('titles.models.placetype')]) }}
+                                                </option>
                                                 @foreach ($placetypes as $placetype)
                                                     <option value="{{ $placetype->id }}"
                                                         {{ old('placetype_id', $isEdit ? $place->placetype_id : '') == $placetype->id ? 'selected' : '' }}>
@@ -126,7 +128,7 @@
                                 <div
                                     class="col-md-12 form-group has-feedback row {{ $errors->has('description') ? ' has-error ' : '' }}">
                                     <label for="description" class="col-md-12 control-label">
-                                        {!! trans('forms.description') !!}
+                                        {!! trans('forms.labels.icon.description') !!}
                                     </label>
                                     <div class="col-md-12 mb-4">
                                         <div class="input-group">
@@ -143,14 +145,14 @@
                                 <div
                                     class="col-md-12 form-group has-feedback row {{ $errors->has('image') ? ' has-error ' : '' }}">
                                     <label for="image" class="col-md-12 control-label">
-                                        {!! trans('forms.image') !!}
+                                        {!! trans('forms.labels.icon.image') !!}
                                     </label>
                                     <div class="col-md-12 mb-4">
                                         <div class="input-group">
                                             <input type="file" id="file" class="custom-file-input"
                                                 onchange="loadPreview(this);" name="image">
                                             <label class="custom-file-label"
-                                                for="file">{{ trans('forms.choose_image') }}</label>
+                                                for="file">{{ trans('forms.placeholders.choose_image') }}</label>
                                         </div>
                                         @if ($errors->has('image'))
                                             <span class="help-block">

@@ -11,12 +11,31 @@
         </button>
       </div>
       <div class="modal-body">
-        <p>Delete this user?</p>
+        <p>Delete this Item?</p>
       </div>
-      <div class="modal-footer">
+      <div class="modal-footer d-flex justify-content-around">
         {!! Form::button('<i class="fa fa-fw fa-close" aria-hidden="true"></i> Cancel', array('class' => 'btn btn-outline pull-left btn-light', 'type' => 'button', 'data-dismiss' => 'modal' )) !!}
-        {!! Form::button('<i class="fa fa-fw fa-trash-o" aria-hidden="true"></i> Confirm Delete', array('class' => 'btn btn-danger pull-right', 'type' => 'button', 'id' => 'confirm' )) !!}
+        {!! Form::button('<i class="fa fa-fw fa-trash-o" aria-hidden="true"></i> Confirm', array('class' => 'btn btn-danger pull-right', 'type' => 'button', 'id' => 'confirm' )) !!}
       </div>
     </div>
   </div>
 </div>
+
+@push('scripts')
+<script>
+    // CONFIRMATION DELETE MODAL
+    $(document).ready(function() {
+        $('#confirmDelete').on('shown.bs.modal', function(e) {
+            var message = $(e.relatedTarget).attr('data-message');
+            var title = $(e.relatedTarget).attr('data-title');
+            var form = $(e.relatedTarget).closest('form');
+            $(this).find('.modal-body p').text(message);
+            $(this).find('.modal-title').text(title);
+            $(this).find('.modal-footer #confirm').data('form', form);
+        });
+        $('#confirmDelete').find('.modal-footer #confirm').on('click', function() {
+            $(this).data('form').submit();
+        });
+    });
+</script>
+@endpush

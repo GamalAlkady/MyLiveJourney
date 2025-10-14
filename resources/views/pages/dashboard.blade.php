@@ -12,61 +12,64 @@
     <div class="dashbord">
         <div class="icon-section">
             <i class="fas fa-chart-area"></i><br>
-            Districts
-            <p>{{ $districts->count() }}</p>
+            {{ __('titles.districts') }}
+            <p>{{ $countDistricts }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('user.districts.index') }}">More Info </a>
+            <a href="{{ route('user.districts.index') }}">{{ __('messages.more') }} </a>
         </div>
     </div>
     <div class="dashbord dashbord-green">
         <div class="icon-section">
             <i class="fas fa-atlas"></i><br>
-            Placetype
-            <p>{{ $placetypes->count() }}</p>
+            {{ __('titles.placetypes') }}
+            <p>{{ $countPlacetypes }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('user.placetypes.index') }}">More Info </a>
+            <a href="{{ route('user.placetypes.index') }}">{{ __('messages.more') }} </a>
         </div>
     </div>
     <div class="dashbord dashbord-orange">
         <div class="icon-section">
             <i class="fa fa-info-circle" aria-hidden="true"></i><br>
-                Places
-                <p>{{ $places->count() }}</p>
+            {{ __('titles.places') }}
+                <p>{{ $countPlaces }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('user.places.index') }}">More Info </a>
+            <a href="{{ route('user.places.index') }}">{{ __('messages.more') }} </a>
         </div>
     </div>
-    <div class="dashbord dashbord-blue">
-        <div class="icon-section">
-            <i class="fa fa-user" aria-hidden="true"></i><br>
-            Guides
-            <p>{{ $guides->count() }}</p>
-        </div>
-        <div class="detail-section">
-            <a href="{{ route('user.guides') }}">More Info </a>
-        </div>
-    </div>
+
     <div class="dashbord dashbord-red">
         <div class="icon-section">
             <i class="fa fa-shopping-cart" aria-hidden="true"></i><br>
-            Package
-            <p>{{ $packages->count() }}</p>
+            {{ __('titles.tours') }}
+            <p>{{ $countTours }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('user.tours.index') }}">More Info </a>
+            <a href="{{ route('user.tours.index') }}">{{ __('messages.more') }} </a>
         </div>
     </div>
+
+      <div class="dashbord dashbord-blue">
+        <div class="icon-section">
+            <i class="fa fa-user" aria-hidden="true"></i><br>
+            {{ __('titles.guides') }}
+            <p>{{ $countGuides }}</p>
+        </div>
+        <div class="detail-section">
+            <a href="{{ route('user.users.index') .'?type=guide'}}">{{ __('messages.more') }}</a>
+        </div>
+    </div>
+
     <div class="dashbord dashbord-skyblue">
         <div class="icon-section">
             <i class="fa fa-users" aria-hidden="true"></i><br>
-            Users
-            <p>{{ $users->count() }}</p>
+            {{ __('titles.users') }}
+            <p>{{ $countUsers }}</p>
         </div>
         <div class="detail-section">
-            <a href="{{ route('user.users.index') }}">More Info </a>
+            <a href="{{ route('user.users.index').'?type=user' }}">{{ __('messages.more') }}</a>
         </div>
     </div>
 </div>

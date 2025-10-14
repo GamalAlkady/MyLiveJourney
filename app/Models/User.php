@@ -2,9 +2,12 @@
 
 namespace App\Models;
 
+use App\Enums\BookingStatus;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -96,6 +99,15 @@ class User extends Authenticatable
         'deleted_at'                        => 'datetime',
     ];
 
+    //  protected static function booted()
+    // {
+    //     // parent::boot();
+
+    //     static::addGlobalScope('notAdmin', function ($query) {
+    //         return $query->whereRoleNot('admin');
+    //     });
+    // }
+
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
@@ -161,17 +173,33 @@ class User extends Authenticatable
     {
         return $this->profiles()->detach($profile);
     }
+    //////////////////////////////////////////////////////////////////////// Relations
 
     public function tours()
     {
-        return $this->hasMany(Tour::class);
+        return $this->hasMany(Tour::class, 'guide_id');
     }
 
-    public function bookings()
+    /**
+     * Scope a query to only include users with the given role.
+     *
+     * @return hasManyThrough|hasMany
+     */
+    public function bookings():hasManyThrough|HasMany
     {
-        return $this->hasMany(Booking::class);
+        if (auth()->user()->hasRole('guide|admin')) {
+            return $this->hasManyThrough(
+                Booking::class,  // المودل النهائي
+                Tour::class,     // المودل الوسيط
+                'guide_id',      // المفتاح الأجنبي في جدول tours الذي يشير إلى users
+                'tour_id',       // المفتاح الأجنبي في جدول bookings الذي يشير إلى tours
+                'id',            // المفتاح الأساسي في users
+                'id'             // المفتاح الأساسي في tours
+            );
+        } else {
+            return $this->hasMany(Booking::class, 'tourist_id');
+        }
     }
-
     public function scopeWhereRoleIs($query, $role)
     {
         return $query->whereHas('roles', function ($q) use ($role) {
@@ -186,8 +214,29 @@ class User extends Authenticatable
         });
     }
 
+    public function scopeWithoutAdmin($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('name', '!=', 'admin');
+        });
+    }
+
+    public function scopeWhereGuides($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('name', 'guide');
+        });
+    }
+
 
     public function scopeUsers($query)
+    {
+        return $query->whereHas('roles', function ($q) {
+            $q->where('name', 'user');
+        });
+    }
+
+    public function scopeWhereUsers($query)
     {
         return $query->whereHas('roles', function ($q) {
             $q->where('name', 'user');

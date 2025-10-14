@@ -36,14 +36,25 @@ class UsersManagementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $paginationEnabled = config('usersmanagement.enablePagination');
-        if ($paginationEnabled) {
-            $users = User::whereRoleNot('admin')->paginate(config('usersmanagement.paginateListSize'));
-        } else {
-            $users = User::whereRoleNot('admin')->get();
+        $searchTerm = $request->get('search');
+        $type = $request->get('type');
+
+        if ($type == 'guide')
+            $users = User::whereGuides();
+        elseif ($type == 'user')
+            $users = User::whereUsers();
+        else
+            $users = User::withoutAdmin();
+
+        if ($searchTerm) {
+            $users = $users->where('name', 'like', '%' . $searchTerm . '%')
+                ->orWhere('email', 'like', '%' . $searchTerm . '%')
+                ->orWhere('first_name', 'like', '%' . $searchTerm . '%')
+                ->orWhere('last_name', 'like', '%' . $searchTerm . '%');
         }
+        $users = $users->paginate(config('settings.paginateListSize'));
 
         return View('pages.usersmanagement.show-users', compact('users'));
     }
@@ -157,7 +168,7 @@ class UsersManagementController extends Controller
      */
     public function show(User $user)
     {
-        // $user->notify(new SendGoodbyeEmail($user));
+        $user->notify(new SendGoodbyeEmail($user));
         return view('pages.usersmanagement.show-user', compact('user'));
     }
 
@@ -169,12 +180,15 @@ class UsersManagementController extends Controller
      */
     public function edit(User $user)
     {
-        $roles = Role::getRolesWithoutAdmin();
+        $roles = Role::withoutAdmin()->get();
 
-        foreach ($user->roles as $userRole) {
-            $currentRole = $userRole;
-        }
+        // foreach ($user->roles as $userRole) {
+            // $currentRole = $roles[1];
+            $currentRole = auth()->user()->roles()->first();
+        // }
 
+        // if($user->isUser())
+        // dd($currentRole);
         $data = [
             'user'        => $user,
             'roles'       => $roles,
@@ -320,10 +334,10 @@ class UsersManagementController extends Controller
     public function activeUser(Request $request, User $user)
     {
         $user->activated = 1;
-        $message=trans('usersmanagement.activeSuccess');
+        $message = trans('usersmanagement.activeSuccess');
         if ($request->has('deactivate')) {
             $user->activated = 0;
-            $message=trans('usersmanagement.inactiveSuccess');
+            $message = trans('usersmanagement.inactiveSuccess');
         }
         $user->save();
         return back()->with('success', $message);

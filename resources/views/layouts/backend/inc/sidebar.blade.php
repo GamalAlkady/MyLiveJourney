@@ -42,36 +42,39 @@
                     </a>
                 </li>
 
-                @permission('view.districts')
+                {{-- @permission('view.districts') --}}
                     <div class="dropdown-divider"></div>
                     <li class="nav-item has-treeview">
                         <a href="{{ route($role . '.districts.index') }}"
-                            class="nav-link {{ Request::is($role . '/district*') ? 'active' : '' }}">
+                            class="nav-link {{ Request::is($role . '/districts/*') ? 'active' : '' }}">
                             {!! trans('titles.icon_text.districts') !!}
                         </a>
                     </li>
-                @endpermission
+                {{-- @endpermission --}}
 
-                @permission('view.placetypes')
-                    <div class="dropdown-divider"></div>
+                {{-- @permission('view.placetypes') --}}
                     <li class="nav-item has-treeview">
                         <a href="{{ route($role . '.placetypes.index') }}"
-                            class="nav-link {{ Request::is($role . '/placetype') ? 'active' : '' }}">
+                            class="nav-link {{ Request::routeIs($role . '.placetypes.*') ? 'active' : '' }}">
                             {!! trans('titles.icon_text.placetypes') !!}
                         </a>
                     </li>
-                @endpermission
+                {{-- @endpermission --}}
 
-                @permission('view.places')
-                    <div class="dropdown-divider"></div>
                     <li class="nav-item has-treeview">
                         <a href="{{ route($role . '.places.index') }}"
                             class="nav-link {{ Request::routeIs($role . '.places.*') ? 'active' : '' }}">
                             {!! trans('titles.icon_text.places') !!}
                         </a>
                     </li>
-                @endpermission
 
+                    <li class="nav-item has-treeview">
+                        <a href="{{ route('user.tours.index') }}"
+                            class="nav-link {{ Request::is('admin/tour*') ? 'active' : '' }}">
+                            {!! trans('titles.icon_text.tours') !!}
+                        </a>
+                    </li>
+{{--
                 @role('admin')
                     <div class="dropdown-divider"></div>
                     <li class="nav-item has-treeview">
@@ -80,7 +83,7 @@
                             {!! trans('titles.icon_text.guides') !!}
                         </a>
                     </li>
-                @endrole
+                @endrole --}}
 
                 @permission('view.users')
                     <div class="dropdown-divider"></div>
@@ -92,37 +95,33 @@
                     </li>
                 @endpermission
 
+                <div class="dropdown-divider"></div>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('user.bookings.pending') }}"
+                        class="nav-link {{ Request::routeIs('user.bookings.pending') ? 'active' : '' }}">
+                        {!! __('titles.icon_text.pendingBookings') !!}
+                    </a>
+                </li>
 
-                @permission('view.tours')
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('user.bookings.approved') }}"
+                        class="nav-link {{ Request::routeIs('user.bookings.approved') ? 'active' : '' }}">
+                        {!! __('titles.icon_text.approved_bookings') !!}
+                    </a>
+                </li>
+
+                @role('admin|guide')
                     <div class="dropdown-divider"></div>
                     <li class="nav-item has-treeview">
-                        <a href="{{ route('user.tours.index') }}"
-                            class="nav-link {{ Request::is('admin/tour*') ? 'active' : '' }}">
-                            {!! trans('titles.icon_text.tours') !!}
+                        <a href="{{ route('user.tours.running') }}"
+                            class="nav-link {{ Request::routeIs('user.tours.running') ? 'active' : '' }}">
+                            {!! trans('titles.icon_text.running_tours') !!}
                         </a>
                     </li>
-                @endpermission
-
-                <div class="dropdown-divider"></div>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('user.pending.booking') }}"
-                        class="nav-link {{ Request::is('user/booking-request/list') ? 'active' : '' }}">
-                       {!! __('titles.icon_text.pending_tours') !!}
-                    </a>
-                </li>
-
-
-                <div class="dropdown-divider"></div>
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('user.package.running') }}"
-                        class="nav-link {{ Request::is('admin/running/package*') ? 'active' : '' }}">
-                        {!! trans('titles.icon_text.running_tours') !!}
-                    </a>
-                </li>
-
+                @endrole
 
                 @role('admin')
-                    <div class="dropdown-divider"></div>
+                    {{-- <div class="dropdown-divider"></div> --}}
                     <li class="nav-item d-none">
                         <a class="nav-link {{ Request::is('roles') || Request::is('permissions') ? 'active' : null }}"
                             href="{{ route('laravelroles::roles.index') }}">
@@ -133,7 +132,7 @@
                 @endrole
 
 
-                <li class="nav-item has-treeview">
+                {{-- <li class="nav-item has-treeview">
                     <a href="{{ route('user.tour.history') }}"
                         class="nav-link {{ Request::is('user/tour-history/list') ? 'active' : '' }}">
                         <i class="fas fa-history"></i>
@@ -141,31 +140,26 @@
                             Tour History
                         </p>
                     </a>
-                </li>
+                </li> --}}
 
-                <div class="dropdown-divider"></div>
-                <li class="nav-item has-treeview">
-                    <a class="nav-link {{ Request::is('themes', 'themes/create') ? 'active' : null }}"
-                        href="{{ url('/themes') }}">
-                        <i class="fas fa-palette"></i>
-                        {!! trans('titles.adminThemesList') !!}
-                    </a>
-                </li>
 
-                <li class="nav-item has-treeview">
-                    <a href="{{ route('welcome') }}" class="nav-link">
-                        <i class="fas fa-pager"></i>
-                        <p class="ml-2">
-                            Home Page
-                        </p>
-                    </a>
-                </li>
+
+
                 {{-- @endrole --}}
 
-                @role('admin')
+                @role('admin2')
+                    <div class="dropdown-divider"></div>
+                    <li class="nav-item has-treeview">
+                        <a class="nav-link {{ Request::is('themes', 'themes/create') ? 'active' : null }}"
+                            href="{{ url('/themes') }}">
+                            <i class="fas fa-palette"></i>
+                            {!! trans('titles.adminThemesList') !!}
+                        </a>
+                    </li>
+
                     <div class="dropdown-divider"></div>
                     <li class="nav-item admin-tools d-non">
-                        <a class="nav-link {{ Request::is('admin/logs', 'activity', 'phpinfo', 'routes', 'active-users', 'blocker') || Request::is('logs') || Request::is('activity') || Request::is('phpinfo') || Request::is('routes') || Request::is('active-users') || Request::is('blocker') ? 'active' : null }}"
+                        <a class="nav-link {{ Request::is('logs', 'activity', 'phpinfo', 'routes', 'active-users', 'blocker') ? 'active' : null }}"
                             data-toggle="collapse" href="#collapseAdminTools" role="button" aria-expanded="false"
                             aria-controls="collapseAdminTools">
                             <i class="fas fa-cogs"></i>
@@ -177,7 +171,7 @@
                         <ul class="nav collapse show" id="collapseAdminTools">
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::is('logs') ? 'active' : null }}"
-                                    href="{{ url('/admin/logs') }}">{!! trans('titles.adminLogs') !!}</a>
+                                    href="{{ url('/user/logs') }}">{!! trans('titles.adminLogs') !!}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link {{ Request::is('activity') ? 'active' : null }}"
@@ -204,13 +198,23 @@
                             </li>
 
                             {{-- <div class="dropdown-divider"></div> --}}
-                            <li class="nav-item">
+                            <li class="nav-item d-none">
                                 <a class="nav-link {{ Request::is('blocker') ? 'active' : null }}"
                                     href="{{ route('laravelblocker::blocker.index') }}">{!! trans('titles.laravelBlocker') !!}</a>
                             </li>
                         </ul>
                     </li>
                 @endrole
+
+                <div class="dropdown-divider"></div>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('welcome') }}" class="nav-link">
+                        <i class="fas fa-pager"></i>
+                        <p class="ml-2">
+                            {{ __('titles.home') }}
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

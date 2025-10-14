@@ -24,14 +24,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = FacadesAuth::user();
-
         // if ($user->isAdmin()) {
-            return redirect()->route('user.dashboard');
+            // return redirect()->route('dashboard');
             // return view('pages.home');
         // }
 
-        // return redirect()->route('user.dashboard');
+        return redirect()->route('user.dashboard');
         // return view('pages.user.home');
     }
 }

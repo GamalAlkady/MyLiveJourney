@@ -18,6 +18,7 @@ class CreateProfilesTable extends Migration
             $table->increments('id');
             $table->unsignedBigInteger('user_id')->unsigned()->index();
             $table->unsignedBigInteger('theme_id')->unsigned()->default(1);
+            $table->string('contact')->unique()->nullable();
             $table->string('location')->nullable();
             $table->text('bio')->nullable();
             $table->string('twitter_username')->nullable();

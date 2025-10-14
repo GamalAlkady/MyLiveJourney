@@ -29,21 +29,25 @@
                   <a class="btn btn-info my-2 px-4 py-2" href="{{ route('register') }}" type="submit"><b>Sign Up</b></a>
                 </form>
                 @else
-                    @role('admin')
+                     {{-- <li class="nav-item">
+                          <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
+                        </li> --}}
+
+                    {{-- @role('admin')
                         <li class="nav-item">
-                          <a class="nav-link" href="{{ route('user.dashboard') }}">Dashboard</a>
+                          <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
                         </li>
                     @endrole
                     @role('guide')
                         <li class="nav-item">
                           <a class="nav-link" href="{{ route('guide.dashboard') }}">Dashboard</a>
                         </li>
-                    @endrole
-                    @role('user')
+                    @endrole --}}
+                    {{-- @role('user') --}}
                     <li class="nav-item">
                       <a class="nav-link" href="{{ route('user.dashboard') }}">Dashboard</a>
                     </li>
-                    @endrole
+                    {{-- @endrole --}}
                 @endguest
       </ul>
 

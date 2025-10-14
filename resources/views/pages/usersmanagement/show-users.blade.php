@@ -49,9 +49,10 @@
                     <div style="display: flex; justify-content: space-between; align-items: center;">
 
                         <span id="card_title">
-                            {!! trans('titles.showingAll', ['name' => __('usersmanagement.users') ]) !!}
+                            {!! trans('titles.showingAll', ['name' => __('usersmanagement.users')]) !!} ({{ $users->count() }})
                         </span>
 
+                        @permission('create.users')
                         <div class="btn-group pull-right btn-group-xs">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
@@ -71,13 +72,14 @@
                                 </a>
                             </div>
                         </div>
+                        @endpermission
                     </div>
                 </div>
 
                 <div class="card-body">
 
                     @if (config('usersmanagement.enableSearchUsers'))
-                        @include('partials.search-users-form')
+                        @include('partials.search-form', ['route' => 'user.users.index'])
                     @endif
 
                     <div class="table-responsive users-table">
@@ -93,7 +95,16 @@
                                     <th class="hidden-xs">{!! trans('usersmanagement.users-table.email') !!}</th>
                                     <th class="hidden-xs">{!! trans('usersmanagement.users-table.fname') !!}</th>
                                     <th class="hidden-xs">{!! trans('usersmanagement.users-table.lname') !!}</th>
-                                    <th>{!! trans('usersmanagement.users-table.role') !!}</th>
+                                    <th>
+                                        @use('App\Models\Role')
+                                        <select name="role" class="form-conrol" id="role">
+                                            <option value="all">{{__('titles.all')}}</option>
+                                            @php $roles = Role::withoutAdmin()->get() @endphp
+                                            @foreach ($roles as $role)
+                                            <option value="{{ $role->slug }}" @selected($role->slug==request()->get('type'))> {!! $role->name !!}</option>
+                                            @endforeach
+                                        </select>
+                                    </th>
                                     <th class="hidden-sm hidden-xs hidden-md">{!! trans('usersmanagement.users-table.created') !!}</th>
                                     <th class="hidden-sm hidden-xs hidden-md">{!! trans('usersmanagement.users-table.updated') !!}</th>
                                     <th>{!! trans('usersmanagement.users-table.actions') !!}</th>
@@ -122,56 +133,66 @@
                                         </td>
                                         <td class="hidden-sm hidden-xs hidden-md">{{ $user->created_at }}</td>
                                         <td class="hidden-sm hidden-xs hidden-md">{{ $user->updated_at }}</td>
-                                        <td>
-                                            {{-- Button for delete user --}}
-                                            {!! Form::open([
-                                                'url' => 'admin/users/' . $user->id,
-                                                'class' => 'd-inline-block',
-                                                'data-toggle' => 'tooltip',
-                                                'title' => 'Delete',
-                                            ]) !!}
-                                            {!! Form::hidden('_method', 'DELETE') !!}
-                                            {!! Form::button(trans('buttons.delete'), [
-                                                'class' => 'btn btn-danger',
-                                                'type' => 'button',
-                                                'data-toggle' => 'modal',
-                                                'data-target' => '#confirmDelete',
-                                                'data-title' => 'Delete User',
-                                                'data-message' => 'Are you sure you want to delete this user ?',
-                                            ]) !!}
-                                            {!! Form::close() !!}
+                                        <td class="d-flex">
 
                                             {{-- Button for show user --}}
-                                            <a class="btn btn-success btn-inline-block"
+                                            <a class="btn btn-success btn-inline-block flex-fill me-1"
                                                 href="{{ route('user.users.show', $user->id) }}" data-toggle="tooltip"
                                                 title="Show">
                                                 {!! trans('buttons.show') !!}
                                             </a>
 
+                                            @permission('delete.users')
+                                            {{-- Button for delete user --}}
+                                            {!! Form::open([
+                                                'url' => 'admin/users/' . $user->id,
+                                                'class' => 'd-inline-block flex-fill me-1',
+                                                'data-toggle' => 'tooltip',
+                                                'title' => 'Delete',
+                                            ]) !!}
+                                            {!! Form::hidden('_method', 'DELETE') !!}
+                                            {!! Form::button(trans('buttons.delete'), [
+                                                'class' => 'btn btn-danger w-100',
+                                                'type' => 'button',
+                                                'data-toggle' => 'modal',
+                                                'data-target' => '#confirmDelete',
+                                                'data-title' => __('modals.ConfirmDeleteTitle', ['name' => __('titles.user')]),
+                                                'data-message' => __('modals.ConfirmDeleteMessage', ['name' => $user->name]),
+                                            ]) !!}
+                                            {!! Form::close() !!}
+                                            @endpermission
+
+
+
+                                            @permission('update.users')
                                             {{-- Button for edit user --}}
-                                            <a class="btn btn-info btn-inline-block"
+                                            <a class="btn btn-info btn-inline-block flex-fill me-1"
                                                 href="{{ route('user.users.edit', $user->id) }}" data-toggle="tooltip"
                                                 title="Edit">
                                                 {!! trans('buttons.edit') !!}
                                             </a>
 
 
-                                            <form class="d-inline-block" action="{{ route('user.activeUser', $user->id) }}"
-                                                method="POST">
+
+                                            <form class="d-inline-block flex-fill"
+                                                action="{{ route('user.activeUser', $user->id) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 @if ($user->activated == 1)
-                                                    <button type="submit" class="btn btn-warning btn-inline-block"
-                                                        data-toggle="tooltip" title="Deactivate" name="deactivate">
+                                                    <button type="submit" class="btn btn-warning btn-inline-block w-100"
+                                                        data-toggle="tooltip" title="{{ trans('buttons.deactivate') }}"
+                                                        name="deactivate">
                                                         {!! trans('buttons.deactivate') !!}
                                                     </button>
                                                 @else
-                                                    <button type="submit" class="btn btn-primary btn-inline-block"
+                                                    <button type="submit" class="btn btn-primary btn-inline-block w-100"
                                                         data-toggle="tooltip" title="Activate" name="activate">
                                                         {!! trans('buttons.activate') !!}
                                                     </button>
                                                 @endif
                                             </form>
+                                            @endpermission
+
 
                                         </td>
                                     </tr>
@@ -207,6 +228,15 @@
         @include('scripts.tooltips')
     @endif
     @if (config('usersmanagement.enableSearchUsers'))
-        @include('scripts.search-users')
+        {{-- @include('scripts.search-users') --}}
     @endif
+
+    <script>
+        $(document).ready(function() {
+            $('#role').on('change', function(e) {
+                window.location.href = "{{ route('user.users.index') }}?type=" + e.target.value;
+            });
+        });
+    </script>
 @endsection
+

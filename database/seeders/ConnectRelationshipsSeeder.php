@@ -25,20 +25,21 @@ class ConnectRelationshipsSeeder extends Seeder
         /**
          * Attach Permissions to Roles.
          */
-        $roleAdmin = Role::where('name', '=', 'Admin')->first();
+        $roleAdmin = Role::withoutGlobalScope('notAdmin')->where('name', '=', 'Admin')->first();
         foreach ($permissions as $permission) {
             $roleAdmin->attachPermission($permission);
         }
 
         $permissions = Permission::where('slug', 'like', 'view.%')
-            ->orWhere('slug', 'like', '%.tours')->get();
+            ->orWhere('slug', 'like', '%.tours')
+            ->get();
 
         $roleGuide = Role::where('slug', '=', 'guide')->first();
         $roleGuide->syncPermissions($permissions);
 
-        $permissions = Permission::where('slug', 'like', 'view.tours')->get();
+        // $permissions = Permission::where('slug', 'like', 'view.tours')->get();
 
-        $roleUser = Role::where('name', '=', 'User')->first();
-        $roleUser->syncPermissions($permissions); // تخصيص أذونات فارغة
+        // $roleUser = Role::where('name', '=', 'User')->first();
+        // $roleUser->syncPermissions($permissions); // تخصيص أذونات فارغة
     }
 }

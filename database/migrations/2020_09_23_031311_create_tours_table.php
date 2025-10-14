@@ -1,10 +1,11 @@
 <?php
 
+use App\Enums\TourStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePackagesTable extends Migration
+class CreateToursTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,15 +16,21 @@ class CreatePackagesTable extends Migration
     {
         Schema::create('tours', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('added_by');
-            $table->string('name');
-            $table->string('price');
-            $table->string('day');
-            $table->date('date');
-            $table->string('people');
-            $table->string('image');
-            $table->text('description');
+            $table->string('title');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('guide_id');
+            // $table->unsignedBigInteger('tourist_id');
+            $table->dateTime('start_date');
+            $table->dateTime('end_date');
+            $table->integer('max_seats')->default(10);
+            $table->integer('booked_seats')->default(0);
+            $table->decimal('price', 10, 2)->default(0);
+            $table->enum('status', array_column(TourStatus::cases(), 'value'))
+                ->default(TourStatus::Available->value);
             $table->timestamps();
+
+            $table->foreign('guide_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('tourist_id')->references('id')->on('users')->noActionOnDelete();
         });
     }
 
@@ -34,6 +41,6 @@ class CreatePackagesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('packages');
+        Schema::dropIfExists('tours');
     }
 }

@@ -117,20 +117,16 @@
                                 <div class="card-body">
                                     @foreach ($user->getPermissions() as $permission)
                                         @if (Str::contains($permission->name, 'View'))
-                                            <span
-                                                class="badge badge-primary mx-1">{{ $permission->name }}</span>
+                                            <span class="badge badge-primary mx-1">{{ $permission->name }}</span>
                                         @endif
                                         @if (Str::contains($permission->name, 'Create'))
-                                            <span
-                                                class="badge badge-info mx-1">{{ $permission->name }}</span>
+                                            <span class="badge badge-info mx-1">{{ $permission->name }}</span>
                                         @endif
                                         @if (Str::contains($permission->name, 'Update'))
-                                            <span
-                                                class="badge badge-warning mx-1">{{ $permission->name }}</span>
+                                            <span class="badge badge-warning mx-1">{{ $permission->name }}</span>
                                         @endif
                                         @if (Str::contains($permission->name, 'Delete'))
-                                            <span
-                                                class="badge badge-danger mx-1">{{ $permission->name }}</span>
+                                            <span class="badge badge-danger mx-1">{{ $permission->name }}</span>
                                         @endif
                                     @endforeach
                                 </div>
@@ -146,27 +142,32 @@
                                         @if ($user->signup_ip_address)
                                             <li><i class="fa fa-globe mr-1"></i>
                                                 <strong>{{ trans('usersmanagement.labelIpEmail') }}:</strong>
-                                                <code>{{ $user->signup_ip_address }}</code></li>
+                                                <code>{{ $user->signup_ip_address }}</code>
+                                            </li>
                                         @endif
                                         @if ($user->signup_confirmation_ip_address)
                                             <li><i class="fa fa-check mr-1"></i>
                                                 <strong>{{ trans('usersmanagement.labelIpConfirm') }}:</strong>
-                                                <code>{{ $user->signup_confirmation_ip_address }}</code></li>
+                                                <code>{{ $user->signup_confirmation_ip_address }}</code>
+                                            </li>
                                         @endif
                                         @if ($user->signup_sm_ip_address)
                                             <li><i class="fa fa-share-alt mr-1"></i>
                                                 <strong>{{ trans('usersmanagement.labelIpSocial') }}:</strong>
-                                                <code>{{ $user->signup_sm_ip_address }}</code></li>
+                                                <code>{{ $user->signup_sm_ip_address }}</code>
+                                            </li>
                                         @endif
                                         @if ($user->admin_ip_address)
                                             <li><i class="fa fa-user-shield mr-1"></i>
                                                 <strong>{{ trans('usersmanagement.labelIpAdmin') }}:</strong>
-                                                <code>{{ $user->admin_ip_address }}</code></li>
+                                                <code>{{ $user->admin_ip_address }}</code>
+                                            </li>
                                         @endif
                                         @if ($user->updated_ip_address)
                                             <li><i class="fa fa-sync mr-1"></i>
                                                 <strong>{{ trans('usersmanagement.labelIpUpdate') }}:</strong>
-                                                <code>{{ $user->updated_ip_address }}</code></li>
+                                                <code>{{ $user->updated_ip_address }}</code>
+                                            </li>
                                         @endif
                                     </ul>
                                 </div>
@@ -184,6 +185,8 @@
                             'type' => 'button',
                             'data-toggle' => 'modal',
                             'data-target' => '#confirmDelete',
+                            'data-title' => __('modals.ConfirmDeleteTitle', ['name' => __('titles.user')]),
+                            'data-message' => __('modals.ConfirmDeleteMessage', ['name' => $user->name]),
                         ]) !!}
                         {!! Form::close() !!}
                     </div>
@@ -194,9 +197,9 @@
     @include('modals.modal-delete')
 @endsection
 
-@section('scripts')
+@push('scripts')
     @include('scripts.delete-modal-script')
     @if (config('usersmanagement.tooltipsEnabled'))
         @include('scripts.tooltips')
     @endif
-@endsection
+@endpush

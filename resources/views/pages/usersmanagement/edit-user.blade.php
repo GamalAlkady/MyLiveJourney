@@ -90,13 +90,13 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3 {{ $errors->has('name') ? 'has-error' : '' }}">
                                     <label for="name" class="form-label text-gray-700 font-medium">
-                                        {{-- <i class="fas fa-user me-2 text-primary"></i> --}}
-                                        {!! trans('labels.icon_text.username') !!}
+                                        {{-- <i class="fas fa-user me-2"></i> --}}
+                                        {!! trans('forms.labels.icon.username') !!}
                                     </label>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-lg" id="name"
                                             name="name" value="{{ old('name', $user->name) }}"
-                                            placeholder="{!! trans('labels.username') !!}" required>
+                                            placeholder="{!! trans('forms.labels.username') !!}" required>
                                         <span class="input-group-text bg-ligh">
                                             <i class="fas fa-user"></i>
                                         </span>
@@ -112,13 +112,13 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3 {{ $errors->has('email') ? 'has-error' : '' }}">
                                     <label for="email" class="form-label text-gray-700 font-medium">
-                                        {{-- <i class="fas fa-envelope me-2 text-primary"></i> --}}
-                                        {!! trans('labels.icon_text.email') !!}
+                                        {{-- <i class="fas fa-envelope me-2"></i> --}}
+                                        {!! trans('forms.labels.icon.email') !!}
                                     </label>
                                     <div class="input-group">
                                         <input type="email" class="form-control form-control-lg" id="email"
                                             name="email" value="{{ old('email', $user->email) }}"
-                                            placeholder="{!! trans('labels.email') !!}" required>
+                                            placeholder="{!! trans('forms.labels.email') !!}" required>
                                         <span class="input-group-text bg-ligh">
                                             <i class="fas fa-envelope"></i>
                                         </span>
@@ -136,7 +136,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3 {{ $errors->has('first_name') ? 'has-error' : '' }}">
                                     <label for="first_name" class="form-label text-gray-700 font-medium">
-                                        <i class="fas fa-id-card me-2 text-primary"></i>
+                                        <i class="fas fa-id-card me-2"></i>
                                         {!! trans('forms.create_user_label_firstname') !!}
                                     </label>
                                     <div class="input-group">
@@ -158,7 +158,7 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3 {{ $errors->has('last_name') ? 'has-error' : '' }}">
                                     <label for="last_name" class="form-label text-gray-700 font-medium">
-                                        <i class="fas fa-user-tag me-2 text-primary"></i>
+                                        <i class="fas fa-user-tag me-2"></i>
                                         {!! trans('forms.create_user_label_lastname') !!}
                                     </label>
                                     <div class="input-group">
@@ -182,7 +182,7 @@
                             <div class="col-12">
                                 <div class="form-group mb-3 {{ $errors->has('role') ? 'has-error' : '' }}">
                                     <label for="role" class="form-label text-gray-700 font-medium">
-                                        <i class="fas fa-shield-alt me-2 text-primary"></i>
+                                        <i class="fas fa-shield-alt me-2"></i>
                                         {!! trans('forms.create_user_label_role') !!}
                                     </label>
                                     <div class="input-group">
@@ -214,7 +214,7 @@
 
                         <div class="pw-change-container">
                             <h5 class="mb-4 text-gray-700 font-medium">
-                                <i class="fas fa-key text-primary me-2"></i>
+                                <i class="fas fa-key me-2"></i>
                                 {!! trans('forms.change-pw') !!}
                             </h5>
 
@@ -222,7 +222,7 @@
                                 <div class="col-12">
                                     <div class="form-group mb-3 {{ $errors->has('password') ? 'has-error' : '' }}">
                                         <label for="password" class="form-label text-gray-700 font-medium">
-                                            <i class="fas fa-lock me-2 text-primary"></i>
+                                            <i class="fas fa-lock me-2"></i>
                                             {!! trans('forms.create_user_label_password') !!}
                                         </label>
                                         <div class="input-group">
@@ -246,7 +246,7 @@
                                     <div
                                         class="form-group mb-3 {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
                                         <label for="password_confirmation" class="form-label text-gray-700 font-medium">
-                                            <i class="fas fa-lock me-2 text-primary"></i>
+                                            <i class="fas fa-lock me-2"></i>
                                             {!! trans('forms.create_user_label_pw_confirmation') !!}
                                         </label>
                                         <div class="input-group">

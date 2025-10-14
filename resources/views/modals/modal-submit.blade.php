@@ -13,7 +13,7 @@
                     <div class="form-group">
                         <label for="name"> Name: </label>
                         <input type="text" class="form-control" placeholder="Enter Name" id="name"
-                            name="name">
+                            name="name" >
                     </div>
 
 
@@ -23,10 +23,12 @@
                     <button type="button" class="btn btn-secondary"
                         data-dismiss="modal">{{ trans('modals.form_modal_default_btn_cancel') }}</button>
 
-                    <button type="button" class="btn btn-success"
+                    <button type="submit" class="btn btn-success"
                         id="submit">{{ trans('modals.confirm_modal_button_save_text') }}</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+

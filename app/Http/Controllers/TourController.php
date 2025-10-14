@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TourStatus;
 use App\Models\Guide;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SearchRequest;
+use App\Http\Requests\StoreTourRequest;
 use App\Models\Tour;
 use App\Models\Place;
 use Carbon\Carbon;
@@ -21,14 +23,28 @@ class TourController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-           $paginationEnabled = config('usersmanagement.enablePagination');
-        if ($paginationEnabled) {
-            $tours = Tour::latest()->paginate(config('usersmanagement.paginateListSize'));
-        } else {
-            $tours = Tour::latest()->get();
-        }
+        $searchTerm = $request->input('search');
+        // return Tour::findOrFail(1);
+        // $paginationEnabled = config('usersmanagement.enablePagination');
+
+        $tours = Tour::search($searchTerm);
+
+        if (auth()->user()->isUser()) {
+            $tours = $tours->whereStatus(TourStatus::Available->value);
+        } else
+            $tours = $tours->where('guide_id', Auth::user()->id)->whereNot('status',TourStatus::InProgress->value);
+
+
+        // if ($searchTerm) {
+        //     $tours = $tours->where('name', 'LIKE', '%' . $searchTerm . '%')->paginate(config('usersmanagement.paginateListSize'));
+        // } else {
+            $tours = $tours->latest()->paginate(config('settings.paginateListSize'));
+            // $tours = Tour::latest()->get();
+        // }
+
+    // return $tours;
         return view('pages.tour.index', compact('tours'));
     }
 
@@ -39,8 +55,12 @@ class TourController extends Controller
      */
     public function create()
     {
-        $places =  Place::latest()->get();
-        return view('pages.tour.create', compact('places'));
+        // TODO: guide couldn't create other tour in the same or during the current tour is running
+        if (Auth()->user()->canCreateTours()) {
+            $places =  Place::latest()->get();
+            return view('pages.tour.create', compact('places'));
+        }
+        return redirect(route('user.tours.index'))->with('error', __('alerts.createPermission', ['type' => __('titles.tour')]));
     }
 
     /**
@@ -49,50 +69,13 @@ class TourController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTourRequest $request)
     {
-        $this->validate($request,[
-            'name' => 'required',
-            'price' => 'required|numeric|integer',
-            'day' => 'required|numeric|integer',
-            'date' => 'required|date',
-            'people' => 'required|numeric|integer',
-            // 'package_image' => 'required|mimes:jpeg,png,jpg',
-            'description' => 'required',
-            'places' => 'required',
-        ]);
-
-       // Get Form Image
-      $image = $request->file('image');
-      if (isset($image)) {
-
-         // Make Unique Name for Image
-        $currentDate = Carbon::now()->toDateString();
-        $imageName =$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
-
-
-      // Check Category Dir is exists
-
-          if (!Storage::disk('public')->exists('tourImage')) {
-             Storage::disk('public')->makeDirectory('tourImage');
-          }
-
-
-          // Resize Image for category and upload
-          $PlaceImage = Image::make($image)->resize(1000,600)->stream();
-          Storage::disk('public')->put('tourImage/'.$imageName,$PlaceImage);
-
-        }
-
-        $tour = new Tour();
-        $tour->added_by = Auth::user()->name;
-        $tour->name = $request->name;
-        $tour->price = $request->price;
-        $tour->day = $request->day;
-        $tour->people = $request->people;
-        $tour->description = $request->description;
-        $tour->image = $imageName;
-        $tour->save();
+        $inputs = $request->except('_token');
+        $inputs['remaining_seats'] = $inputs['max_seats'];
+        $inputs['guide_id'] = Auth::user()->id;
+        // dd($inputs);
+        $tour = Tour::create($inputs);
 
         $tour->places()->attach($request->places);
 
@@ -107,6 +90,8 @@ class TourController extends Controller
      */
     public function show(Tour $tour)
     {
+        // $tour = Tour::with('guide')->get();
+        // return $tour->guide;
         return view('pages.tour.show')->with('tour', $tour);
     }
 
@@ -118,67 +103,29 @@ class TourController extends Controller
      */
     public function edit(Tour $tour)
     {
-        $places =  Place::latest()->get();
-        return view('pages.tour.create')->with('tour', $tour)->with('places', $places);
+        if (Auth()->user()->canUpdateTours()) {
+            $places =  Place::latest()->get();
+            return view('pages.tour.create',compact('tour', 'places'));
+        }
+        return redirect(route('user.tours.index'))->with('error', __('alerts.editPermission', ['type' => __('titles.tour')]));
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified  resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreTourRequest $request, $id)
     {
-        $this->validate($request,[
-            'name' => 'required',
-            'price' => 'required|numeric|integer',
-            'day' => 'required|numeric|integer',
-            'date' => 'required|date',
-            'people' => 'required|numeric|integer',
-            'image' => 'mimes:jpeg,png,jpg',
-            'description' => 'required',
-            'places' => 'required',
-        ]);
-
         $tour = Tour::findOrFail($id);
-
-        // Get Form Image
-        $image = $request->file('image');
-        if (isset($image)) {
-
-        // Make Unique Name for Image
-        $currentDate = Carbon::now()->toDateString();
-        $imageName =$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
-
-
-      // Check Category Dir is exists
-
-          if (!Storage::disk('public')->exists('tourImage'))
-          {
-             Storage::disk('public')->makeDirectory('tourImage');
-          }
-
-          if(Storage::disk('public')->exists('tourImage/'.$tour->image))
-          {
-            Storage::disk('public')->delete('tourImage/'.$tour->image);
-          }
-
-
-            // Resize Image for category and upload
-            $PlaceImage = Image::make($image)->resize(1000,600)->stream();
-            Storage::disk('public')->put('tourImage/'.$imageName,$PlaceImage);
-            $tour->image = $imageName;
-        }
-
-        $tour->name = $request->name;
-        $tour->price = $request->price;
-        $tour->day = $request->day;
-        $tour->people = $request->people;
-        $tour->description = $request->description;
+        
+        $inputs = $request->safe()->all();
+        $inputs['remaining_seats'] = $inputs['max_seats'];
+        $inputs['guide_id'] = Auth::user()->id;
+        $tour->fill($inputs);
         $tour->save();
-
         $tour->places()->sync($request->places);
 
         return redirect(route('user.tours.index'))->with('success', __('alerts.tourUpdated'));
@@ -192,9 +139,8 @@ class TourController extends Controller
      */
     public function destroy(Tour $tour)
     {
-        if(Storage::disk('public')->exists('packageImage/'.$tour->package_image))
-        {
-            Storage::disk('public')->delete('packageImage/'.$tour->package_image);
+        if (Storage::disk('public')->exists('packageImage/' . $tour->package_image)) {
+            Storage::disk('public')->delete('packageImage/' . $tour->package_image);
         }
 
         $tour->places()->detach();
@@ -202,17 +148,9 @@ class TourController extends Controller
         return redirect(route('user.tours.index'))->with('success', __('alerts.tourDeleted'));
     }
 
-     public function search(SearchRequest $request)
-    {
-
-        $searchTerm = $request->input('search');
-
-        $results = Tour::where('name', 'like', $searchTerm . '%')
-            ->get();
-
-
-        return response()->json([
-            json_encode($results),
-        ], Response::HTTP_OK);
-    }
+  public function runningTours(){
+    $tours = Tour::where('status',TourStatus::InProgress->value)
+    ->paginate(config('settings.paginateListSize'));
+    return view ('pages.tour.running',compact('tours'));
+  }
 }

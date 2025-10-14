@@ -35,7 +35,7 @@
 
             $.ajax({
                 type:'POST',
-                url: "{{ route('user.search-users') }}",
+                url: "{{ route('search-users') }}",
                 data: searchform.serialize(),
                 success: function (result) {
                     let jsonData = JSON.parse(result);

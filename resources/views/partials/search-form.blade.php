@@ -1,24 +1,74 @@
 <div class="row">
     <div class="col-sm-8 offset-sm-4 col-md-6 offset-md-6 col-lg-5 offset-lg-7 col-xl-4 offset-xl-8">
-        {!! Form::open(['route' => "$route", 'method' => 'POST', 'role' => 'form', 'class' => 'needs-validation', 'id' => 'search_form']) !!}
-            {!! csrf_field() !!}
-            <div class="input-group mb-3">
-                {!! Form::text('search', NULL, ['id' => 'search', 'class' => 'form-control', 'placeholder' => trans('messages.search'), 'aria-label' => trans('messages.search'), 'required' => false]) !!}
-                <div class="input-group-append">
-                    <a href="#" class="input-group-addon btn btn-warning clear-search" id="clear_search" data-toggle="tooltip" title="{{ trans('tooltips.clearSearch') }}" style="display:none;">
-                        <i class="fa fa-fw fa-times" aria-hidden="true"></i>
-                        <span class="sr-only">
-                            {!! trans('tooltips.clearSearch') !!}
-                        </span>
-                    </a>
-                    <a href="#" class="input-group-addon btn btn-secondary" id="search_trigger" data-toggle="tooltip" data-placement="bottom" title="{{ trans('tooltips.submitSearch',['name'=>__('titles.tours')]) }}" >
-                        <i class="fa fa-search fa-fw" aria-hidden="true"></i>
-                        <span class="sr-only">
-                            {!!  trans('tooltips.submitSearch',['name'=>__('titles.tours')]) !!}
-                        </span>
-                    </a>
-                </div>
+        {!! Form::open([
+            'route' => "$route",
+            'method' => 'GET',
+            'role' => 'form',
+            'class' => 'needs-validation',
+            'id' => 'search_form',
+        ]) !!}
+        {{-- {!! csrf_field() !!} --}}
+        <div class="input-group mb-3">
+            {{-- @dd(request()->get('search')) --}}
+            {!! Form::text('search', request()->get('search'), [
+                'id' => 'search',
+                'class' => 'form-control',
+                'placeholder' => trans('messages.search'),
+                'aria-label' => trans('messages.search'),
+                'required' => false,
+            ]) !!}
+            <div class="input-group-append">
+                <button type="reset" class="input-group-addon btn btn-warning clear-search" id="clear_search"
+                    data-toggle="tooltip" title="{{ trans('tooltips.clearSearch') }}"
+                    @if (request()->get('search') == '') style="display:none;" @endif>
+                    <i class="fa fa-fw fa-times" aria-hidden="true"></i>
+                    <span class="sr-only">
+                        {!! trans('tooltips.clearSearch') !!}
+                    </span>
+                </button>
+                <button type="submit" class="input-group-addon btn btn-secondary" id="search_trigger"
+                    data-toggle="tooltip" data-placement="bottom"
+                    title="{{ trans('tooltips.submitSearch', ['name' => __('titles.tours')]) }}">
+                    <i class="fa fa-search fa-fw" aria-hidden="true"></i>
+                    <span class="sr-only">
+                        {!! trans('tooltips.submitSearch', ['name' => __('titles.tours')]) !!}
+                    </span>
+                </button>
             </div>
+        </div>
         {!! Form::close() !!}
     </div>
 </div>
+
+@push('scripts')
+    <script>
+        $(function() {
+            // إظهار زر الإلغاء عند الكتابة
+            let input = $('#search');
+            let clearBtn = $('#clear_search');
+            let searchBtn = $('#search_trigger');
+            let form = $('#search_form');
+
+            form.submit(function(e) {
+                if(input.val()=='')
+                    e.preventDefault()
+            })
+
+            input.keyup(function() {
+                if ($(this).val() != '') {
+                    clearBtn.show();
+
+                } else {
+                    clearBtn.hide();
+                }
+            });
+
+            // زر الإلغاء
+            clearBtn.click(function(e) {
+                e.preventDefault();
+                input.val('');
+                window.location.href = "{{ route($route) }}";
+            });
+        });
+    </script>
+@endpush

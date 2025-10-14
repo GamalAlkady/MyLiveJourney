@@ -18,13 +18,13 @@ use Intervention\Image\Facades\Image;
 class DashboardController extends Controller
 {
     public function index(){
-        $districts = District::latest()->get();
-        $placetypes = Placetype::latest()->get();
-        $places = Place::latest()->get();
-        $packages = Tour::latest()->get();
-        $users = User::latest()->get();
-        $guides = Guide::latest()->get();
-        return view('pages.dashboard', compact('districts', 'placetypes', 'places', 'packages', 'users', 'guides'));
+        $countDistricts = District::count();
+        $countPlacetypes = Placetype::count();
+        $countPlaces = Place::count();
+        $countTours = Tour::count();
+        $countUsers = User::users()->count();
+        $countGuides = User::guides()->count();
+        return view('pages.dashboard', compact('countDistricts', 'countPlacetypes', 'countPlaces', 'countTours', 'countUsers', 'countGuides'));
     }
 
 

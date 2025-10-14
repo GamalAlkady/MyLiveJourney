@@ -47,7 +47,7 @@ class RolesTableSeeder extends Seeder
          *
          */
         foreach ($RoleItems as $RoleItem) {
-            $newRoleItem = Role::where('slug', '=', $RoleItem['slug'])->first();
+            $newRoleItem = Role::withoutGlobalScope('notAdmin')->where('slug', '=', $RoleItem['slug'])->first();
             if (null === $newRoleItem) {
                 $newRoleItem = Role::create([
                     'id'            =>$RoleItem['id'],

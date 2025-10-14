@@ -19,7 +19,7 @@ class UsersTableSeeder extends Seeder
     public function run(): void
     {
         $faker = Factory::create();
-        $roles = Role::all();
+        $roles = Role::withoutGlobalScope('notAdmin')->get();
         foreach ($roles as $role) {
             $email = $role->slug.'@user.com';
             $this->createUser($faker, $email, $role);
@@ -29,6 +29,7 @@ class UsersTableSeeder extends Seeder
     private function createUser($faker, $email, $role)
     {
         $user = User::where('email', '=', $email)->first();
+        // dd($user->email);
         if (null === $user) {
             $user = User::create([
                 'name'                           => $faker->userName,

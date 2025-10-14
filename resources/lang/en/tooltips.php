@@ -24,5 +24,6 @@ return [
     'submitSearch' => 'Submit :name Search',
     'clearSearch'  => 'Clear Search Results',
     'permanentlyDelete' => 'Permanently Delete :name',
+    'bookingTour' => 'Booking Tour',
 
 ];

@@ -165,7 +165,7 @@ Route::group([
 ], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
-    Route::resource('users',"UsersManagementController", [
+    Route::resource('users', "UsersManagementController", [
         'names' => [
             // 'index'   => '',
             // 'destroy' => 'user.destroy',
@@ -175,52 +175,44 @@ Route::group([
         ],
     ]);
 
-
-    // Route::get('deleted', [\App\Http\Controllers\Admin\SoftDeletesController::class,'index'])->name('deleted');
-
-
-    Route::post('search-users', 'UsersManagementController@search')->name('search-users');
-    Route::post('search-places', 'PlaceController@search')->name('search-places');
-    Route::post('search-placetypes', 'TypeController@search')->name('search-placetypes');
-    Route::post('search-districts', 'DistrictController@search')->name('search-districts');
-    // Route::post('search-guides', 'GuideController@search')->name('search-guides');
-    Route::post('search-tours', 'TourController@search')->name('search-tours');
-    Route::post('search-booking', 'BookingController@search')->name('search-booking');
-
-
-
+    // Route::get('districts/?{search}','DistrictController@index');
     Route::resource('districts', 'DistrictController');
     Route::resource('placetypes', 'TypeController');
     Route::resource('places', 'PlaceController');
     Route::resource('tours', 'TourController');
 
     // Route::get('list', 'UsersController@guideList')->name('list');
-    Route::get('booking-request/list', 'BookingController@pendingBookingList')->name('pending.booking');
+    Route::get('bookings', 'BookingController@index')->name('bookings.index');
+    // Route::get('booking-request/list', 'BookingController@pendingBookingList')->name('pending.booking');
 
-    Route::get('tour-history/list', 'BookingController@tourHistory')->name('tour.history');
+    Route::get('booking-pending', 'BookingController@pendingBookings')->name('bookings.pending');
+    Route::get('booking-approved', 'BookingController@approvedBookings')->name('bookings.approved');
 
     Route::group(['middleware' => ['role:admin']], function () {
-    Route::get('guides', 'UsersManagementController@guideList')->name('guides');
-    Route::get('inactive-user/{user}', 'UsersManagementController@inactiveUser')->name('inactiveUser');
+        Route::get('guides', 'UsersManagementController@guideList')->name('guides');
+        Route::get('inactive-user/{user}', 'UsersManagementController@inactiveUser')->name('inactiveUser');
 
-    Route::put('active-user/{user}', 'UsersManagementController@activeUser')->name('activeUser');
+        Route::put('active-user/{user}', 'UsersManagementController@activeUser')->name('activeUser');
         // Route::get('settings', 'SettingsController@index')->name('settings');
         // Route::post('settings', 'SettingsController@store')->name('settings.store');
 
     });
 
     Route::group(['middleware' => ['role:admin|guide']], function () {
-    Route::get('running/packages/', 'BookingController@runningPackage')->name('package.running');
+        Route::get('running/tours/', 'TourController@runningTours')->name('tours.running');
         Route::post('running/package/complete/{id}', 'BookingController@runningPackageComplete')->name('package.running.complete');
-    Route::post('booking-request/approve/{id}', 'BookingController@bookingApprove')->name('booking.approve');
-    Route::post('booking-request/remove/{id}', 'BookingController@bookingRemoveByAdmin')->name('booking.remove');
+        Route::put('booking-request/approve/{booking}', 'BookingController@bookingApprove')->name('booking.approve');
+        Route::put('booking-request/reject/{booking}', 'BookingController@bookingReject')->name('booking.reject');
+        // Route::post('booking-request/remove/{id}', 'BookingController@bookingRemoveByAdmin')->name('booking.remove');
     });
 
 
     Route::group(['middleware' => ['role:user']], function () {
+        Route::post('booking/store', 'BookingController@store')->name('booking.store');
+        Route::delete('booking/destroy/{booking}', 'BookingController@destroy')->name('booking.destroy');
+        Route::put('booking-request/cancel/{booking}', 'BookingController@bookingCancel')->name('booking.cancel');
 
     });
-
 });
 
 
