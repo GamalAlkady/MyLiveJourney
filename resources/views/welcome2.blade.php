@@ -28,8 +28,8 @@
                         <div class="location-icon mb-4">
                             <i class="fa fa-map-marker fa-3x text-warning"></i>
                         </div>
-                        <h1 class="display-3 fw-bold text-white mb-4">{{ trans('titles.start_journey') }}</h1>
-                        <p class="lead text-white mb-5">{{ trans('titles.begin_adventure') }}</p>
+                        <h1 class="display-3 fw-bold text-white mb-4">Your Journey Starts Here</h1>
+                        <p class="lead text-white mb-5">Begin Your Adventure</p>
                     </div>
                 </div>
             </div>
@@ -49,8 +49,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="{{ route('all.place') }}"
-                class="btn btn-outline-primary btn-lg">{{ trans('titles.explore_amazing_places') }}</a>
+            <a href="{{ route('all.place') }}" class="btn btn-outline-primary btn-lg">عرض المزيد من الأماكن</a>
         </div>
     </div>
 
@@ -58,8 +57,8 @@
     <section class="features-section plan">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-4">رحلتي الحية</h2>
-                <p class="lead text-muted">استكشف العالم من حولك بتجربة تفاعلية تجمع بين الواقع والخيال</p>
+                <h2 class="display-4">خطط رحلتك بسهولة</h2>
+                <p class="lead text-muted">كل ما تحتاجه لرحلة مثالية</p>
             </div>
 
             <div class="row text-center">
@@ -69,7 +68,7 @@
                             <i class="fa fa-vr-cardboard"></i>
                         </div>
                         <h3>جولات افتراضية</h3>
-                        <p class="text-muted">استمتع بتجربة الأماكن وكأنك تزورها فعليًا</p>
+                        <p class="text-muted">اختر من بين جولاتنا</p>
                     </div>
                 </div>
 
@@ -79,7 +78,7 @@
                             <i class="fa fa-map"></i>
                         </div>
                         <h3>خطط رحلتي</h3>
-                        <p class="text-muted">صمّم خط سير رحلتك بسهولة خطوة بخطوة</p>
+                        <p class="text-muted">اختر وجهتك المفضلة</p>
                     </div>
                 </div>
 

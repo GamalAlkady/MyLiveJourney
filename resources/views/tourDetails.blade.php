@@ -1,6 +1,6 @@
 @extends('layouts.frontend.master')
 @section('title')
-    Tourist Guide - {{ $package->name }}
+    Tourist Guide - {{ $tour->name }}
 @endsection
 
 @section('css')
@@ -27,16 +27,16 @@
         <table class="table my-3">
             <tr>
                 <th>Package Name</th>
-                <td>{{ $package->name }}</td>
+                <td>{{ $tour->name }}</td>
             </tr>
             <tr>
                 <th>Package Added By</th>
-                <td>{{ $package->added_by }}</td>
+                <td>{{ $tour->added_by }}</td>
             </tr>
             <tr>
                 <th>Places</th>
                 <td>
-                    @foreach ($package->places as $place)
+                    @foreach ($tour->places as $place)
                         <span style="background: orange; color:black" class="px-3 py-2 m-2">
                             <strong>{{ $place->name }}</strong>
                         </span>
@@ -45,20 +45,20 @@
             </tr>
             <tr>
                 <th>Package Price</th>
-                <td>{{ $package->price }}</td>
+                <td>{{ $tour->price }}</td>
             </tr>
             <tr>
                 <th>People</th>
-                <td>{{ $package->people }}</td>
+                <td>{{ $tour->people }}</td>
             </tr>
             <tr>
                 <th>Day</th>
-                <td>{{ $package->day }}</td>
+                <td>{{ $tour->day }}</td>
             </tr>
         </table>
         <br>
         <h3 class="my-5" style="color: whitesmoke; background-color: black; padding:12px;">Description & rules: </h3>
-       <div style="text-align: justify">  {!! $package->description !!}</div>
+       <div style="text-align: justify">  {!! $tour->description !!}</div>
     </div>
 </div>
 

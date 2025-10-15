@@ -31,12 +31,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $places = Place::with('placetype')->get()->take(4);
+        $places = Place::with('placetype')->get()->take(6);
         $placetypes = Placetype::all();
-        $packages = Tour::all()->take(3);
+        $tours = Tour::all()->take(3);
         $districts = District::latest()->get();
 
-        return view('welcome', compact('places', 'packages', 'districts', 'placetypes'));
+        return view('welcome', compact('places', 'tours', 'districts', 'placetypes'));
     }
 
     public function districtWisePlace($id){
@@ -66,21 +66,21 @@ class HomeController extends Controller
         return view('placeDetails', compact('place'));
     }
 
-    public function packageDetails($id)
+    public function tourDetails($id)
     {
-        $package = Tour::find($id);
-        return view('packageDetails', compact('package'));
+        $tour = Tour::find($id);
+        return view('tourDetails', compact('tour'));
     }
 
     public function allPlace(){
-        $places = Place::latest()->paginate(12);
+        $places = Place::latest()->paginate(6);
         return view('allPlaces', compact('places'));
     }
 
 
-    public function allPackage(){
-        $packages = Tour::latest()->paginate(12);
-        return view('allPackages', compact('packages'));
+    public function allTours(){
+        $tours = Tour::latest()->paginate(12);
+        return view('allTours', compact('tours'));
     }
 
     public function search(Request $request){
@@ -89,12 +89,12 @@ class HomeController extends Controller
         return view('searchResult', compact('places'));
     }
 
-    public function packageBooking($id){
+    public function tourBooking($id){
 
 
         $guides = Guide::where('status', 1)->get();
-        $package = Tour::where('id', $id)->first();
-        return view('bookingForm', compact('guides', 'package'));
+        $tour = Tour::where('id', $id)->first();
+        return view('bookingForm', compact('guides', 'tour'));
     }
 
     public function storeBookingRequest(Request $request){
@@ -109,17 +109,17 @@ class HomeController extends Controller
 
         $guide_id = $request->guide;
         $date = $request->date;
-        $package_id = $request->package_id;
-        $package_name = $request->package_name;
-        $package_price = $request->package_price;
+        $tour_id = $request->tour_id;
+        $tour_name = $request->tour_name;
+        $tour_price = $request->tour_price;
         $day = $request->day;
 
 
         $book = new Booking();
-        $book->package_name = $package_name;
-        $book->price = $package_price;
+        $book->tour_name = $tour_name;
+        $book->price = $tour_price;
         $book->date = $date;
-        $book->package_id = $package_id;
+        $book->tour_id = $tour_id;
         $book->guide_id = $guide_id;
         $book->day = $day;
         $book->tourist_id = Auth::id();

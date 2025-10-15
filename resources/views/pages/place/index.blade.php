@@ -87,7 +87,7 @@
                                             {{-- Button for delete user --}}
                                             @permission('delete.places')
                                                 {!! Form::open([
-                                                    'url' => 'place/' . $place->id,
+                                                    'url' => route('user.places.destroy', $place->id),
                                                     'class' => 'd-inline-block flex-fill',
                                                     'data-toggle' => 'tooltip',
                                                     'title' => 'Delete',
@@ -99,7 +99,7 @@
                                                     'data-toggle' => 'modal',
                                                     'data-target' => '#confirmDelete',
                                                     'data-title' => __('modals.ConfirmDeleteTitle', ['name' => __('titles.place')]),
-                                                    'data-message' => trans('modals.ConfirmDeleteMessage', ['name' => $place->name]),
+                                                    'data-message' => trans('modals.ConfirmDeleteMessage', ['name' => '<strong class="text-danger">'. $place->name .'</strong>']),
                                                 ]) !!}
                                                 {!! Form::close() !!}
                                             @endpermission

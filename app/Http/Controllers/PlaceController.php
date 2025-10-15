@@ -196,7 +196,6 @@ class PlaceController extends Controller
      */
     public function destroy(Place $place)
     {
-
         $place->delete();
         return redirect(route('user.places.index'))->with('success', 'Place Information deleted Successfully');
     }

@@ -18,7 +18,7 @@
           <a class="nav-link" href="{{ route('all.place') }}">Places</a>
         </li>
          <li class="nav-item">
-          <a class="nav-link" href="{{ route('all.package') }}">Packages</a>
+          <a class="nav-link" href="{{ route('all.tours') }}">{{__('titles.models.tours')}}</a>
         </li>
 
               @guest

@@ -26,14 +26,14 @@ Route::group(['middleware' => ['web', 'checkblocked']], function () {
     Route::get('/about', 'App\Http\Controllers\HomeController@about')->name('about');
     Route::get('/search', 'App\Http\Controllers\HomeController@search')->name('search');
     Route::get('/place/details/{id}', 'App\Http\Controllers\HomeController@placeDdetails')->name('place.details');
-    Route::get('/package/details/{id}', 'App\Http\Controllers\HomeController@packageDetails')->name('package.details');
+    Route::get('/tour/details/{id}', 'App\Http\Controllers\HomeController@tourDetails')->name('tour.details');
     Route::get('/place-list', 'App\Http\Controllers\HomeController@allPlace')->name('all.place');
-    Route::get('/package-list', 'App\Http\Controllers\HomeController@allPackage')->name('all.package');
+    Route::get('/tour-list', 'App\Http\Controllers\HomeController@allTours')->name('all.tours');
     Route::get('/district/{id}', 'App\Http\Controllers\HomeController@districtWisePlace')->name('district.wise.place');
     Route::get('/placetype/{id}', 'App\Http\Controllers\HomeController@placetypeWisePlace')->name('placetype.wise.place');
 
-    Route::get('/package/booking/{id}', 'App\Http\Controllers\HomeController@packageBooking')->name('package.booking');
-    Route::get('/package/booking', 'App\Http\Controllers\HomeController@storeBookingRequest')->name('store.package.booking');
+    Route::get('/tour/booking/{id}', 'App\Http\Controllers\HomeController@tourBooking')->name('tour.booking');
+    Route::get('/tour/booking', 'App\Http\Controllers\HomeController@storeBookingRequest')->name('store.tour.booking');
 });
 
 
@@ -200,7 +200,7 @@ Route::group([
 
     Route::group(['middleware' => ['role:admin|guide']], function () {
         Route::get('running/tours/', 'TourController@runningTours')->name('tours.running');
-        Route::post('running/package/complete/{id}', 'BookingController@runningPackageComplete')->name('package.running.complete');
+        Route::post('running/tour/complete/{id}', 'BookingController@runningtourComplete')->name('tour.running.complete');
         Route::put('booking-request/approve/{booking}', 'BookingController@bookingApprove')->name('booking.approve');
         Route::put('booking-request/reject/{booking}', 'BookingController@bookingReject')->name('booking.reject');
         // Route::post('booking-request/remove/{id}', 'BookingController@bookingRemoveByAdmin')->name('booking.remove');
@@ -241,8 +241,8 @@ Route::group([
 //     Route::get('guides', 'DashboardController@getGuides')->name('guide');
 //     Route::get('guide/{id}', 'DashboardController@getGuideDetails')->name('guide.show');
 
-//     Route::get('packages', 'DashboardController@getPackage')->name('package');
-//     Route::get('packages/{id}', 'DashboardController@getPackageDetails')->name('package.show');
+//     Route::get('tours', 'DashboardController@gettour')->name('tour');
+//     Route::get('tours/{id}', 'DashboardController@gettourDetails')->name('tour.show');
 
 
 //     Route::get('tour-history/list', 'BookingController@tourHistory')->name('tour.history');

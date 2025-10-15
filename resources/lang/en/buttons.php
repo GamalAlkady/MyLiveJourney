@@ -44,4 +44,6 @@ return [
     'approve'   => '<i class="fa fa-check fa-fw" aria-hidden="true"></i> Approve',
     'reject'   => '<i class="fa fa-times fa-fw" aria-hidden="true"></i> Reject',
 
+    'more_details'   => '<i class="fa fa-info fa-fw" aria-hidden="true"></i> More Details'
+
 ];

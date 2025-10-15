@@ -30,4 +30,22 @@ return [
     'cancelled' => '<span class="badge badge-danger">Cancelled</span>',
     'approved' => '<span class="badge badge-primary">Approved</span>',
 
+    'features' => [
+        [
+            'title' => 'Virtual Tours',
+            'description' => 'Experience destinations as if you were really there.',
+        ],
+        [
+            'title' => 'Plan My Trip',
+            'description' => 'Design your travel itinerary easily, step by step.',
+        ],
+        [
+            'title' => 'Tour Assistant',
+            'description' => 'Connect with local guides for any question or advice.',
+        ],
+        [
+            'title' => 'Comprehensive Organization',
+            'description' => 'We help you arrange every detail of your trip from start to finish.',
+        ],
+    ],
 ];
