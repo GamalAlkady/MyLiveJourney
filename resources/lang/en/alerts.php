@@ -31,8 +31,6 @@ return [
     'bookingUpdated' => 'Booking updated successfully.',
     'bookingDeleted' => 'Booking deleted successfully.',
 
-    'tourError'   => 'There was an error processing the tour. Please try again.',
-
     'createPermission' => 'You do not have permission to create a :type.',
     'editPermission' => 'You do not have permission to update a :type.',
     'deletePermission' => 'You do not have permission to delete a :type.',
@@ -43,5 +41,13 @@ return [
     'bookingRequestRejected' => 'Booking request rejected successfully.',
     'bookingRequestCancelled' => 'Booking request cancelled successfully.',
     'bookingRequestFailed' => 'Booking request could not be processed. Please try again.',
+
+
+    'no_items_found'=> 'No :type Found Right Now.',
+    'no_item_in_ditrict'=> 'No :type Found In This District Right Now.',
+    'no_item_in_type'=> 'No :type Found In This Type Right Now.',
+    'no_results_found'=> 'No Results Found Right Now.',
+    'no_available_placestypes' =>'There are no available places types currently.',
+
 
 ];

@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="h3 mb-0 text-gray-800">
-                    {!! trans('titles.icon_text.placetypes') !!} {{ __('titles.data') }}
+                    {!! trans('titles.icon.placetypes') !!} {{ __('titles.data') }}
                 </h1>
                 {{-- <a href="{{ route('user.users.index') }}" class="btn btn-light">
                     {!! trans('buttons.back_to', ['name' => __('usersmanagement.users')]) !!}
@@ -188,7 +188,7 @@
                         // }
                     },
                     @endpermission
-                    defaultTitle: `{!! __('titles.icon_text.placetypes') !!}({{ $types->count() }})`,
+                    defaultTitle: `{!! __('titles.icon.placetypes') !!}({{ $types->count() }})`,
                 });
             });
         </script> --}}

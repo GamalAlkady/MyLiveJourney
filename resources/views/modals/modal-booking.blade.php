@@ -96,7 +96,7 @@
 
                 var self = $(this);
 
-                self.alterClass('modal-*', modalClass)
+                self.addClass('modal-' + modalClass)
                 self.find('.modal-title').text(title);
                 self.find('form').attr('action', action);
                 self.find('form input[name="seats"]').attr('max', parseInt(remindingSeats));

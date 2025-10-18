@@ -1,6 +1,7 @@
 <?php
 // File: app/Helpers/custom_helpers.php
 
+use App\Helpers\IconHelper;
 use Illuminate\Support\Facades\Auth;
 
 if (!function_exists('formatPrice')) {
@@ -54,5 +55,12 @@ if (!function_exists('rolePrefix')) {
     function rolePrefix()
     {
         return session('role', 'user'); // قيمة افتراضية
+    }
+}
+
+if (!function_exists('icon')) {
+    function icon(string $name, ?string $class = null): string
+    {
+        return IconHelper::get($name, $class);
     }
 }

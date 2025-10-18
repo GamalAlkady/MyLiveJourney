@@ -27,8 +27,8 @@ Route::group(['middleware' => ['web', 'checkblocked']], function () {
     Route::get('/search', 'App\Http\Controllers\HomeController@search')->name('search');
     Route::get('/place/details/{id}', 'App\Http\Controllers\HomeController@placeDdetails')->name('place.details');
     Route::get('/tour/details/{id}', 'App\Http\Controllers\HomeController@tourDetails')->name('tour.details');
-    Route::get('/place-list', 'App\Http\Controllers\HomeController@allPlace')->name('all.place');
-    Route::get('/tour-list', 'App\Http\Controllers\HomeController@allTours')->name('all.tours');
+    Route::get('/place-list', 'App\Http\Controllers\HomeController@allPlace')->name('places');
+    Route::get('/tour-list', 'App\Http\Controllers\HomeController@allTours')->name('tours');
     Route::get('/district/{id}', 'App\Http\Controllers\HomeController@districtWisePlace')->name('district.wise.place');
     Route::get('/placetype/{id}', 'App\Http\Controllers\HomeController@placetypeWisePlace')->name('placetype.wise.place');
 
@@ -61,7 +61,7 @@ Route::group(['middleware' => ['web', 'activity', 'checkblocked']], function () 
 Route::group(['middleware' => ['auth', 'activated', 'activity', 'checkblocked']], function () {
     // Activation Routes
     Route::get('/activation-required', ['uses' => 'App\Http\Controllers\Auth\ActivateController@activationRequired'])->name('activation-required');
-    Route::get('/logout', ['uses' => 'App\Http\Controllers\Auth\LoginController@logout'])->name('logout');
+    // Route::get('/logout', ['uses' => 'App\Http\Controllers\Auth\LoginController@logout'])->name('logout');
 });
 
 // Registered and Activated User Routes

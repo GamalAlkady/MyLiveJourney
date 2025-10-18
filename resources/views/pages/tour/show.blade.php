@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="h3 mb-0 text-gray-800">
-                    {!! trans('titles.icon_text.tour') !!} {{ __('titles.details') }}
+                    {!! trans('titles.icon.tour') !!} {{ __('titles.details') }}
                 </h1>
                 <a href="{{ route('user.tours.index') }}" class="btn btn-light btn-sm px-3 py-2 rounded hover-effect me-2">
                     {!! trans('buttons.back_to', ['name' => __('titles.tours')]) !!}
@@ -123,7 +123,7 @@
                     <!-- الأماكن -->
                     <div class="mt-4">
                         <h5 class="mb-3">
-                            {!! __('titles.icon_text.places') !!}
+                            {!! __('titles.icon.places') !!}
                         </h5>
                         <div class="d-flex flex-wrap">
                             @foreach ($tour->places as $place)

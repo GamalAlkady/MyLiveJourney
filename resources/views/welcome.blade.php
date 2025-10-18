@@ -1,6 +1,6 @@
 @extends('layouts.frontend.master')
 @section('title')
-    Tourist Guide - Home
+    {{ trans('titles.home') }}
 @endsection
 
 @section('css')
@@ -40,7 +40,7 @@
     {{-- Amazing Places Section --}}
     <div class="container py-5">
         <div class="text-center mb-5">
-            <h2 class="display-4">{{ trans('titles.amazing_places') }}</h2>
+            <h2 class="display-4">{{ trans_choice('titles.amazing_places',0) }}</h2>
             <p class="lead text-muted">{{ trans('titles.discover_the_destinations') }}</p>
         </div>
 
@@ -49,8 +49,8 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="{{ route('all.place') }}"
-                class="btn btn-outline-primary btn-lg">{{ trans('titles.explore_amazing_places') }}</a>
+            <a href="{{ route('places') }}"
+                class="btn btn-outline-primary btn-lg">{!! trans('buttons.view_all') !!}</a>
         </div>
     </div>
 
@@ -58,51 +58,23 @@
     <section class="features-section plan">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-4">رحلتي الحية</h2>
-                <p class="lead text-muted">استكشف العالم من حولك بتجربة تفاعلية تجمع بين الواقع والخيال</p>
+                <h2 class="display-4">{{ trans('messages.features_section.title') }}</h2>
+                <p class="lead text-muted">{{ trans('messages.features_section.description') }}</p>
             </div>
 
             <div class="row text-center">
-                <div class="col mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fa fa-vr-cardboard"></i>
+                @foreach (__('messages.features_section.features') as $key => $feature)
+                    <div class="col mb-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fa {{ $feature['icon'] }}"></i>
+                            </div>
+                            <h3>{{ $feature['title'] }}</h3>
+                            <p class="text-muted">{{ $feature['description'] }}</p>
                         </div>
-                        <h3>جولات افتراضية</h3>
-                        <p class="text-muted">استمتع بتجربة الأماكن وكأنك تزورها فعليًا</p>
-                    </div>
-                </div>
-
-                <div class="col mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fa fa-map"></i>
-                        </div>
-                        <h3>خطط رحلتي</h3>
-                        <p class="text-muted">صمّم خط سير رحلتك بسهولة خطوة بخطوة</p>
-                    </div>
-                </div>
-
-
-                <div class="col mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fa fa-comments"></i>
-                        </div>
-                        <h3>مساعد سياحي</h3>
-                        <p class="text-muted">دعم فني متخصص</p>
-                    </div>
-                </div>
-
-                <div class="col mb-4">
-                    <div class="feature-card">
-                        <div class="feature-icon">
-                            <i class="fa fa-sitemap"></i>
-                        </div>
-                        <h3>تنظيم متكامل</h3>
-                        <p class="text-muted">رحلات منظمة بعناية فائقة</p>
-                    </div>
-                </div>
+                    </div>          
+                @endforeach
+          
             </div>
         </div>
     </section>
@@ -110,60 +82,16 @@
     {{-- tours Section --}}
     <div class="container py-5">
         <div class="text-center mb-5">
-            <h2 class="display-4">باقاتنا المميزة</h2>
-            <p class="lead text-muted">اختر ما يناسبك من باقاتنا المتنوعة</p>
+            <h2 class="display-4">{{ trans('messages.featured_tours.title') }}</h2>
+            <p class="lead text-muted">{{ trans('messages.featured_tours.description') }}</p>
         </div>
 
         <div class="row">
-            @forelse ($tours as $tour)
-                <div class="col-md-4 mb-4">
-                    <div class="card h-100">
-                        <div class="tour-places-images">
-                            @foreach ($tour->places as $place)
-                                <div class="place-thumbnail">
-                                    <img src="{{ asset('storage/place/' . $place->image) }}" alt="{{ $place->name }}"
-                                        class="place-img" data-toggle="tooltip" title="{{ $place->name }}">
-                                </div>
-                            @endforeach
-                        </div>
-
-                        {{-- <img src="{{ asset('storage/tourImage/' . $tour->tour_image) }}" class="card-img-top" --}}
-                        {{-- alt="{{ $tour->name }}"> --}}
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $tour->name }}</h5>
-                            <p class="card-text">
-                                <strong>السعر:</strong> {{ $tour->price }}<br>
-                                <strong>عدد الأشخاص:</strong> {{ $tour->people }}
-                            </p>
-                        </div>
-                        <div class="card-footer bg-white border-0">
-                            <div class="d-flex justify-content-between">
-                                <a href="{{ route('tour.details', $tour->id) }}"
-                                    class="btn btn-outline-primary">التفاصيل</a>
-                                @auth
-                                    @role('user')
-                                        <a href="{{ route('tour.booking', $tour->id) }}" class="btn btn-primary">احجز
-                                            الآن</a>
-                                    @endrole
-                                @endauth
-                                @guest
-                                    <a href="{{ route('login') }}" class="btn btn-primary">احجز الآن</a>
-                                @endguest
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <div class="col-12">
-                    <div class="alert alert-info text-center p-5">
-                        <h3>لم يتم العثور على باقات. الرجاء إضافة بعض الباقات.</h3>
-                    </div>
-                </div>
-            @endforelse
+        @each('partials.tour-card',$tours ,'tour','partials.empty' )
         </div>
 
         <div class="text-center mt-4">
-            <a href="{{ route('all.tours') }}" class="btn btn-primary btn-lg">عرض جميع الباقات</a>
+            <a href="{{ route('tours') }}" class="btn btn-outline-primary btn-lg">{{ trans('buttons.view_all') }}</a>
         </div>
     </div>
 
@@ -171,8 +99,8 @@
     <section class="bg-light py-5">
         <div class="container">
             <div class="text-center mb-5">
-                <h2 class="display-4">استكشف حسب المنطقة</h2>
-                <p class="lead text-muted">اختر وجهتك المفضلة</p>
+                <h2 class="display-4">{{ trans('messages.explore_by_district') }}</h2>
+                <p class="lead text-muted">{{ trans('messages.choose_your_destination') }}</p>
             </div>
 
             <div class="row justify-content-center">
@@ -185,7 +113,7 @@
                 @empty
                     <div class="col-12">
                         <div class="alert alert-info text-center">
-                            <h3>لم يتم العثور على مناطق. الرجاء إضافة بعض المناطق.</h3>
+                            <h3>{{ trans('alerts.no_districts') }}</h3>
                         </div>
                     </div>
                 @endforelse
@@ -198,7 +126,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-8 text-center">
-                    <h2 class="display-4 mb-4">ابحث عن وجهتك</h2>
+                    <h2 class="display-4 mb-4">{{ trans('messages.search_your_destination') }}</h2>
                     <form action="{{ route('search') }}" method="GET" class="mb-3">
                         @csrf
                         @if (session('search'))
@@ -207,9 +135,9 @@
                             </div>
                         @endif
                         <div class="input-group">
-                            <input type="text" class="form-control form-control-lg" placeholder="ابحث عن مكان..."
+                            <input type="text" class="form-control form-control-lg" placeholder="{{ trans('forms.placeholders.search_placeholder') }}"
                                 name="query">
-                            <button type="submit" class="btn btn-light btn-lg">بحث</button>
+                            <button type="submit" class="btn btn-light btn-lg">{{ trans('buttons.search') }}</button>
                         </div>
                     </form>
                 </div>
@@ -220,7 +148,7 @@
     {{-- Social Media Section --}}
     <section class="py-5">
         <div class="container text-center">
-            <h3 class="mb-4">تابعنا على وسائل التواصل الاجتماعي</h3>
+            <h3 class="mb-4">{{ trans('messages.follow_us') }}</h3>
             <div class="social-icon d-flex justify-content-center gap-4">
                 <a href="https://www.facebook.com/" target="_blank"><img src="{{ asset('frontend/img/facebook.png') }}"
                         alt="Facebook"></a>

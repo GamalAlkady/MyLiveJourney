@@ -48,12 +48,3 @@
 
 
 @endsection
-
-@section('scripts')
-   
-@endsection
-
-@section('css')
-
-@endsection
-      

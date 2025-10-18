@@ -7,7 +7,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="h3 mb-0 text-gray-800">
-                    {!! trans('titles.icon_text.running_tours') !!} {{ __('titles.data') }}
+                    {!! trans('titles.icon.running_tours') !!} {{ __('titles.data') }}
                 </h1>
                 {{-- <a href="{{ route('user.users.index') }}" class="btn btn-light">
                     {!! trans('buttons.back_to', ['name' => __('usersmanagement.users')]) !!}

@@ -30,10 +30,11 @@
             </div>
         </div>
     @empty
-        <div class="col-12">
+    @include('partials.empty')
+        {{-- <div class="col-12">
             <div class="no-places">
                 <h2><i class="fa fa-info-circle"></i> لم يتم العثور على أماكن. يرجى إضافة بعض الأماكن.</h2>
             </div>
-        </div>
+        </div> --}}
     @endforelse
 </div>

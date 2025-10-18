@@ -22,20 +22,12 @@
             </div>
        @else
         
-            <h2 class="my-5">Please update your about information</h2> 
+            {!! __('messages.about') !!}
        @endisset
     </div>
 </div>
 
-
-
 @endsection
 
-@section('scripts')
-   
-@endsection
 
-@section('css')
-
-@endsection
       

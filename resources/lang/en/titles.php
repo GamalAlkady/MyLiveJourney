@@ -2,13 +2,15 @@
 
 return [
 
-    'app'               => 'Laravel',
-    'app2'              => 'Auth :version',
+    'app'               => 'MyLiveJourney',
+    'MyLiveJourney'     => 'My Live Journey',
     'auth'              => 'Auth',
     'home'              => 'Home',
+    'aboutus' => 'About Us',
     'homepage'          => 'Homepage',
     'login'             => 'Login',
     'logout'            => 'Logout',
+    'signup'          => 'Sign Up',
     'register'          => 'Register',
     'resetPword'        => 'Reset Password',
     'toggleNav'         => 'Toggle Navigation',
@@ -18,12 +20,12 @@ return [
     'adminDropdownNav'  => 'Admin',
     'dashboard'         => 'Dashboard',
     'bookingTour'        => 'Booking Tour',
-
+    'tourDetails'       => 'Tour Details',
+    'tourList'          => 'Tour List',
     'activation'        => 'Registration Started  | Activation Required',
     'exceeded'          => 'Activation Error',
+    'our_services' => 'Our Services',
 
-    'editProfile'       => 'Edit Profile',
-    'createProfile'     => 'Create Profile',
     'adminUserList'     => 'Users Administration',
     'adminEditUsers'    => 'Edit Users',
     'adminNewUser'      => 'Create New User',
@@ -49,22 +51,25 @@ return [
 
     'tour'               => 'Tour',
     'tours'             => 'Tours',
+    'all_tours'             => 'All Tours',
     'tour_image'      => 'Tour Image',
     'place'             => 'Place',
     'placeGallery'      =>'Place Gallery',
     'quickInformation'  =>'Quick Information',
     'places'             => 'Places',
+    'all_places'             => 'All Places',
     'district'           => 'District',
     'districts'          => 'Districts',
     'placetypes'         => 'Place Types',
     'placetype'         => 'Place Type',
     'booking_request' => 'Booking Request',
-    'running_tours' => 'Running Tours',
     'tour_history' => 'Tour History',
 
+    'explore_available_tours' => 'Explore Available Tours',
+    'view_all_tours' => 'View All Tours',
     'placeDetails' => 'Place Details',
     'explore_tourist_attractions' => 'Explore Tourist Attractions',
-    'amazing_places' => 'Amazing Places',
+    'amazing_places' => '{0} Amazing Places|{1} Amazing Place in ":name"|[2,*] Amazing Places in ":name"',
     'discover_the_destinations' => 'Discover the Most Beautiful Destinations',
     'start_journey' => 'Your Journey Starts Here',
     'begin_adventure' => 'Begin Your Adventure',
@@ -86,12 +91,11 @@ return [
     'no_packages' => 'No packages found. Please add some packages.',
     'view_all_packages' => 'View All Packages',
     'explore_by_region' => 'Explore by Region',
-    'choose_destination' => 'Choose Your Destination',
     'no_regions' => 'No regions found. Please add some regions.',
     'search_destination' => 'Search Your Destination',
     'search_placeholder' => 'Search for a place...',
     'search' => 'Search',
-    'follow_us' => 'Follow Us on Social Media',
+    'follow_us' => 'Follow Us on ',
     'bookNow' => 'Book Now',
     'booked' => 'Booked',
     
@@ -111,7 +115,6 @@ return [
     'data'              => 'Data',
     'list'              => 'List',
     'all'               =>'All',
-    'details'            => 'Details',
     'pending_bookings' => 'Pending Bookings',
     'pending_tours' => 'Pending Tours',
     'running_tours' => 'Running Tours',
@@ -134,7 +137,7 @@ return [
         'themes'=> 'Themes',
 
     ],
-    'icon_text' => [
+    'icon' => [
         'dashboard'         => '<i class="fas fa-tachometer-alt me-1"></i> Dashboard',
         'user'              => '<i class="fas fa-users me-1"></i> User',
         'users'             => '<i class="fas fa-users me-1"></i> Users',
@@ -163,5 +166,14 @@ return [
 
     // Messages
     'showingAll'    => 'Showing All :name',
+
+    'footer'=>[
+        'safe_reliable'=>'Safe and reliable',
+        'low-cost'=>'Low-cost Tour',
+        'secure'=>'Secure',
+        'talented_guides'=>'Talented Guides',
+        'suppor'=>'24/7 Support',
+        'contact_us'=>'Contact Us',
+    ],
 
 ];

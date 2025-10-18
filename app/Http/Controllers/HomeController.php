@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TourStatus;
 use App\Models\About;
 use App\Models\Booking;
 use App\Models\District;
@@ -53,10 +54,10 @@ class HomeController extends Controller
 
     public function about()
     {
-        if(About::all()->count() > 0){
-            $about = About::all()->first();
-            return view('about', compact('about'));
-        }
+        // if(About::all()->count() > 0){
+        //     $about = About::all()->first();
+        //     return view('about', compact('about'));
+        // }
         return view('about');
     }
 
@@ -79,7 +80,7 @@ class HomeController extends Controller
 
 
     public function allTours(){
-        $tours = Tour::latest()->paginate(12);
+        $tours = Tour::whereStatus(TourStatus::Available->value)->latest()->paginate(12);
         return view('allTours', compact('tours'));
     }
 

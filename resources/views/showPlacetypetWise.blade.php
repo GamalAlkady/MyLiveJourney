@@ -4,56 +4,30 @@
 @endsection
 
 @section('css')
-<style>
-    .places{
-        margin-top: 60px;
-        margin-bottom: 60px;
-    }
-</style>
+    <style>
+        .places {
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+    </style>
 @endsection
 
 
 
 @section('content')
+<div class="places-section">
+    <div class="container">
+        <div class="section-title">
+            <h1><strong>{{ trans_choice('titles.amazing_places', $places->count(), ['name' => $placetype->name]) }}</strong>
+            </h1>
+        </div>
+        <x-place-card :places="$places" />
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <a href="{{ route('welcome') }}"
+                    class="btn btn-light my-5">{!! trans('buttons.back_to', ['name' => __('titles.home')]) !!}</a>
+            </div>
 
-
-<div class="container all-places">
-    <div class="row justify-content-center py-5">
-        <h1><strong>Amazing Places in "{{ $placetype->name }} Category"</strong></h1>
+        </div>
+     
     </div>
-    <div class="row">
-        @forelse ($places as $place)
-            <div class="col-md-4 my-3">
-                <div class="card">
-                    <div class="card-header">
-                        <img  src="{{ asset('storage/place/'. $place->image) }}" alt="" srcset="" class="img-fluid" style="height: 190px; border-radius: 5%">
-                    </div>
-                    <div class="card-body">
-                        <h2><strong>{{ $place->name }}</strong></h2>
-                        <p>District: <strong>{{ $place->district->name }}</strong></p>
-                        <p>Place Type: <strong>{{ $place->placetype->name }}</strong></p>
-                        <a href="{{ route('place.details', $place->id) }}" class="btn btn-success">Details</a>
-                    </div>
-                </div>
-            </div> 
-        @empty
-            <h2 class="my-5 bg-info text-white text-center p-3">No Place Found In This Type Right Now.</h2>
-        @endforelse
-    </div>
-    <div class="row">
-        <a href="{{ route('welcome') }}" class="btn btn-danger my-5">Back to home</a>
-    </div>
-</div>
-
-
-
-@endsection
-
-@section('scripts')
-   
-@endsection
-
-@section('css')
-
-@endsection
-      

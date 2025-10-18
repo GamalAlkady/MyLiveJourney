@@ -27,6 +27,7 @@ return [
 
     'back_to'       => '<i class="fas fa-arrow-left" style="margin-inline-end:5px;"></i><span class="hidden-sm hidden-xs">Back to </span><span class="hidden-xs">:name</span>',
     'back_to1'      => '<i class="fas fa-reply" style="margin-inline-end:5px;"></i><span class="hidden-sm hidden-xs">Back to </span><span class="hidden-xs">:name</span>',
+    'back'          => '<span class="hidden-xs">Back</span> <i class="fa fa-reply fa-fw" aria-hidden="true"></i>',
     'go_to'         => '<span class="hidden-xs">Go to </span><span class="hidden-xs">:name</span>',
     'restore'       => '<i class="fa fa-refresh fa-fw" aria-hidden="true"></i>  <span class="hidden-xs">Restore</span>',
     'cancel'         => '<i class="fa fa-fw fa-times" aria-hidden="true"></i> Cancel',
@@ -43,7 +44,9 @@ return [
     'complete'   => '<i class="fa fa-check fa-fw" aria-hidden="true"></i> Complete',
     'approve'   => '<i class="fa fa-check fa-fw" aria-hidden="true"></i> Approve',
     'reject'   => '<i class="fa fa-times fa-fw" aria-hidden="true"></i> Reject',
-
-    'more_details'   => '<i class="fa fa-info fa-fw" aria-hidden="true"></i> More Details'
+    'search' => 'Search',
+    'book_now'   => 'Book Now',
+    'more_details'   => '<i class="fa fa-info fa-fw" aria-hidden="true"></i> More Details',
+    'view_all'   => 'View All'
 
 ];

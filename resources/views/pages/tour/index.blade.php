@@ -14,7 +14,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="h3 mb-0 text-gray-800">
-                    {!! trans('titles.icon_text.tours') !!} {{ __('titles.data') }}
+                    {!! trans('titles.icon.tours') !!} {{ __('titles.data') }}
                 </h1>
                 {{-- <a href="{{ route('user.users.index') }}" class="btn btn-light">
                     {!! trans('buttons.back_to', ['name' => __('usersmanagement.users')]) !!}
@@ -61,7 +61,7 @@
                                     <th>{!! trans('forms.labels.icon.start_date') !!}</th>
                                     <th>{!! trans('forms.labels.icon.end_date') !!}</th>
                                     <th>{!! trans('forms.labels.icon.remaining_seats') !!}</th>
-                                    <th><a  href="{{ route('user.bookings.pending') }}">{!! trans('forms.labels.icon.pending_seats') !!}</a></th>
+                                    <th><a  href="{{ route('user.bookings.pending') }}">{!! trans('forms.labels.pending_bookings') !!}</a></th>
                                     <th>{!! trans('forms.labels.icon.status') !!}</th>
                                     <th>{!! trans('forms.labels.icon.actions') !!}</th>
                                 </tr>
@@ -217,7 +217,7 @@
                         //     return `<a href="/users/${val.id}/roles" class="btn btn-warning btn-sm">Roles</a>`;
                         // }
                     },
-                    defaultTitle: `{!! __("titles.icon_text.$page") !!}({{ $tours->count() }})`,
+                    defaultTitle: `{!! __("titles.icon.$page") !!}({{ $tours->count() }})`,
                 });
             });
         </script>

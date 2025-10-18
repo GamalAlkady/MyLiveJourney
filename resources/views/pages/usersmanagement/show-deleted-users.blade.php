@@ -32,7 +32,7 @@
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center mb-4">
                     <h1 class="h3 mb-0 text-gray-800 text-danger">
-                        {!! trans('titles.icon_text.deleted_users') !!}
+                        {!! trans('titles.icon.deleted_users') !!}
                     </h1>
                     <a href="{{ route('user.users.index') }}" class="btn btn-light">
                         {!! trans('buttons.back_to',['name'=>__('usersmanagement.users')]) !!}

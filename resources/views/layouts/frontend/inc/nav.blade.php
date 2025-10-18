@@ -1,56 +1,57 @@
-<section id="nav-bar">
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-    <a class="navbar-brand" href="{{ route('welcome') }}">Tourist Guide</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon" style="background-color:  #fff;"></span>
-    </button>
+<section id="nav-bar" class="navigation-wrapper">
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-gradient">
+        <div class="container">
+            <a class="navbar-brand" href="{{ route('welcome') }}">
+                <i class="fas fa-compass me-2"></i>
+                <span class="brand-text">{{ __('titles.'.config('app.name', trans('titles.app'))) }}</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-     <div class="collapse navbar-collapse"></div>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item a">
-          <a class="nav-link" href="{{ route('welcome') }}">Home </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('about') }}">About Us</a>
-        </li>
-          <li class="nav-item">
-          <a class="nav-link" href="{{ route('all.place') }}">Places</a>
-        </li>
-         <li class="nav-item">
-          <a class="nav-link" href="{{ route('all.tours') }}">{{__('titles.models.tours')}}</a>
-        </li>
-
-              @guest
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('login') }}">Login</a>
-              </li>
-                <form class="form-inline my-2 my-lg-0">
-                  <a class="btn btn-info my-2 px-4 py-2" href="{{ route('register') }}" type="submit"><b>Sign Up</b></a>
-                </form>
-                @else
-                     {{-- <li class="nav-item">
-                          <a class="nav-link" href="{{ route('dashboard') }}">Dashboard</a>
-                        </li> --}}
-
-                    {{-- @role('admin')
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ route('admin.dashboard') }}">Dashboard</a>
-                        </li>
-                    @endrole
-                    @role('guide')
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ route('guide.dashboard') }}">Dashboard</a>
-                        </li>
-                    @endrole --}}
-                    {{-- @role('user') --}}
+            <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                      <a class="nav-link" href="{{ route('user.dashboard') }}">Dashboard</a>
+                        <a class="nav-link" href="{{ route('welcome') }}">
+                            <i class="fas fa-home me-1"></i> {{ __('titles.home') }}
+                        </a>
                     </li>
-                    {{-- @endrole --}}
-                @endguest
-      </ul>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('about') }}">
+                            <i class="fas fa-info-circle me-1"></i> {{ __('titles.aboutus') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('places') }}">
+                            <i class="fas fa-map-marker-alt me-1"></i> {{__('titles.models.places')}}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('tours') }}">
+                            <i class="fas fa-route me-1"></i> {{__('titles.models.tours')}}
+                        </a>
+                    </li>
 
-    </div>
-  </nav>
-  </section>
+                    @guest
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">
+                                <i class="fas fa-sign-in-alt me-1"></i> {{ __('titles.login') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary nav-btn" href="{{ route('register') }}">
+                                <i class="fas fa-user-plus me-1"></i> <b>{{ __('titles.signup') }}</b>
+                            </a>
+                        </li>
+                    @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('user.dashboard') }}">
+                                <i class="fas fa-tachometer-alt me-1"></i> {{ __('titles.dashboard') }}
+                            </a>
+                        </li>
+                    @endguest
+                </ul>
+            </div>
+        </div>
+    </nav>
+</section>

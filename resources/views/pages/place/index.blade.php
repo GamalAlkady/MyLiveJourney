@@ -13,7 +13,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="h3 mb-0 text-gray-800">
-                    {!! trans('titles.icon_text.places') !!} {{ __('titles.data') }}
+                    {!! trans('titles.icon.places') !!} {{ __('titles.data') }}
                 </h1>
             </div>
         </div>
@@ -51,8 +51,8 @@
                                 <tr>
                                     <th>{!! trans('forms.labels.icon.name') !!}</th>
                                     <th>{!! trans('forms.labels.icon.added_by') !!}</th>
-                                    <th>{!! trans('titles.icon_text.district') !!}</th>
-                                    <th>{!! trans('titles.icon_text.placetype') !!}</th>
+                                    <th>{!! trans('titles.icon.district') !!}</th>
+                                    <th>{!! trans('titles.icon.placetype') !!}</th>
                                     <th class="hidden-sm hidden-xs">{!! trans('forms.labels.icon.image') !!}</th>
                                     <th width="15%">{!! trans('forms.labels.icon.actions') !!}</th>
                                 </tr>

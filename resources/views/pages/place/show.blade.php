@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
                 <h1 class="h3 mb-0 text-gray-800">
-                    {!! trans('titles.icon_text.place') !!} {{ __('titles.details') }}
+                    {!! trans('titles.icon.place') !!} {{ __('titles.details') }}
                 </h1>
                 <a href="{{ route('user.places.index') }}" class="btn btn-light btn-sm px-3 py-2 rounded hover-effect me-2">
                     {!! __('buttons.back_to', ['name' => __('titles.places')]) !!}

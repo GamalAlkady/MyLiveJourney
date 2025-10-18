@@ -49,7 +49,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="{{ route('all.place') }}" class="btn btn-outline-primary btn-lg">عرض المزيد من الأماكن</a>
+            <a href="{{ route('places') }}" class="btn btn-outline-primary btn-lg">عرض المزيد من الأماكن</a>
         </div>
     </div>
 
@@ -162,7 +162,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="{{ route('all.tours') }}" class="btn btn-primary btn-lg">عرض جميع الباقات</a>
+            <a href="{{ route('tours') }}" class="btn btn-primary btn-lg">عرض جميع الباقات</a>
         </div>
     </div>
 

@@ -38,7 +38,7 @@
                 <li class="nav-item has-treeview">
                     <a href="{{ route($role . '.dashboard') }}"
                         class="nav-link {{ Request::is($role . '/dashboard') ? 'active' : '' }}">
-                        {!! trans('titles.icon_text.dashboard') !!}
+                        {!! trans('titles.icon.dashboard') !!}
                     </a>
                 </li>
 
@@ -47,7 +47,7 @@
                     <li class="nav-item has-treeview">
                         <a href="{{ route($role . '.districts.index') }}"
                             class="nav-link {{ Request::is($role . '/districts/*') ? 'active' : '' }}">
-                            {!! trans('titles.icon_text.districts') !!}
+                            {!! trans('titles.icon.districts') !!}
                         </a>
                     </li>
                 {{-- @endpermission --}}
@@ -56,7 +56,7 @@
                     <li class="nav-item has-treeview">
                         <a href="{{ route($role . '.placetypes.index') }}"
                             class="nav-link {{ Request::routeIs($role . '.placetypes.*') ? 'active' : '' }}">
-                            {!! trans('titles.icon_text.placetypes') !!}
+                            {!! trans('titles.icon.placetypes') !!}
                         </a>
                     </li>
                 {{-- @endpermission --}}
@@ -64,14 +64,14 @@
                     <li class="nav-item has-treeview">
                         <a href="{{ route($role . '.places.index') }}"
                             class="nav-link {{ Request::routeIs($role . '.places.*') ? 'active' : '' }}">
-                            {!! trans('titles.icon_text.places') !!}
+                            {!! trans('titles.icon.places') !!}
                         </a>
                     </li>
 
                     <li class="nav-item has-treeview">
                         <a href="{{ route('user.tours.index') }}"
                             class="nav-link {{ Request::is('admin/tour*') ? 'active' : '' }}">
-                            {!! trans('titles.icon_text.tours') !!}
+                            {!! trans('titles.icon.tours') !!}
                         </a>
                     </li>
 {{--
@@ -80,7 +80,7 @@
                     <li class="nav-item has-treeview">
                         <a href="{{ route('user.guides') }}"
                             class="nav-link {{ Request::is('user/guide*') ? 'active' : '' }}">
-                            {!! trans('titles.icon_text.guides') !!}
+                            {!! trans('titles.icon.guides') !!}
                         </a>
                     </li>
                 @endrole --}}
@@ -90,7 +90,7 @@
                     <li class="nav-item has-treeview">
                         <a href="{{ route('user.users.index') }}"
                             class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}">
-                            {!! trans('titles.icon_text.users') !!}
+                            {!! trans('titles.icon.users') !!}
                         </a>
                     </li>
                 @endpermission
@@ -99,14 +99,14 @@
                 <li class="nav-item has-treeview">
                     <a href="{{ route('user.bookings.pending') }}"
                         class="nav-link {{ Request::routeIs('user.bookings.pending') ? 'active' : '' }}">
-                        {!! __('titles.icon_text.pendingBookings') !!}
+                        {!! __('titles.icon.pendingBookings') !!}
                     </a>
                 </li>
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('user.bookings.approved') }}"
                         class="nav-link {{ Request::routeIs('user.bookings.approved') ? 'active' : '' }}">
-                        {!! __('titles.icon_text.approved_bookings') !!}
+                        {!! __('titles.icon.approved_bookings') !!}
                     </a>
                 </li>
 
@@ -115,7 +115,7 @@
                     <li class="nav-item has-treeview">
                         <a href="{{ route('user.tours.running') }}"
                             class="nav-link {{ Request::routeIs('user.tours.running') ? 'active' : '' }}">
-                            {!! trans('titles.icon_text.running_tours') !!}
+                            {!! trans('titles.icon.running_tours') !!}
                         </a>
                     </li>
                 @endrole
