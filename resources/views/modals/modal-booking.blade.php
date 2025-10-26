@@ -50,10 +50,10 @@
                 </div>
                 <div class="modal-footer d-flex justify-content-between">
                     <button type="button" class="btn btn-secondary"
-                        data-dismiss="modal">{{ trans('modals.form_modal_default_btn_cancel') }}</button>
+                        data-dismiss="modal">{!!  trans('buttons.cancel') !!}</button>
 
                     <button type="submit" class="btn btn-success"
-                        id="submit">{{ trans('modals.confirm_modal_button_save_text') }}</button>
+                        id="submit">{!!  trans('buttons.booking') !!}</button>
                 </div>
             </form>
         </div>

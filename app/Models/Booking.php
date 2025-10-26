@@ -37,7 +37,7 @@ class Booking extends Model
      */
     protected $fillable = [
         'id',
-        'tourist_id',
+        'user_id',
         'tour_id',
         'seats',
         'total_price',
@@ -57,16 +57,16 @@ class Booking extends Model
      */
     public function scopePending($query)
     {
-        return $query->where('bookings.status', BookingStatus::Pending->value);
+        return $query->where('bookings.status', BookingStatus::PENDING->value);
     }
 
     public function scopeApproved($query){
-        return $query->where('bookings.status', BookingStatus::Approved->value);
+        return $query->where('bookings.status', BookingStatus::APPROVED->value);
     }
     //////////////////////////////////////////////////////////////////////// Relations
     public function tourist()
     {
-        return $this->belongsTo(User::class, 'tourist_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
 

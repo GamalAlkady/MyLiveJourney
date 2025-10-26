@@ -7,8 +7,8 @@ use App\Models\Tour;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 
-//TODO: لكي يعمل بشكل مستمر، أضف هذا إلى الـ cron job في السيرفر:
-//* * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1
+// TODO: لكي يعمل بشكل مستمر، أضف هذا إلى الـ cron job في السيرفر:
+// * * * * * php /path-to-your-project/artisan schedule:run >> /dev/null 2>&1
 
 class UpdateTourStatusCommand extends Command
 {
@@ -33,9 +33,11 @@ class UpdateTourStatusCommand extends Command
     {
         $now = Carbon::now();
 
-        $updated = Tour::where('status', TourStatus::Available->value)
-            ->orWhere('status', TourStatus::Full->value)
-            ->where('start_date', '<=', $now)
+        $updated = Tour::where(function ($query) {
+            $query->where('status', TourStatus::Available->value)
+                ->orWhere('status', TourStatus::Full->value);
+        })
+            ->where('start_date', '<=', Carbon::now())
             ->update(['status' => TourStatus::InProgress->value]);
 
         $this->info("Updated {$updated} tours to in_progress.");

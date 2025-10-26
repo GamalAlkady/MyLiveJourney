@@ -3,10 +3,6 @@
 @section('title')
     {{ __('titles.tours') }}
 @endsection
-{{-- TODO:change route tour to tours --}}
-@php
-    $page = 'tours';
-@endphp
 
 @use('App\Enums\TourStatus')
 @section('content')
@@ -60,8 +56,8 @@
                                     <th>{!! trans('forms.labels.icon.price') !!}</th>
                                     <th>{!! trans('forms.labels.icon.start_date') !!}</th>
                                     <th>{!! trans('forms.labels.icon.end_date') !!}</th>
-                                    <th>{!! trans('forms.labels.icon.remaining_seats') !!}</th>
-                                    <th><a  href="{{ route('user.bookings.pending') }}">{!! trans('forms.labels.pending_bookings') !!}</a></th>
+                                    <th>{!! trans('forms.labels.icon.people') !!}</th>
+                                    <th><a href="{{ route('user.bookings.pending') }}">{!! trans('forms.labels.pending_bookings') !!}</a></th>
                                     <th>{!! trans('forms.labels.icon.status') !!}</th>
                                     <th>{!! trans('forms.labels.icon.actions') !!}</th>
                                 </tr>
@@ -70,12 +66,17 @@
                                 @forelse ($tours as $tour)
                                     <tr>
                                         <td>{{ $tour->title }}</td>
-                                        <td class=""><span class="col-md-8 ms-auto fw-bold">{{ formatPrice($tour->price) }}</span></td>
+                                        <td class=""><span
+                                                class="col-md-8 ms-auto fw-bold">{{ formatPrice($tour->price) }}</span></td>
                                         <td class="">{{ $tour->start_date }}</td>
                                         <td class="">{{ $tour->end_date }}</td>
-                                        <td class="text-center"><span class="badge badge-info w-50 m-auto">{{ $tour->remaining_seats }}</span></td>
-                                        <td class="text-center"><span class="badge badge-warning w-50 m-auto">{{ $tour->pending_seats_count  }}</span></td>
-                                        <td>{!! __('messages.'.$tour->status->value) !!}</td>
+                                        <td class="text-center"><span
+                                                class="badge badge-info w-50 m-auto">{{ $tour->max_seats - $tour->remaining_seats }}/{{ $tour->max_seats }}</span>
+                                        </td>
+                                        <td class="text-center"><span
+                                                class="badge badge-warning w-50 m-auto">{{ $tour->pending_seats_count }}</span>
+                                        </td>
+                                        <td>{!! __('messages.' . $tour->status->value) !!}</td>
 
 
                                         <td class="d-flex">
@@ -86,56 +87,66 @@
                                                 {!! trans('buttons.show') !!}
                                             </a>
 
-                                            @if($tour->status != TourStatus::Full)
-                                            @permission('update.tours')
+                                            @if ($tour->status != TourStatus::Full)
+                                                {{-- Button for chat guide --}}
+                                                @if (auth()->user()->canChat($tour))
+                                                    <a class="btn btn-info btn-inline-block flex-fill me-1"
+                                                        href="{{ route('user.tours.chat', $tour->id) }}"
+                                                        data-toggle="tooltip" title="Chat">
+                                                        {!! trans('buttons.chat') !!}
+                                                    </a>
+                                                @endif
                                                 {{-- Button for edit user --}}
-                                                <a class="btn btn-info btn-inline-block flex-fill me-1"
-                                                    href="{{ route('user.tours.edit', $tour->id) }}" data-toggle="tooltip"
-                                                    title="Edit">
-                                                    {!! trans('buttons.edit') !!}
-                                                </a>
-                                            @endpermission
-                                            @permission('delete.tours')
-                                                {{-- Button for delete user --}}
-                                                {!! Form::open([
-                                                    'url' => 'tours/' . $tour->id,
-                                                    'class' => 'd-inline-block flex-fill me-1',
-                                                    'data-toggle' => 'tooltip',
-                                                    'title' => 'Delete',
-                                                ]) !!}
-                                                {!! Form::hidden('_method', 'DELETE') !!}
-                                                {!! Form::button(trans('buttons.delete'), [
-                                                    'class' => 'btn btn-danger w-100',
-                                                    'type' => 'button',
-                                                    'data-toggle' => 'modal',
-                                                    'data-target' => '#confirmDelete',
-                                                    'data-title' => __('modals.ConfirmDeleteTitle', ['name' => __('titles.models.tour')]),
-                                                    'data-message' => trans('modals.ConfirmDeleteMessage', ['name' => $tour->title]),
-                                                ]) !!}
-                                                {!! Form::close() !!}
-                                            @endpermission
+                                                @permission('update.tours')
+                                                    {{-- Button for edit user --}}
+                                                    <a class="btn btn-info btn-inline-block flex-fill me-1"
+                                                        href="{{ route('user.tours.edit', $tour->id) }}" data-toggle="tooltip"
+                                                        title="Edit">
+                                                        {!! trans('buttons.edit') !!}
+                                                    </a>
+                                                @endpermission
 
-                                            @role('user')
-                                            {{-- Button for booking tour --}}
-                                                {!! Form::button(trans('buttons.booking'), [
-                                                    'class' => 'btn btn-primary w-100',
-                                                    'type' => 'button',
-                                                    'data-toggle' => 'modal',
-                                                    'data-target' => '#bookingTour',
-                                                    'data-title' => __('modals.bookingTour'),
-                                                    'data-action'=>route('user.booking.store'),
-                                                    'data-tour_id'=>$tour->id,
-                                                    'data-max_seats'=>$tour->max_seats,
-                                                    'data-remaining_seats'=>$tour->remaining_seats
-                                                ]) !!}
-                                            @endrole
+                                                @permission('delete.tours')
+                                                    {{-- Button for delete user --}}
+                                                    {!! Form::open([
+                                                        'url' => 'tours/' . $tour->id,
+                                                        'class' => 'd-inline-block flex-fill me-1',
+                                                        'data-toggle' => 'tooltip',
+                                                        'title' => 'Delete',
+                                                    ]) !!}
+                                                    {!! Form::hidden('_method', 'DELETE') !!}
+                                                    {!! Form::button(trans('buttons.delete'), [
+                                                        'class' => 'btn btn-danger w-100',
+                                                        'type' => 'button',
+                                                        'data-toggle' => 'modal',
+                                                        'data-target' => '#confirmDelete',
+                                                        'data-title' => __('modals.ConfirmDeleteTitle', ['name' => __('titles.models.tour')]),
+                                                        'data-message' => trans('modals.ConfirmDeleteMessage', ['name' => $tour->title]),
+                                                    ]) !!}
+                                                    {!! Form::close() !!}
+                                                @endpermission
+
+                                                @role('user')
+                                                    {{-- Button for booking tour --}}
+                                                    {!! Form::button(trans('buttons.booking'), [
+                                                        'class' => 'btn btn-primary flex-fill',
+                                                        'type' => 'button',
+                                                        'data-toggle' => 'modal',
+                                                        'data-target' => '#bookingTour',
+                                                        'data-title' => __('modals.bookingTour'),
+                                                        'data-action' => route('user.booking.store'),
+                                                        'data-tour_id' => $tour->id,
+                                                        'data-max_seats' => $tour->max_seats,
+                                                        'data-remaining_seats' => $tour->remaining_seats,
+                                                    ]) !!}
+                                                @endrole
                                             @endif
 
                                         </td>
                                     </tr>
-                                    @empty
+                                @empty
                                     <tr>
-                                        <td colspan="7" class="text-center text-info font-weight-bold">
+                                        <td colspan="8" class="text-center text-info font-weight-bold">
                                             <span>{!! __('messages.no_data_found', ['name' => __('titles.tour')]) !!}</span>
                                         </td>
                                     </tr>
@@ -171,55 +182,4 @@
     @if (config('usersmanagement.tooltipsEnabled'))
         @include('scripts.tooltips')
     @endif
-    {{-- @if (config('usersmanagement.enableSearchUsers'))
-        @include('scripts.table-search')
-        <script>
-            (function() {
-                initAjaxSearch({
-                    route: "{{ route('user.search-tours') }}",
-                    columns: [{
-                            name: "id",
-
-                        },
-                        {
-                            name: "name",
-                            label: "Name"
-                        },
-
-                        {
-                            name: 'price',
-                            label: 'Price'
-                        },
-                        {
-                            name: 'people',
-                            label: 'People'
-                        },
-                        {
-                            name: 'day',
-                            label: 'Days'
-                        },
-                        {
-                            name: 'date',
-                            label: 'Date'
-                        },
-
-                    ],
-                    actions: {
-
-                        show: "/{{ $page }}",
-                        @permission("edit.$page")
-                            edit: "/{{ $page }}",
-                        @endpermission
-                        @permission("delete.$page")
-                            delete: '/{{ $page }}',
-                        @endpermission
-                        // custom: function(val) {
-                        //     return `<a href="/users/${val.id}/roles" class="btn btn-warning btn-sm">Roles</a>`;
-                        // }
-                    },
-                    defaultTitle: `{!! __("titles.icon.$page") !!}({{ $tours->count() }})`,
-                });
-            });
-        </script>
-    @endif --}}
 @endsection

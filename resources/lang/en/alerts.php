@@ -48,6 +48,7 @@ return [
     'no_item_in_type'=> 'No :type Found In This Type Right Now.',
     'no_results_found'=> 'No Results Found Right Now.',
     'no_available_placestypes' =>'There are no available places types currently.',
+    'no_available_chat_rooms' => 'There are no available chat rooms currently.',
 
 
 ];

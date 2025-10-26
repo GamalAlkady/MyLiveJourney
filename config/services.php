@@ -94,5 +94,9 @@ return [
         'client_secret' => env('LINKEDIN_SECRET'),
         'redirect'      => env('LINKEDIN_REDIRECT_URI'),
     ],
+    // AI assistant
+    'ai'=>[
+        'gemini_api_key'=>env('GEMINI_API_KEY')
+    ]
 
 ];

@@ -206,6 +206,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         ComposerServiceProvider::class,
         MacroServiceProvider::class,
+        App\Providers\ViewServiceProvider::class,
+
     ],
 
     /*

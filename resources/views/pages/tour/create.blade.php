@@ -163,14 +163,14 @@
                             <div class="col-md-12">
                                 <div class="form-group mb-3">
                                     <label for="places[]" class="form-label text-gray-700 font-medium">
-                                        {!! __('forms.labels.icon.choose_places') !!}
+                                        {!! __('forms.placeholders.choose_places') !!}
                                     </label>
                                     <select class="form-control select-tags" id="places[]"
                                         data-placeholder="{{ __('forms.placeholders.choose_places') }}" name="places[]"
                                         multiple required>
                                         @php
                                             // get id places
-                                            $idPlaces = $isEdit ? $tour->places()->pluck('places.id')->toArray() : [];
+                                            $idPlaces = $isEdit ? $tour->places()->pluck('places.id')->toArray() : old('places', []);
                                         @endphp
 
                                         @foreach ($places as $place)
@@ -228,7 +228,7 @@
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script src="{{ asset('js/trix.js') }}"></script>
     <script src="{{ asset('js/jquery-1.12.4.min.js') }}"></script>
     <script src="{{ asset('js/chosen.jquery.min.js') }}"></script>
@@ -288,4 +288,4 @@
             }
         }
     </script>
-@endsection
+@endpush

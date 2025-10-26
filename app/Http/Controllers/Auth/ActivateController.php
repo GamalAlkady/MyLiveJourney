@@ -112,7 +112,6 @@ class ActivateController extends Controller
      */
     public function initial()
     {
-        dd('initial');
         $user = Auth::user();
         $lastActivation = Activation::where('user_id', $user->id)->get()->last();
         $currentRoute = Route::currentRouteName();

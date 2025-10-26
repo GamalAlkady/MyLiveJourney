@@ -41,7 +41,7 @@
         @endforelse
     </div>
     <div class="row">
-        <a href="{{ route('welcome') }}" class="btn btn-danger my-5">Back to home</a>
+        <a href="{{ route('home') }}" class="btn btn-danger my-5">Back to home</a>
     </div>
 </div>
 

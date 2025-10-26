@@ -45,7 +45,7 @@
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-success ">Submit</button>
-                            <a href="{{ route('welcome') }}" class="btn btn-danger">Back</a>
+                            <a href="{{ route('home') }}" class="btn btn-danger">Back</a>
                         </div>
 
                     </form>

@@ -105,8 +105,6 @@
                                             @endforeach
                                         </select>
                                     </th>
-                                    <th class="hidden-sm hidden-xs hidden-md">{!! trans('usersmanagement.users-table.created') !!}</th>
-                                    <th class="hidden-sm hidden-xs hidden-md">{!! trans('usersmanagement.users-table.updated') !!}</th>
                                     <th>{!! trans('usersmanagement.users-table.actions') !!}</th>
 
                                 </tr>
@@ -131,8 +129,6 @@
                                                     class="badge badge-{{ $badgeClass }}">{{ $user_role->name }}</span>
                                             @endforeach
                                         </td>
-                                        <td class="hidden-sm hidden-xs hidden-md">{{ $user->created_at }}</td>
-                                        <td class="hidden-sm hidden-xs hidden-md">{{ $user->updated_at }}</td>
                                         <td class="d-flex">
 
                                             {{-- Button for show user --}}

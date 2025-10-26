@@ -92,6 +92,7 @@
                                                         'data-toggle' => 'tooltip',
                                                         'title' => trans('titles.delete', ['name' => __('titles.district')]),
                                                     ]) !!}
+                                                    
                                                     {!! Form::hidden('_method', 'DELETE') !!}
                                                     {!! Form::button(trans('buttons.delete'), [
                                                         'class' => 'btn btn-danger d-inline-block w-100',

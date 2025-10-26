@@ -44,7 +44,7 @@ class UsersManagementController extends Controller
         if ($type == 'guide')
             $users = User::whereGuides();
         elseif ($type == 'user')
-            $users = User::whereUsers();
+            $users = User::whereUuserssers();
         else
             $users = User::withoutAdmin();
 

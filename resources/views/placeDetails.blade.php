@@ -54,7 +54,7 @@
                         </div>
                     </div>
 
-                    <div class="place-info">
+                    <div class="place-details">
                         <h1 class="place-title">{{ $place->name }}</h1>
 
                         <div class="place-meta">

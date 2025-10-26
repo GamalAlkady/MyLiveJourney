@@ -73,7 +73,7 @@ class CheckIsUserActivated
                 if (! $user) {
                     Log::info('Non registered visit to '.$currentRoute.'. ');
 
-                    return redirect()->route('welcome');
+                    return redirect()->route('home');
                 }
             }
         }

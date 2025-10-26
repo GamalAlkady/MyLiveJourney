@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tour extends Model
 {
     protected $table = 'tours';
+
     protected $fillable = [
         'title',
         'description',
@@ -20,7 +21,7 @@ class Tour extends Model
         'remaining_seats',
         'place_id',
         'guide_id',
-        'status'
+        'status',
     ];
 
     protected $casts = [
@@ -29,7 +30,7 @@ class Tour extends Model
 
     public function isAvailable()
     {
-        return $this->remaining_seats > 0 ;
+        return $this->remaining_seats > 0;
     }
 
     /**
@@ -40,11 +41,11 @@ class Tour extends Model
     public function isFull()
     {
         // if the booked seats is equal or greater than the max seats, then the tour is full
-        return $this->remaining_seats==0;
+        return $this->remaining_seats == 0;
     }
 
-     /** 
-     * * **************************************************************** Relations 
+    /**
+     * * **************************************************************** Relations
      * Get the places that the tour belongs to.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -54,6 +55,12 @@ class Tour extends Model
         return $this->belongsToMany(Place::class);
     }
 
+     public function tourists()
+    {
+        return $this->belongsToMany(User::class, 'bookings')
+                    ->withPivot('status')
+                    ->withTimestamps();
+    }
     /**
      * Get the guide that owns the Tour.
      *
@@ -63,7 +70,6 @@ class Tour extends Model
     {
         return $this->belongsTo(User::class, 'guide_id', 'id');
     }
-
 
     // public function tourist()
     // {
@@ -75,39 +81,47 @@ class Tour extends Model
         return $this->hasMany(Booking::class);
     }
 
-    /** 
-     * * ****************************************************************  Scopes 
+    public function chatRoom()
+    {
+        return $this->hasOne(ChatRoom::class);
+    }
+
+    /**
+     * * ****************************************************************  Scopes
      */
 
     /**
      * Scope a query to only include
      *
-     * @param  \Illuminate\Database\Eloquent\Builder $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function scopeSearch($query,$search)
+    public function scopeSearch($query, $search)
     {
-        if(empty($search)) return $query;
-        return $query->where('title', 'LIKE', '%' . $search . '%');
+        if (empty($search)) {
+            return $query;
+        }
+
+        return $query->where('title', 'LIKE', '%'.$search.'%');
     }
 
-     /** 
-     * * **************************************************************** Functions 
-     */ 
+    /**
+     * * **************************************************************** Functions
+     */
     public function approvedBookings()
     {
-        return $this->bookings()->where('status', BookingStatus::Approved->value);
+        return $this->bookings()->where('status', BookingStatus::APPROVED->value);
     }
 
     public function pendingBookings()
     {
-        return $this->bookings()->where('status', BookingStatus::Pending->value);
+        return $this->bookings()->where('status', BookingStatus::PENDING->value);
     }
 
     public function getPendingSeatsCountAttribute()
     {
         return $this->bookings()
-            ->where('status', BookingStatus::Pending->value)
+            ->where('status', BookingStatus::PENDING->value)
             ->sum('seats');
     }
 }

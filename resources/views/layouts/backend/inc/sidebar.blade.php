@@ -14,8 +14,8 @@
 
         </div>
         <div class="info">
-            <a href="{{ url('/profile/' . Auth::user()->name) }}"
-                class="d-block font-weight-bold">{{ Auth::user()->name }}</a>
+            <a href="{{ route('home') }}"
+                class="d-block font-weight-bold">{{ __('titles.home') }}</a>
         </div>
     </div>
 
@@ -95,6 +95,15 @@
                     </li>
                 @endpermission
 
+
+                <div class="dropdown-divider"></div>
+                {{-- Chat nav --}}
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('user.chats.index') }}"
+                        class="nav-link {{ Request::routeIs('user.chats.index') ? 'active' : '' }}">
+                        {!! trans('titles.icon.chats') !!}
+                    </a>
+                </li>
                 <div class="dropdown-divider"></div>
                 <li class="nav-item has-treeview">
                     <a href="{{ route('user.bookings.pending') }}"
@@ -198,7 +207,7 @@
                             </li>
 
                             {{-- <div class="dropdown-divider"></div> --}}
-                            <li class="nav-item d-none">
+                            <li class="nav-item ">
                                 <a class="nav-link {{ Request::is('blocker') ? 'active' : null }}"
                                     href="{{ route('laravelblocker::blocker.index') }}">{!! trans('titles.laravelBlocker') !!}</a>
                             </li>
@@ -206,15 +215,15 @@
                     </li>
                 @endrole
 
-                <div class="dropdown-divider"></div>
+                {{-- <div class="dropdown-divider"></div>
                 <li class="nav-item has-treeview">
-                    <a href="{{ route('welcome') }}" class="nav-link">
+                    <a href="{{ route('home') }}" class="nav-link">
                         <i class="fas fa-pager"></i>
                         <p class="ml-2">
                             {{ __('titles.home') }}
                         </p>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

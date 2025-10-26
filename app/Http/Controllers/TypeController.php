@@ -20,7 +20,7 @@ class TypeController extends Controller
     {
         $types = Placetype::latest()->paginate(8);
         $typescount = Placetype::all()->count();
-        return view('pages.placetype.index', compact('types', 'typescount'));
+        return view('pages.placeType.index', compact('types', 'typescount'));
     }
 
     /**

@@ -3,18 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Enums\TourStatus;
-use App\Models\Guide;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\SearchRequest;
 use App\Http\Requests\StoreTourRequest;
-use App\Models\Tour;
+use App\Models\Guide;
 use App\Models\Place;
-use Carbon\Carbon;
+use App\Models\Tour;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
 
 class TourController extends Controller
 {
@@ -29,22 +24,23 @@ class TourController extends Controller
         // return Tour::findOrFail(1);
         // $paginationEnabled = config('usersmanagement.enablePagination');
 
+        // return auth()->user()->toursBooked;
         $tours = Tour::search($searchTerm);
 
         if (auth()->user()->isUser()) {
             $tours = $tours->whereStatus(TourStatus::Available->value);
-        } else
-            $tours = $tours->where('guide_id', Auth::user()->id)->whereNot('status',TourStatus::InProgress->value);
-
+        } else {
+            $tours = $tours->where('guide_id', Auth::user()->id)->whereNot('status', TourStatus::InProgress->value);
+        }
 
         // if ($searchTerm) {
         //     $tours = $tours->where('name', 'LIKE', '%' . $searchTerm . '%')->paginate(config('usersmanagement.paginateListSize'));
         // } else {
-            $tours = $tours->latest()->paginate(config('settings.paginateListSize'));
-            // $tours = Tour::latest()->get();
+        $tours = $tours->latest()->paginate(config('settings.paginateListSize'));
+        // $tours = Tour::latest()->get();
         // }
 
-    // return $tours;
+        // return $tours;
         return view('pages.tour.index', compact('tours'));
     }
 
@@ -57,9 +53,11 @@ class TourController extends Controller
     {
         // TODO: guide couldn't create other tour in the same or during the current tour is running
         if (Auth()->user()->canCreateTours()) {
-            $places =  Place::latest()->get();
+            $places = Place::latest()->get();
+
             return view('pages.tour.create', compact('places'));
         }
+
         return redirect(route('user.tours.index'))->with('error', __('alerts.createPermission', ['type' => __('titles.tour')]));
     }
 
@@ -78,6 +76,11 @@ class TourController extends Controller
         $tour = Tour::create($inputs);
 
         $tour->places()->attach($request->places);
+
+        $tour->chatRoom()->create([
+            'guide_id' => auth()->id(),
+        ]);
+        $tour->chatRoom->users()->syncWithoutDetaching([auth()->id()]);
 
         return redirect(route('user.tours.index'))->with('success', __('alerts.tourCreated'));
     }
@@ -104,9 +107,11 @@ class TourController extends Controller
     public function edit(Tour $tour)
     {
         if (Auth()->user()->canUpdateTours()) {
-            $places =  Place::latest()->get();
-            return view('pages.tour.create',compact('tour', 'places'));
+            $places = Place::latest()->get();
+
+            return view('pages.tour.create', compact('tour', 'places'));
         }
+
         return redirect(route('user.tours.index'))->with('error', __('alerts.editPermission', ['type' => __('titles.tour')]));
     }
 
@@ -120,7 +125,7 @@ class TourController extends Controller
     public function update(StoreTourRequest $request, $id)
     {
         $tour = Tour::findOrFail($id);
-        
+
         $inputs = $request->safe()->all();
         $inputs['remaining_seats'] = $inputs['max_seats'];
         $inputs['guide_id'] = Auth::user()->id;
@@ -139,18 +144,30 @@ class TourController extends Controller
      */
     public function destroy(Tour $tour)
     {
-        if (Storage::disk('public')->exists('packageImage/' . $tour->package_image)) {
-            Storage::disk('public')->delete('packageImage/' . $tour->package_image);
+        if (Storage::disk('public')->exists('packageImage/'.$tour->package_image)) {
+            Storage::disk('public')->delete('packageImage/'.$tour->package_image);
         }
 
         $tour->places()->detach();
         $tour->delete();
+
         return redirect(route('user.tours.index'))->with('success', __('alerts.tourDeleted'));
     }
 
-  public function runningTours(){
-    $tours = Tour::where('status',TourStatus::InProgress->value)
-    ->paginate(config('settings.paginateListSize'));
-    return view ('pages.tour.running',compact('tours'));
-  }
+    public function runningTours()
+    {
+        $tours = Tour::where('status', TourStatus::InProgress->value)
+            ->paginate(config('settings.paginateListSize'));
+
+        return view('pages.tour.running', compact('tours'));
+    }
+
+    public function chat(Tour $tour)
+    {
+        // dd('show');
+        $messages = $tour->chatRoom->messages()->with('user')->get();
+        $room = $tour->chatRoom;
+
+        return view('pages.chat.room', compact('room', 'messages'));
+    }
 }

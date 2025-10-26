@@ -64,6 +64,7 @@ return [
     'placetype'         => 'Place Type',
     'booking_request' => 'Booking Request',
     'tour_history' => 'Tour History',
+    'chat_room'=>'Chat Room',
 
     'explore_available_tours' => 'Explore Available Tours',
     'view_all_tours' => 'View All Tours',
@@ -161,6 +162,7 @@ return [
         'tour_history' => '<i class="fas fa-history me-1"></i> Tour History',
         'bookings' => '<i class="fas fa-book me-1"></i> Bookings',
         'approvedBookings'=>'<i class="fas fa-book me-1"></i> Approved Bookings',
+        'chats' => '<i class="fas fa-comments me-1"></i> Chats',
     ],
 
 
@@ -176,4 +178,12 @@ return [
         'contact_us'=>'Contact Us',
     ],
 
+    // Chat Room
+    'room'=> [
+        'chat' => 'Chat',
+        'chats' => 'Chats',
+        'members' => 'Members',
+        'your_chat_rooms' => 'Your chat rooms',
+        'communicate' => 'You can communicate with guides and tourists through the following rooms',
+    ],
 ];

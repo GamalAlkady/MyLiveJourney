@@ -39,9 +39,10 @@ return [
         'choose_role' => 'Choose Role',
         'choose_placetype' => 'Choose Place Type',
         'choose_image' => 'Choose Image',
-        'seats' => 'Enter the number of seats that you want to book',
+        'seats' => 'Enter the number of poeple that you want to book',
         'select' => 'Select a :type',
         'search_placeholder' => 'Search for a place...',
+        'write_something' => 'Write something...',
 
     ],
     'labels' => [
@@ -69,7 +70,7 @@ return [
         'booked_seats' => 'Booked Seats',
         'placetype' => 'Place Type',
         'district' => 'District',
-        'remindingSeats' => 'Reminding Seats',
+        'remindingSeats' => 'Reminding People',
         'people_count' => 'Number of People',
         'people' => 'People',
         'start_date' => 'Start Date',

@@ -18,11 +18,11 @@ class CreateBookingsTable extends Migration
             $table->string('id')->primary();
             $table->integer('tour_id');
             // $table->integer('guide_id');
-            $table->integer('tourist_id');
+            $table->integer('user_id');
             $table->integer('total_price');
             $table->integer('seats');
             $table->enum('status', array_column(BookingStatus::cases(), 'value'))
-                ->default(BookingStatus::Pending->value);
+                ->default(BookingStatus::PENDING->value);
             $table->timestamps();
         });
     }

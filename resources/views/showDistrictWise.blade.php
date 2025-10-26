@@ -3,14 +3,14 @@
     Tourist Guide - {{ $district->name }}
 @endsection
 
-@section('css')
-    <style>
-        .places {
-            margin-top: 60px;
-            margin-bottom: 60px;
-        }
-    </style>
-@endsection
+{{-- @section('css')
+<style>
+    .places {
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
+</style>
+@endsection --}}
 
 
 
@@ -24,10 +24,12 @@
         <x-place-card :places="$places" />
         <div class="d-flex justify-content-between align-items-center">
             <div>
-                <a href="{{ route('welcome') }}"
+                <a href="{{ route('home') }}"
                     class="btn btn-light my-5">{!! trans('buttons.back_to', ['name' => __('titles.home')]) !!}</a>
             </div>
 
         </div>
-      
+
     </div>
+</div>
+@endsection

@@ -66,7 +66,7 @@
                                         <td>{!! __('messages.' . $list->status->value) !!}</td>
                                         <td class="d-flex">
                                             @role('admin|guide')
-                                                @if ($list->status == BookingStatus::Pending && $list->tour->guide_id == auth()->user()->id)
+                                                @if ($list->status == BookingStatus::APPROVED && $list->tour->guide_id == auth()->user()->id)
                                                     {!! Form::open([
                                                         'url' => route('user.booking.approve', $list->id),
                                                         'class' => 'd-inline-block flex-fill me-1',
@@ -107,7 +107,7 @@
 
 
                                             @role('user')
-                                                @if ($list->status != BookingStatus::Approved)
+                                                @if ($list->status != BookingStatus::APPROVED)
                                                     {!! Form::button(trans('buttons.edit'), [
                                                         'class' => 'btn btn-primary flex-fill me-1' . ($list->status->value == 'pending' ? '' : ' disabled'),
                                                         'type' => 'button',

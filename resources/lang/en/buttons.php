@@ -38,8 +38,8 @@ return [
     'delete_user'   => '<i class="fa fa-trash-o fa-fw" aria-hidden="true"></i>  <span class="hidden-xs">Delete</span><span class="hidden-xs"> User</span>',
     'edit_user'     => '<i class="fa fa-pencil fa-fw" aria-hidden="true"></i> <span class="hidden-xs">Edit</span><span class="hidden-xs"> User</span>',
 
-    'activate'     => '<i class="fa fa-check fa-fw" aria-hidden="true"></i>',
-    'deactivate'   => '<i class="fa fa-times fa-fw" aria-hidden="true"></i>',
+    'activate'     => '<i class="fa fa-check fa-fw" aria-hidden="true"></i> <span class="hidden-xs">Activate</span>',
+    'deactivate'   => '<i class="fa fa-times fa-fw" aria-hidden="true"></i> <span class="hidden-xs">Deactivate</span>',
 
     'complete'   => '<i class="fa fa-check fa-fw" aria-hidden="true"></i> Complete',
     'approve'   => '<i class="fa fa-check fa-fw" aria-hidden="true"></i> Approve',
@@ -47,6 +47,8 @@ return [
     'search' => 'Search',
     'book_now'   => 'Book Now',
     'more_details'   => '<i class="fa fa-info fa-fw" aria-hidden="true"></i> More Details',
-    'view_all'   => 'View All'
+    'view_all'   => 'View All',
+    'chat'   => '<i class="fa fa-comment fa-fw" aria-hidden="true"></i>',
+    'send'   => '<i class="fa fa-send fa-fw" aria-hidden="true"></i>',
 
 ];

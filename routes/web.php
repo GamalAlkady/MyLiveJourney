@@ -1,6 +1,7 @@
 <?php
 
-use Doctrine\DBAL\Schema\View;
+use App\Http\Controllers\ChatRoomController;
+use App\Http\Controllers\TourController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View as FacadesView;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\View as FacadesView;
 Route::group(['middleware' => ['web', 'checkblocked']], function () {
     // Route::get('/', 'App\Http\Controllers\WelcomeController@welcome')->name('welcome');
     Route::get('/terms', 'App\Http\Controllers\TermsController@terms')->name('terms');
-    Route::get('/', 'App\Http\Controllers\HomeController@index')->name('welcome');
+    Route::get('/', 'App\Http\Controllers\HomeController@index')->name('home');
     Route::get('/about', 'App\Http\Controllers\HomeController@about')->name('about');
     Route::get('/search', 'App\Http\Controllers\HomeController@search')->name('search');
     Route::get('/place/details/{id}', 'App\Http\Controllers\HomeController@placeDdetails')->name('place.details');
@@ -34,8 +35,9 @@ Route::group(['middleware' => ['web', 'checkblocked']], function () {
 
     Route::get('/tour/booking/{id}', 'App\Http\Controllers\HomeController@tourBooking')->name('tour.booking');
     Route::get('/tour/booking', 'App\Http\Controllers\HomeController@storeBookingRequest')->name('store.tour.booking');
+    Route::get('/chat2', [App\Http\Controllers\AiAssistantController::class, 'index']);
+    Route::post('/chat', [App\Http\Controllers\AiAssistantController::class, 'chat']);
 });
-
 
 // Authentication Routes
 Auth::routes();
@@ -68,14 +70,14 @@ Route::group(['middleware' => ['auth', 'activated', 'activity', 'checkblocked']]
 Route::group(['middleware' => ['auth', 'activated', 'activity', 'twostep', 'checkblocked']], function () {
     //  Homepage Route - Redirect based on user role is in controller.
     Route::get('/home', [
-        'as'   => 'public.home',
+        'as' => 'public.home',
         'uses' => 'App\Http\Controllers\UserController@index',
         'name' => 'home',
     ]);
 
     // Show users profile - viewable by other users.
     Route::get('profile/{username}', [
-        'as'   => '{username}',
+        'as' => '{username}',
         'uses' => 'App\Http\Controllers\ProfilesController@show',
     ]);
 });
@@ -96,15 +98,15 @@ Route::group(['middleware' => ['auth', 'activated', 'currentUser', 'activity', '
         ]
     );
     Route::put('profile/{username}/updateUserAccount', [
-        'as'   => 'profile.updateUserAccount',
+        'as' => 'profile.updateUserAccount',
         'uses' => 'App\Http\Controllers\ProfilesController@updateUserAccount',
     ]);
     Route::put('profile/{username}/updateUserPassword', [
-        'as'   => 'profile.updateUserPassword',
+        'as' => 'profile.updateUserPassword',
         'uses' => 'App\Http\Controllers\ProfilesController@updateUserPassword',
     ]);
     Route::delete('profile/{username}/deleteUserAccount', [
-        'as'   => 'profile.deleteUserAccount',
+        'as' => 'profile.deleteUserAccount',
         'uses' => 'App\Http\Controllers\ProfilesController@deleteUserAccount',
     ]);
 
@@ -122,7 +124,6 @@ Route::group(['middleware' => ['auth', 'activated', 'role:admin', 'activity', 't
 
 Route::redirect('/php', '/phpinfo', 301);
 
-
 Route::group([
     'as' => 'user.',
     'prefix' => 'user',
@@ -133,16 +134,16 @@ Route::group([
         // 'role:admin',
         'activity',
         'twostep',
-        'checkblocked'
-    ]
+        'checkblocked',
+    ],
 ], function () {
 
-    Route::resource('deleted-users', "SoftDeletesController", [
+    Route::resource('deleted-users', 'SoftDeletesController', [
         'only' => ['index', 'show', 'update', 'destroy'],
     ])->names([
-        'index'   => 'deleted',
-        'show'    => 'deleted.show',
-        'update'  => 'deleted.update',
+        'index' => 'deleted',
+        'show' => 'deleted.show',
+        'update' => 'deleted.update',
         'destroy' => 'deleted.destroy',
     ]);
 
@@ -160,12 +161,12 @@ Route::group([
         'activated',
         'activity',
         'twostep',
-        'checkblocked'
-    ]
+        'checkblocked',
+    ],
 ], function () {
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
-    Route::resource('users', "UsersManagementController", [
+    Route::resource('users', 'UsersManagementController', [
         'names' => [
             // 'index'   => '',
             // 'destroy' => 'user.destroy',
@@ -180,6 +181,9 @@ Route::group([
     Route::resource('placetypes', 'TypeController');
     Route::resource('places', 'PlaceController');
     Route::resource('tours', 'TourController');
+    Route::resource('chats','ChatRoomController')->parameters(['chats' => 'room']);
+    Route::post('/chat/{room}/send', [ChatRoomController::class, 'sendMessage'])->name('chat.send');
+    Route::get('tour/{tour}/chat', [TourController::class, 'chat'])->name('tours.chat');
 
     // Route::get('list', 'UsersController@guideList')->name('list');
     Route::get('bookings', 'BookingController@index')->name('bookings.index');
@@ -187,6 +191,8 @@ Route::group([
 
     Route::get('booking-pending', 'BookingController@pendingBookings')->name('bookings.pending');
     Route::get('booking-approved', 'BookingController@approvedBookings')->name('bookings.approved');
+
+    // Route::get('/chat/{room}', [ChatRoomController::class, 'show'])->name('chat.show');
 
     Route::group(['middleware' => ['role:admin']], function () {
         Route::get('guides', 'UsersManagementController@guideList')->name('guides');
@@ -206,15 +212,12 @@ Route::group([
         // Route::post('booking-request/remove/{id}', 'BookingController@bookingRemoveByAdmin')->name('booking.remove');
     });
 
-
     Route::group(['middleware' => ['role:user']], function () {
         Route::post('booking/store', 'BookingController@store')->name('booking.store');
         Route::delete('booking/destroy/{booking}', 'BookingController@destroy')->name('booking.destroy');
         Route::put('booking-request/cancel/{booking}', 'BookingController@bookingCancel')->name('booking.cancel');
-
     });
 });
-
 
 // Route::group([
 //     'as' => 'user.',
@@ -244,7 +247,6 @@ Route::group([
 //     Route::get('tours', 'DashboardController@gettour')->name('tour');
 //     Route::get('tours/{id}', 'DashboardController@gettourDetails')->name('tour.show');
 
-
 //     Route::get('tour-history/list', 'BookingController@tourHistory')->name('tour.history');
 //     Route::get('booking-request/list', 'BookingController@pendingBookingList')->name('pending.booking');
 //     Route::post('booking-request/cancel/{id}', 'BookingController@canceLBookingRequest')->name('booking.cancel');
@@ -252,13 +254,12 @@ Route::group([
 
 Route::resource('themes', \App\Http\Controllers\ThemesManagementController::class, [
     'names' => [
-        'index'   => 'themes',
+        'index' => 'themes',
         'destroy' => 'themes.destroy',
     ],
 ]);
 
-
-FacadesView::composer('layouts.frontend.inc.footer', function ($view) {
-    $placetypes = App\Models\Placetype::all();
-    $view->with('placetypes', $placetypes);
-});
+// FacadesView::composer('layouts.frontend.inc.footer', function ($view) {
+//     $placetypes = App\Models\Placetype::all();
+//     $view->with('placetypes', $placetypes);
+// });

@@ -66,7 +66,7 @@
                                         <td>{!! __('messages.' . $list->status->value) !!}</td>
                                         <td class="d-flex">
                                             @role('admin|guide')
-                                                @if ($list->status == BookingStatus::Pending && $list->tour->guide_id == auth()->user()->id)
+                                                @if ($list->status == BookingStatus::PENDING && $list->tour->guide_id == auth()->user()->id)
                                                     {!! Form::open([
                                                         'url' => route('user.booking.approve', $list->id),
                                                         'class' => 'd-inline-block flex-fill me-1',
@@ -107,7 +107,7 @@
 
 
                                             @role('user')
-                                                @if ($list->status != BookingStatus::Approved)
+                                                @if ($list->status == BookingStatus::PENDING)
                                                     {!! Form::button(trans('buttons.edit'), [
                                                         'class' => 'btn btn-primary flex-fill me-1' . ($list->status->value == 'pending' ? '' : ' disabled'),
                                                         'type' => 'button',
@@ -120,26 +120,8 @@
                                                         'data-seats' => $list->seats,
                                                         'data-remaining_seats' => $list->tour->remaining_seats,
                                                     ]) !!}
-
-                                                    {!! Form::open([
-                                                        'url' => route('user.booking.destroy', $list->id),
-                                                        'class' => 'd-inline-block flex-fill me-1',
-                                                        'data-toggle' => 'tooltip',
-                                                        'title' => 'Delete',
-                                                    ]) !!}
-                                                    {!! Form::hidden('_method', 'DELETE') !!}
-                                                    {!! Form::button(trans('buttons.delete'), [
-                                                        'class' => 'btn btn-danger w-100',
-                                                        'type' => 'button',
-                                                        'data-toggle' => 'modal',
-                                                        'data-target' => '#confirmDelete',
-                                                        'data-title' => __('modals.ConfirmDeleteTitle', ['name' => __('titles.models.booking')]),
-                                                        'data-message' => trans('modals.ConfirmDeleteMessage', ['name' => $list->id]),
-                                                    ]) !!}
-                                                    {!! Form::close() !!}
-                                                @else
-                                                    <span class="flex-fill w-100 text-center">--------------</span>
                                                 @endif
+                                                <x-delete-button :url="route('user.booking.destroy', $list->id)" :itemName="__('titles.models.booking')" :itemId="$list->id" />
                                             @endrole
                                         </td>
                                     </tr>
@@ -163,14 +145,8 @@
         </div>
     </div>
     {{-- @include('modals.modal-booking-approve') --}}
-    @include('modals.modal-booking')
+    @includeWhen(auth()->user()->isUser(), 'modals.modal-booking')
     {{-- @include('modals.modal-delete') --}}
-
-    @include('modals.confirm-modal', [
-        'formTrigger' => 'confirmDelete',
-        'modalClass' => 'danger',
-        'actionBtnIcon' => 'fa-times',
-    ])
 
     @includeWhen(auth()->user()->hasRole('guide|admin'), 'modals.confirm-modal', [
         'formTrigger' => 'approveRequestModal',
@@ -179,4 +155,3 @@
         'btnSubmitText' => 'Approve',
     ])
 @endsection
-
