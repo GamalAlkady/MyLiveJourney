@@ -3,11 +3,6 @@
     {{ trans('titles.all_tours') }}
 @endsection
 
-@section('css')
-@endsection
-
-
-
 @section('content')
     <div class="places-section">
         <div class="container">
@@ -28,10 +23,4 @@
 
         </div>
     </div>
-@endsection
-
-@section('scripts')
-@endsection
-
-@section('css')
 @endsection

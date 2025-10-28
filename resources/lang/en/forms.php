@@ -43,6 +43,7 @@ return [
         'select' => 'Select a :type',
         'search_placeholder' => 'Search for a place...',
         'write_something' => 'Write something...',
+        'write_your_question_here' => 'Write your question here...',
 
     ],
     'labels' => [

@@ -15,7 +15,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <h1 class="h3 mb-0 text-gray-800">
                         <i class="fas fa-map-plus text-primary mr-2"></i>
-                        {{ trans_choice('titles.create', $place->id ?? 0, ['name' => __('titles.place')]) }}
+                        {{ trans_choice('titles.create_or_edit', $place->id ?? 0, ['name' => __('titles.place')]) }}
                     </h1>
                     <a href="{{ route('user.places.index') }}" class="btn btn-primary">
                         {{-- <i class="fas fa-arrow-left mr-2"></i> --}}

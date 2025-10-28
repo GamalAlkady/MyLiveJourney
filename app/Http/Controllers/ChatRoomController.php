@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\MessageSent;
+use App\Events\MessagesRead;
 use App\Models\ChatRoom;
 use Illuminate\Http\Request;
 
@@ -12,23 +13,12 @@ class ChatRoomController extends Controller
     {
         $rooms = auth()->user()->myChatRooms()->withUnreadCount()->get();
 
-        // foreach ($rooms as $room) {
-        //     $pivot = $room->users->find(auth()->id())?->pivot;
-        //     $lastRead = $pivot?->last_read_at;
-        //     $room->unreadCount = $room->messages()
-        //         ->when($lastRead, fn ($q) => $q->where('created_at', '>', $lastRead))
-        //         ->count();
-        // }
-
         // return $rooms->first()->unread_count;
         return view('pages.chat.index', compact('rooms'));
     }
 
-    /**
-     * Show the chat room with messages.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function show(ChatRoom $room)
     {
         $user = auth()->user();
@@ -40,18 +30,31 @@ class ChatRoomController extends Controller
             'last_read_at' => now(),
         ]);
 
-        return view('pages.chat.room', compact('room', 'messages'));
+        // إرسال الحدث لبقية المتصلين
+        broadcast(new MessagesRead($room->id, $user->id))->toOthers();
+
+        return view('pages.chat.show', compact('room', 'messages'));
     }
 
     public function sendMessage(Request $request, ChatRoom $room)
     {
         $message = $room->messages()->create([
             'user_id' => auth()->id(),
-            'content' => $request->content,
+            'content' => $request->input('content'),
         ]);
 
         broadcast(new MessageSent($message))->toOthers();
 
-        return response()->json(['message' => $message]);
+        return response()->json(['status' => 'Message Sent']);
+    }
+
+    public function empty(ChatRoom $room)
+    {
+        // dd($room);
+        $message = $room->messages()->delete();
+
+        // broadcast(new MessageSent($message))->toOthers();
+
+        return back();
     }
 }

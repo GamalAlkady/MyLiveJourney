@@ -45,7 +45,8 @@ return [
     'laravelroles'      => 'Roles Administration',
     'log_info'          => 'Log Information',
 
-    'create'            => '{0} Create :name|[1,*] Edit :name',
+    'create'            => 'Create :name',
+    'create_or_edit'    => '{0} Create :name|[1,*] Edit :name',
     'edit'              => 'Edit :name',
     'delete'            => 'Delete :name',
 

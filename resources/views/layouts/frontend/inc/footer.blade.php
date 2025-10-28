@@ -136,12 +136,12 @@
 
     <div class="row align-items-center">
       <div class="col-md-6">
-        <p class="mb-0 text-white-50">جميع الحقوق محفوظة &copy; {{ date('Y') }} <b>Tourist Guide</b></p>
+        <p class="mb-0 text-white-50">{{ __('messages.all_rights_reserved') }} &copy; {{ date('Y') }} <b>{{ __('titles.'.config('app.name')) }}</b></p>
       </div>
       <div class="col-md-6 text-md-end">
         <nav class="footer-nav">
-          <a href="#" class="me-3">سياسة الخصوصية</a>
-          <a href="#">الشروط والأحكام</a>
+          <a href="#" class="me-3">{{ __('messages.privacy_policy') }}</a>
+          <a href="#">{{ __('messages.terms_and_conditions') }}</a>
         </nav>
       </div>
     </div>

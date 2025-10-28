@@ -11,7 +11,7 @@
     .chat-icon-fixed,
     .chat-window-fixed {
         position: fixed;
-        left: 1.5rem;
+        right: 1.5rem;
         /* 24px */
         bottom: 1.5rem;
         z-index: 1100;
@@ -128,7 +128,7 @@
                 <div class="position-relative mr-2">
                     <span class="p-1 bg-success rounded-circle position-absolute" style="top: -2px; left: -2px;"></span>
                 </div>
-                <h3 class="h6 mb-0 font-weight-bold">مساعد السياحة الذكي</h3>
+                <h3 class="h6 mb-0 font-weight-bold">{{ __('messages.ai_assistant_title') }}</h3>
             </div>
             <div>
                 <button id="close-chat-btn" class="btn btn-sm btn-link text-white p-1" style="opacity: 0.8;">
@@ -146,7 +146,7 @@
             <!-- رسالة الترحيب الأولية -->
             <div class="mb-3 d-flex justify-content-start">
                 <div class="p-3 bg-light text-dark rounded msg-ai-bubble shadow-sm mr-auto" style="max-width: 85%;">
-                    أهلاً بك! أنا مساعدك السياحي المعتمد. اسألني عن المناطق أو الأماكن المتاحة وسأجيبك فوراً.
+                    {{ __('messages.ai_assistant_description') }}
                 </div>
             </div>
         </div>
@@ -158,7 +158,7 @@
                 <!-- استخدام توجيه Blade الصحيح لرمز CSRF -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                <input type="text" id="user-input" placeholder="اكتب سؤالك هنا..."
+                <input type="text" id="user-input" placeholder="{{ __('forms.placeholders.write_your_question_here') }}"
                     class="form-control rounded-pill flex-grow-1 mr-2 small" required>
                 <input type="hidden" id="conversation-id" value="">
 
@@ -285,7 +285,7 @@
                 'p-3 bg-light text-muted rounded msg-ai-bubble mr-auto shadow-sm small font-italic';
             thinkingMessage.style.maxWidth = 'fit-content';
             thinkingMessage.innerHTML =
-                'جاري التفكير<span class="dot1 animate-pulse">.</span><span class="dot2 animate-pulse delay-100">.</span><span class="dot3 animate-pulse delay-200">.</span>';
+                '{{ __("messages.thinking") }} <span class="dot1 animate-pulse">.</span><span class="dot2 animate-pulse delay-100">.</span><span class="dot3 animate-pulse delay-200">.</span>';
 
             thinkingContainer.appendChild(thinkingMessage);
             messagesContainer.appendChild(thinkingContainer);
@@ -314,7 +314,7 @@
 
             try {
                 // 3. إرسال الرسالة إلى الواجهة الخلفية لـ Laravel
-                const response = await fetch('chat', {
+                const response = await fetch('{{ route("ai.chat") }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

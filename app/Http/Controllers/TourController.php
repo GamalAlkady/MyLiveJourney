@@ -168,6 +168,6 @@ class TourController extends Controller
         $messages = $tour->chatRoom->messages()->with('user')->get();
         $room = $tour->chatRoom;
 
-        return view('pages.chat.room', compact('room', 'messages'));
+        return view('pages.chat.show', compact('room', 'messages'));
     }
 }

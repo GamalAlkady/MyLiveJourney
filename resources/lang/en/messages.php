@@ -73,6 +73,14 @@ return [
 
     // Social Media Section
     'follow_us' => 'Follow us on social media',
+    'last_message_before'=>'Last message before',
+    'ai_assistant' => 'AI Assistant',
+    'ai_assistant_title'=>'My Live Journey AI Assistant',
+    'ai_assistant_description'=>'The AI assistant can help you with your queries and suggestions.',
+    'thinking' => 'Thinking...',
+    'all_rights_reserved' => 'All rights reserved',
+    'privacy_policy' => 'Privacy Policy',
+    'terms_and_conditions' => 'Terms and Conditions',
     'about' => '
              
                 <h4 class="text-primary text-center mb-5 w-100">My Live Journey – Your Gateway to an Interactive Travel Experience</h4>

@@ -67,39 +67,13 @@
                                         <td class="d-flex">
                                             @role('admin|guide')
                                                 @if ($list->status == BookingStatus::PENDING && $list->tour->guide_id == auth()->user()->id)
-                                                    {!! Form::open([
-                                                        'url' => route('user.booking.approve', $list->id),
-                                                        'class' => 'd-inline-block flex-fill me-1',
-                                                        'data-toggle' => 'tooltip',
-                                                        'title' => __('tooltips.approve'),
-                                                    ]) !!}
-                                                    {!! Form::hidden('_method', 'PUT') !!}
-                                                    {!! Form::button(trans('buttons.approve'), [
-                                                        'class' => 'btn btn-success btn-sm w-100',
-                                                        'type' => 'button',
-                                                        'data-toggle' => 'modal',
-                                                        'data-target' => '#approveRequestModal',
-                                                        'data-title' => __('modals.approveTitle'),
-                                                        'data-message' => trans('modals.approveMessage'),
-                                                    ]) !!}
-                                                    {!! Form::close() !!}
+                                                    <x-confirm-button :url="route('user.booking.approve', $list->id)" :buttonName="__('buttons.approve')" :tooltip="__('tooltips.approve')"
+                                                        :modalTitle="__('modals.approveTitle')" :modalMessage="__('modals.approveMessage')" modalClass="success" method="PUT"
+                                                        :first="$loop->first" />
 
-                                                    {!! Form::open([
-                                                        'url' => route('user.booking.reject', $list->id),
-                                                        'class' => 'd-inline-block flex-fill',
-                                                        'data-toggle' => 'tooltip',
-                                                        'title' => 'Delete',
-                                                    ]) !!}
-                                                    {!! Form::hidden('_method', 'DELETE') !!}
-                                                    {!! Form::button(trans('buttons.reject'), [
-                                                        'class' => 'btn btn-danger btn-sm w-100',
-                                                        'type' => 'button',
-                                                        'data-toggle' => 'modal',
-                                                        'data-target' => '#confirmRejecteedModal',
-                                                        'data-title' => __('modals.rejectTitle'),
-                                                        'data-message' => trans('modals.rejectMessage'),
-                                                    ]) !!}
-                                                    {!! Form::close() !!}
+                                                    <x-confirm-button :url="route('user.booking.reject', $list->id)" :buttonName="__('buttons.reject')" :tooltip="__('tooltips.reject')"
+                                                        :modalTitle="__('modals.rejectTitle')" :modalMessage="__('modals.rejectMessage')" modalClass="danger" method="PUT"
+                                                        formTrigger="confirmRejecteedModal" :first="$loop->first" />
                                                 @else
                                                     <span class="flex-fill w-100 text-center">--------------</span>
                                                 @endif
@@ -120,6 +94,10 @@
                                                         'data-seats' => $list->seats,
                                                         'data-remaining_seats' => $list->tour->remaining_seats,
                                                     ]) !!}
+                                                    @pushOnce('modals')
+                                                        @includeWhen(auth()->user()->isUser(),
+                                                        'modals.modal-booking')
+                                                    @endPushOnce
                                                 @endif
                                                 <x-delete-button :url="route('user.booking.destroy', $list->id)" :itemName="__('titles.models.booking')" :itemId="$list->id" />
                                             @endrole
@@ -145,13 +123,12 @@
         </div>
     </div>
     {{-- @include('modals.modal-booking-approve') --}}
-    @includeWhen(auth()->user()->isUser(), 'modals.modal-booking')
     {{-- @include('modals.modal-delete') --}}
 
-    @includeWhen(auth()->user()->hasRole('guide|admin'), 'modals.confirm-modal', [
+    {{-- @includeWhen(auth()->user()->hasRole('guide|admin'), 'modals.confirm-modal', [
         'formTrigger' => 'approveRequestModal',
         'modalClass' => 'success',
         'actionBtnIcon' => 'fa-check',
         'btnSubmitText' => 'Approve',
-    ])
+    ]) --}}
 @endsection

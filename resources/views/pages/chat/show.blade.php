@@ -4,12 +4,12 @@
 @endsection
 
 @section('css')
-    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    {{-- <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script> --}}
     <style>
         /* body {
-                        background-color: #f8f9fa;
-                        font-family: 'Tahoma', sans-serif;
-                    } */
+                                            background-color: #f8f9fa;
+                                            font-family: 'Tahoma', sans-serif;
+                                        } */
 
         .chat-container {
             max-width: 90%;
@@ -94,17 +94,17 @@
 
         .chat-footer button {
             /* border: none;
-                        background: #007bff;
-                        color: #fff;
-                        border-radius: 50%;
-                        width: 40px;
-                        height: 40px;
-                        margin-right: 10px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        cursor: pointer;
-                        transition: background 0.3s; */
+                                            background: #007bff;
+                                            color: #fff;
+                                            border-radius: 50%;
+                                            width: 40px;
+                                            height: 40px;
+                                            margin-right: 10px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            cursor: pointer;
+                                            transition: background 0.3s; */
         }
 
         .chat-footer button:hover {
@@ -132,16 +132,27 @@
             <div>
                 <i class="fa fa-user-circle"></i>
                 <h5 class="d-inline-block ml-2">{{ $room->guide->name }}</h5>
+                - <span> {{ $room->tour->title }}</span>
             </div>
-            <span><i class="fa fa-map-marker"></i> {{ $room->tour->title }}</span>
+            @if (auth()->id() == $room->tour->guide_id)
+                <div>
+                    <x-confirm-button :url="route('user.chat.empty', $room->id)" 
+                        btnTextColor="text-white" :disabled="$room->messages->count() == 0"
+                        :buttonName="__('buttons.icon.text.empty')" modalClass="outline-danger" method="POST"
+                        :tooltip="__('tooltips.emptyChat')" :modalTitle="__('modals.emptyChat')"
+                        :modalMessage="__('modals.emptyMessage')" />
+                </div>
+            @endif
+
+
         </div>
 
         <!-- Messages -->
         <div class="chat-body" id="chat-body">
-            @foreach($messages as $msg)
+            @foreach ($messages as $msg)
                 <div class="message {{ $msg->user_id == auth()->id() ? 'me' : 'you' }}">
                     <div class="bubble">
-                        <span class="text-black-50">{{ $msg->user->name }}</span><br>
+                        <span class="text-black">{{ $msg->user->name }}</span><br>
                         {{ $msg->content }}
                     </div>
                 </div>
@@ -150,7 +161,8 @@
 
         <!-- Footer -->
         <div class="chat-footer">
-            <input type="text" id="content" placeholder="{{ __('forms.placeholders.write_something') }}" autocomplete="off">
+            <input type="text" id="content" placeholder="{{ __('forms.placeholders.write_something') }}"
+                autocomplete="off">
             <button id="send-btn" class="btn btn-primary rounded-circle disabled">
                 <i class="fa fa-paper-plane"></i>
                 <span id="loading-spinner" class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"
@@ -164,10 +176,12 @@
 
 @push('scripts')
     <script>
-        const pusher = new Pusher('{{ env("PUSHER_APP_KEY") }}', { cluster: '{{ env("PUSHER_APP_CLUSTER") }}' });
+        const pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
+        });
         const channel = pusher.subscribe('chat-room.{{ $room->id }}');
 
-        channel.bind('message.sent', function (data) {
+        channel.bind('message.sent', function(data) {
             const msg = data.message;
             const currentUser = {{ auth()->id() }};
             const position = msg.user.id === currentUser ? 'me' : 'you';
@@ -175,7 +189,7 @@
             const messageDiv = `
                                     <div class="message ${position}">
                                         <div class="bubble">
-                                            <span class="text-black-50">${msg.user.name}</span><br>
+                                            <span class="text-black">${msg.user.name}</span><br>
                                             ${msg.content}
                                         </div>
                                     </div>
@@ -191,12 +205,12 @@
         }
 
         document.getElementById('send-btn').addEventListener('click', sendMessage);
-        $('#content').on('input', function () {
+        $('#content').on('input', function() {
             const content = $(this).val().trim();
             $('#send-btn').toggleClass('disabled', !content);
         });
 
-        document.getElementById('content').addEventListener('keypress', function (e) {
+        document.getElementById('content').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') sendMessage();
         });
 
@@ -208,13 +222,15 @@
             $('#send-btn i').addClass('d-none');
             $('#send-btn #loading-spinner').removeClass('d-none');
 
-            await fetch('{{ route("user.chat.send", $room) }}', {
+            await fetch('{{ route('user.chat.send', $room) }}', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                body: JSON.stringify({ content })
+                body: JSON.stringify({
+                    content
+                })
             });
 
             document.getElementById('content').value = '';
@@ -224,6 +240,5 @@
         }
 
         scrollToBottom();
-
     </script>
 @endpush

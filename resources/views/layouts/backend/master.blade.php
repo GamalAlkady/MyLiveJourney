@@ -23,8 +23,10 @@
     <link rel="stylesheet" href="{{ asset('assets/admin/css/custom.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('frontend/css/font-awesome.min.css') }}">
-{{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
+    {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> --}}
     <link rel="shortcut icon" href="/favicon.ico">
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+
     {{-- <link rel="preconnect" href="https://fonts.bunny.net"> --}}
     <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -40,6 +42,10 @@
             color: rgb(247, 100, 100);
             margin-inline-start: 5px;
         }
+
+        body {
+            font-family: 'Tahoma', sans-serif;
+        }
     </style>
 
     @if (Auth::User() && Auth::User()->profile && Auth::User()->profile->avatar_status == 0)
@@ -48,12 +54,11 @@
                 background: url({{ Gravatar::get(Auth::user()->email) }}) 50% 50% no-repeat;
                 background-size: auto 100%;
             }
-
         </style>
     @endif
 
-     {{-- Scripts --}}
-     {{-- <script>
+    {{-- Scripts --}}
+    {{-- <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
         ]) !!};
@@ -109,6 +114,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    @yield('scripts')
     @stack('scripts')
 
 </body>

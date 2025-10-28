@@ -39,6 +39,7 @@ if (!function_exists('getDate2')) {
 
     function getDate2($datetime)
     {
+        // return $datetime->diffForHumans();  
         return  \Carbon\Carbon::parse($datetime)->format('Y-m-d');
     }
 }

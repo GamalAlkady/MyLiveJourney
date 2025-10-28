@@ -25,5 +25,6 @@ return [
     'clearSearch'  => 'Clear Search Results',
     'permanentlyDelete' => 'Permanently Delete :name',
     'bookingTour' => 'Booking Tour',
+    'emptyChat' => 'Empty Chat',
 
 ];

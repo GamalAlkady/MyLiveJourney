@@ -20,7 +20,7 @@
                 <div class="card-body">
                     @include('partials.errors')
                     @include('partials.successMessage')
-                    <form action="{{ route('store.package.booking') }}" method="get">
+                    <form action="{{ route('bookings.store') }}" method="get">
                         @csrf
                         <div class="form-group">
                             <select name="guide" class="form-control">

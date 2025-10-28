@@ -35,8 +35,8 @@ Route::group(['middleware' => ['web', 'checkblocked']], function () {
 
     Route::get('/tour/booking/{id}', 'App\Http\Controllers\HomeController@tourBooking')->name('tour.booking');
     Route::get('/tour/booking', 'App\Http\Controllers\HomeController@storeBookingRequest')->name('store.tour.booking');
-    Route::get('/chat2', [App\Http\Controllers\AiAssistantController::class, 'index']);
-    Route::post('/chat', [App\Http\Controllers\AiAssistantController::class, 'chat']);
+    // Route::get('/chat2', [App\Http\Controllers\AiAssistantController::class, 'index']);
+    Route::post('/ai/chat', [App\Http\Controllers\AiAssistantController::class, 'chat'])->name('ai.chat');
 });
 
 // Authentication Routes
@@ -183,6 +183,7 @@ Route::group([
     Route::resource('tours', 'TourController');
     Route::resource('chats','ChatRoomController')->parameters(['chats' => 'room']);
     Route::post('/chat/{room}/send', [ChatRoomController::class, 'sendMessage'])->name('chat.send');
+    Route::post('/chat/{room}/empty', [ChatRoomController::class, 'empty'])->name('chat.empty');
     Route::get('tour/{tour}/chat', [TourController::class, 'chat'])->name('tours.chat');
 
     // Route::get('list', 'UsersController@guideList')->name('list');

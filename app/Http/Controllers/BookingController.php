@@ -106,6 +106,7 @@ class BookingController extends Controller
      */
     public function bookingApprove(Booking $booking)
     {
+        // dd('bookingApprove');
         try {
             DB::transaction(function () use ($booking) {
 
@@ -135,9 +136,10 @@ class BookingController extends Controller
 
     public function bookingReject(Booking $booking)
     {
+        // dd('bookingReject');
         try {
 
-            $booking->status = BookingStatus::Rejected;
+            $booking->status = BookingStatus::DISAPPROVED;
             $booking->save();
 
             $booking->tourist->notify(new BookingRejectedConfirmation($booking));
@@ -152,7 +154,7 @@ class BookingController extends Controller
     public function bookingCancel(Booking $booking)
     {
         try {
-            $booking->status = BookingStatus::Cancelled;
+            $booking->status = BookingStatus::CANCELLED;
             $booking->save();
 
             // $booking->tourist->notify(new BookingRejectedConfirmation($booking));

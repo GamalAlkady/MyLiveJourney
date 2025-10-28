@@ -22,9 +22,6 @@
 
     <!-- معلومات الجولة -->
     <div class="row">
-
-
-
         <!-- تفاصيل الجولة -->
         <div class="col-lg-12 mb-4">
             <div class="card shadow h-100">
@@ -89,14 +86,14 @@
                                     <div class="col-6">
                                     <strong class="mb-0">{!! __('forms.labels.icon.start_date',['class'=>' text-info fa-1x']) !!}</strong>
                                     </div>
-                                    <p class="mb-0 fw-bold ">{{ getDate2($tour->start_date) }}</p>
+                                    <p class="mb-0 fw-bold ">{{ $tour->start_date_only }}</p>
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-start mb-3  col-12 row">
                                     <div class="col-6">
                                     <strong class="mb-0">{!! __('forms.labels.icon.start_time',['class'=>' text-info fa-1x']) !!}</strong>
                                     </div>
-                                    <p class="mb-0 fw-bold ">{{ getTime($tour->start_date) }}</p>
+                                    <p class="mb-0 fw-bold ">{{ $tour->start_time }}</p>
                                 </div>
 
                                 <div class="col-12 border-bottom mb-3"></div>
@@ -104,14 +101,14 @@
                                     <div class="col-6">
                                     <strong class="mb-0">{!! __('forms.labels.icon.end_date',['class'=>' text-warning fa-1x']) !!}</strong>
                                     </div>
-                                    <p class="mb-0 fw-bold ">{{ getDate2($tour->end_date) }}</p>
+                                    <p class="mb-0 fw-bold ">{{ $tour->end_date_only }}</p>
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-start mb-3  col-12 row">
                                     <div class="col-6">
                                     <strong class="mb-0">{!! __('forms.labels.icon.end_time',['class'=>' text-warning fa-1x']) !!}</strong>
                                     </div>
-                                    <p class="mb-0 fw-bold ">{{ getTime($tour->end_date) }}</p>
+                                    <p class="mb-0 fw-bold ">{{ $tour->end_time }}</p>
                                 </div>
 
 

@@ -4,16 +4,9 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-         <li class="nav-item">
-            <a href="{{ url('/') }}" class="nav-link">
-               <i class="fa fa-home"></i>
-            </a>
-        </li>
     </ul>
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-
-
         <li class="nav-item dropdown">
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false" v-pre>
@@ -41,9 +34,6 @@
                 </form>
             </div>
         </li>
-
-
-
         </li>
     </ul>
 </nav>

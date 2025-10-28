@@ -24,7 +24,7 @@
                     <div class="place-image-container">
                         <!-- زر التبديل بين العرض العادي والواقع الافتراضي -->
                         <button class="view-mode-toggle" onclick="toggleViewMode()">
-                           <i class="fas fa-image mr-2"></i> تبديل إلى الصورة العادية'
+                           <i class="fas fa-image mr-2"></i> {{ __('buttons.switch_to_normal') }}
                         </button>
 
                         <!-- صورة عادية -->
@@ -66,6 +66,7 @@
                                 <i class="fas fa-clock"></i>
                                 <span>{{ $place->created_at->diffForHumans() }}</span>
                             </div>
+
                             <div class="place-meta-item">
                                 <i class="fas fa-map"></i>
                                 <span>{{ $place->district->name }}</span>
@@ -133,9 +134,9 @@
             $(vrView).toggleClass('d-none');
 
             if ($(vrView).hasClass('d-none')) {
-                toggleButton.innerHTML = '<i class="fas fa-vr-cardboard mr-2"></i> تبديل إلى الواقع الافتراضي';
+                toggleButton.innerHTML = '<i class="fas fa-vr-cardboard mr-2"></i> {{ __('buttons.switch_to_virtual') }}';
             } else {
-                toggleButton.innerHTML = '<i class="fas fa-image mr-2"></i> تبديل إلى الصورة العادية';
+                toggleButton.innerHTML = '<i class="fas fa-image mr-2"></i> {{ __('buttons.switch_to_normal') }}';
             }
         }
     </script>

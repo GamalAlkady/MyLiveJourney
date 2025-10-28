@@ -5,10 +5,10 @@
 
 @section('css')
     <style>
-        body {
+        /* body {
             background-color: #f4f7fa;
             font-family: 'Tahoma', sans-serif;
-        }
+        } */
 
         .chat-list-container {
             /* max-width: 900px; */
@@ -139,37 +139,38 @@
         </div>
 
         @forelse ($rooms as $room)
-            <div class="chat-card d-block @disabled(!auth()->user()->canChat($room->tour))">
+            <div id="room-{{ $room->id }}" class="chat-card d-block @disabled(!auth()->user()->canChat($room->tour))">
                 <div class="card-body">
                     <div class="chat-avatar position-relative m-2">
                         <i class="fa fa-map-marker"></i>
-                        @if ($room->unread_count > 0)
-                            <span class="badge badge-danger unread-badge">
-                                {{ $room->unread_count }}
-                            </span>
-                        @endif
+
+                        <span class="badge badge-danger unread-badge" @class(['d-none' => $room->unread_count == 0])>
+                            {{ $room->unread_count }}
+                        </span>
                     </div>
 
                     <a href="{{ route('user.chats.show', $room->id) }}" class="chat-info text-decoration-none">
-                            <h5>{{ $room->tour->title }}</h5>
+                        <div>
+                            <h5 class="d-inline-block">{{ $room->tour->title }}</h5>
+                            <small class="text-muted">{{ __('messages.last_message_before') }}
+                                {{ $room->updated_at->diffForHumans() }}</small>
+                        </div>
                         <p>
                             <i class="fa fa-users"></i>
                             {{ $room->users->count() }} {{ __('titles.room.members') }}
                         </p>
                         <small class="text-muted">
-                            {{ $room->tour->start_date }} - {{ $room->tour->end_date }}
+                             {{ $room->tour->end_date->diffForHumans() }}
                         </small>
                     </a>
 
                     <div class="chat-actions text-left">
 
-                        @if (auth()->id() == $room->tour->guide_id)
-                            <x-delete-button url="{{ route('user.chats.destroy', $room->id) }}" text_button="2"
-                                :itemName="__('titles.chat_room')" />
-                        @endif
-                        {{-- <a href="{{ route('user.chats.show', $room->id) }}" class="btn btn-outline-primary btn-sm">
-                        <i class="fa fa-comments"></i> دخول
-                    </a> --}}
+                        {{-- @if (auth()->id() == $room->tour->guide_id)
+                        <x-confirm-button :url="route('user.chat.empty',$room->id)" :buttonName="__('buttons.icon.text.empty')" 
+                            method="PUT" :tooltip="__('tooltips.empty')" 
+                            :modalTitle="__('modals.emptyChat')" :modalMessage="__('modals.emptyMessage')"/>
+                        @endif --}}
                     </div>
                 </div>
             </div>
@@ -181,3 +182,53 @@
 
     </div>
 @endsection
+
+@push('scripts')
+    <script>
+        const currentUser = {{ auth()->id() }};
+        const pusher = new Pusher('{{ env('PUSHER_APP_KEY') }}', {
+            cluster: '{{ env('PUSHER_APP_CLUSTER') }}'
+        });
+
+        // افترض أن لديك قائمة بكل غرف المستخدم
+        const rooms = @json($rooms->pluck('id'));
+
+        rooms.forEach(roomId => {
+            const channel = pusher.subscribe('chat-room.' + roomId);
+
+            channel.bind('message.sent', function(data) {
+                const msg = data.message;
+                console.log(msg);
+
+                // تجاهل رسائل المستخدم نفسه
+                if (msg.user.id === currentUser) return;
+
+                // تحديث العداد في Sidebar
+                const badge = document.querySelector(`#room-${roomId} .unread-badge`);
+                if (badge) {
+                    badge.innerText = parseInt(badge.innerText || '0') + 1;
+                    badge.style.display = 'inline';
+                }
+            });
+
+            channel.bind('MessagesRead', function(data) {
+                if (data.user_id === currentUser) return; // تجاهل إذا كان الحدث من نفس المستخدم
+
+                // تحديث العداد للآخرين
+                const badge = document.querySelector(`#room-${data.room_id} .unread-badge`);
+                if (badge) {
+                    badge.innerText = 0; // تصفير العداد
+                    badge.style.display = 'none';
+                }
+            });
+        });
+
+        //         const currentUser = {{ auth()->id() }};
+
+        // rooms.forEach(roomId => {
+        //     const channel = pusher.subscribe('chat-room.' + roomId);
+
+
+        // });
+    </script>
+@endpush
