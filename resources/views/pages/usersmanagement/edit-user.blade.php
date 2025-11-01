@@ -47,22 +47,9 @@
 
 @section('content')
 
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1 class="h3 mb-0 text-gray-800">
-                    {!! trans('buttons.edit_name',['name' => $user->name]) !!}
-                </h1>
-              <div>  <a href="{{ route('user.users.index') }}" class="btn btn-light btn-sm px-3 py-2 rounded hover-effect me-2">
-                    {!! trans('buttons.back_to', ['name' => __('usersmanagement.users')]) !!}
-                </a>
+<x-header :title="trans('usersmanagement.editUser')"/>
 
-                <a href="{{ route('user.users.show',$user->id) }}" class="btn btn-light btn-sm px-3 py-2 rounded hover-effect me-2">
-                    {!! trans('buttons.back_to1', ['name' => __('usersmanagement.user')]) !!}
-                </a></div>
-            </div>
-        </div>
-    </div>
+
     <div class="row">
         <div class="col-xl-12 col-lg-12">
             <div class="card shadow-lg border-0 rounded-lg">
@@ -136,13 +123,13 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3 {{ $errors->has('first_name') ? 'has-error' : '' }}">
                                     <label for="first_name" class="form-label text-gray-700 font-medium">
-                                        <i class="fas fa-id-card me-2"></i>
-                                        {!! trans('forms.create_user_label_firstname') !!}
+                                        {{-- <i class="fas fa-id-card me-2"></i> --}}
+                                        {!! trans('forms.labels.icon.first_name') !!}
                                     </label>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-lg" id="first_name"
                                             name="first_name" value="{{ old('first_name', $user->first_name) }}"
-                                            placeholder="{!! trans('forms.create_user_ph_firstname') !!}" required>
+                                            placeholder="{!! trans('forms.placeholders.enter_first_name') !!}" required>
                                         <span class="input-group-text bg-ligh">
                                             <i class="fas fa-id-card"></i>
                                         </span>
@@ -158,13 +145,13 @@
                             <div class="col-md-6">
                                 <div class="form-group mb-3 {{ $errors->has('last_name') ? 'has-error' : '' }}">
                                     <label for="last_name" class="form-label text-gray-700 font-medium">
-                                        <i class="fas fa-user-tag me-2"></i>
-                                        {!! trans('forms.create_user_label_lastname') !!}
+                                        {{-- <i class="fas fa-user-tag me-2"></i> --}}
+                                        {!! trans('forms.labels.icon.last_name') !!}
                                     </label>
                                     <div class="input-group">
                                         <input type="text" class="form-control form-control-lg" id="last_name"
                                             name="last_name" value="{{ old('last_name', $user->last_name) }}"
-                                            placeholder="{!! trans('forms.create_user_ph_lastname') !!}" required>
+                                            placeholder="{!! trans('forms.placeholders.enter_last_name') !!}" required>
                                         <span class="input-group-text bg-ligh">
                                             <i class="fas fa-user-tag"></i>
                                         </span>
@@ -182,13 +169,13 @@
                             <div class="col-12">
                                 <div class="form-group mb-3 {{ $errors->has('role') ? 'has-error' : '' }}">
                                     <label for="role" class="form-label text-gray-700 font-medium">
-                                        <i class="fas fa-shield-alt me-2"></i>
-                                        {!! trans('forms.create_user_label_role') !!}
+                                        {{-- <i class="fas fa-shield-alt me-2"></i> --}}
+                                        {!! trans('forms.labels.icon.role') !!}
                                     </label>
                                     <div class="input-group">
                                         <select class="custom-select form-control form-control-lg" name="role"
                                             id="role" required>
-                                            <option value="">{!! trans('forms.create_user_ph_role') !!}</option>
+                                            <option value="">{!! trans('forms.placeholders.enter_role') !!}</option>
                                             @if ($roles)
                                                 @foreach ($roles as $role)
                                                     <option value="{{ $role->id }}"
@@ -215,19 +202,19 @@
                         <div class="pw-change-container">
                             <h5 class="mb-4 text-gray-700 font-medium">
                                 <i class="fas fa-key me-2"></i>
-                                {!! trans('forms.change-pw') !!}
+                                {!! trans('forms.change_pw') !!}
                             </h5>
 
                             <div class="row mb-4">
                                 <div class="col-12">
                                     <div class="form-group mb-3 {{ $errors->has('password') ? 'has-error' : '' }}">
                                         <label for="password" class="form-label text-gray-700 font-medium">
-                                            <i class="fas fa-lock me-2"></i>
-                                            {!! trans('forms.create_user_label_password') !!}
+                                            {{-- <i class="fas fa-lock me-2"></i> --}}
+                                            {!! trans('forms.labels.icon.password') !!}
                                         </label>
                                         <div class="input-group">
                                             <input type="password" class="form-control form-control-lg" id="password"
-                                                name="password" placeholder="{!! trans('forms.create_user_ph_password') !!}">
+                                                name="password" placeholder="{!! trans('forms.placeholders.enter_password') !!}">
                                             <span class="input-group-text bg-light">
                                                 <i class="fas fa-lock"></i>
                                             </span>
@@ -246,13 +233,13 @@
                                     <div
                                         class="form-group mb-3 {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
                                         <label for="password_confirmation" class="form-label text-gray-700 font-medium">
-                                            <i class="fas fa-lock me-2"></i>
-                                            {!! trans('forms.create_user_label_pw_confirmation') !!}
+                                            {{-- <i class="fas fa-lock me-2"></i> --}}
+                                            {!! trans('forms.labels.icon.confirm_password') !!}
                                         </label>
                                         <div class="input-group">
                                             <input type="password" class="form-control form-control-lg"
                                                 id="password_confirmation" name="password_confirmation"
-                                                placeholder="{!! trans('forms.create_user_ph_pw_confirmation') !!}">
+                                                placeholder="{!! trans('forms.placeholders.enter_confirm_password') !!}">
                                             <span class="input-group-text bg-light">
                                                 <i class="fas fa-lock"></i>
                                             </span>
@@ -270,9 +257,9 @@
                         <div class="row">
                             <div class="col-12 col-sm-6 mb-2">
                                 <a href="#" class="btn btn-outline-secondary btn-block btn-change-pw mt-3"
-                                    title="{{ trans('forms.change-pw') }}">
+                                    title="{{ trans('forms.change_pw') }}">
                                     <i class="fas fa-lock me-2"></i>
-                                    {!! trans('forms.change-pw') !!}
+                                    {!! trans('forms.change_pw') !!}
                                 </a>
                             </div>
                             <div class="col-12 col-sm-6">

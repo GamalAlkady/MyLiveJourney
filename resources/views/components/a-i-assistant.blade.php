@@ -17,6 +17,13 @@
         z-index: 1100;
     }
 
+    [dir="rtl"] .chat-icon-fixed,
+    [dir="rtl"] .chat-window-fixed {
+        left: 1.5rem;
+        right: auto;
+    }
+
+   
     #ai-assistant-icon {
         /* الشفافية الأولية (70%) */
         opacity: 0.7;
@@ -46,6 +53,7 @@
     #ai-chat-window.open {
         transform: scale(1);
         opacity: 1;
+        bottom: 70px;
     }
 
     /* جماليات فقاعات الرسائل */
@@ -86,7 +94,7 @@
         content: none;
     }
 
-    /* تعديلات الاستجابة للأجهزة المحمولة */
+        /* تعديلات الاستجابة للأجهزة المحمولة */
     @media (max-width: 575.98px) {
         #ai-chat-window.open {
             width: 100% !important;
@@ -106,10 +114,10 @@
 </style>
 <div id="ai-chat-component-wrapper">
     <!-- 1. أيقونة المساعد العائمة (RTL: أسفل اليسار) -->
-    <button id="ai-assistant-icon" 
-            class="chat-icon-fixed btn p-0 border-0 text-white rounded-circle shadow-lg 
-                   d-flex align-items-center justify-content-center" 
-            style="width: 40px; height: 40px; 
+    <button id="ai-assistant-icon"
+        class="chat-icon-fixed btn p-0 border-0 text-white rounded-circle shadow-lg 
+                   d-flex align-items-center justify-content-center"
+        style="width: 40px; height: 40px; 
                    background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%); 
                    outline: 4px solid rgba(79, 70, 229, 0.3); outline-offset: 2px;">
 
@@ -145,7 +153,7 @@
             style="background-color: #fcfcfc;">
             <!-- رسالة الترحيب الأولية -->
             <div class="mb-3 d-flex justify-content-start">
-                <div class="p-3 bg-light text-dark rounded msg-ai-bubble shadow-sm mr-auto" style="max-width: 85%;">
+                <div class="p-3 bg-light text-dark tex-left rounded msg-ai-bubble shadow-sm mr-auto" style="max-width: 85%;">
                     {{ __('messages.ai_assistant_description') }}
                 </div>
             </div>
@@ -158,7 +166,8 @@
                 <!-- استخدام توجيه Blade الصحيح لرمز CSRF -->
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
-                <input type="text" id="user-input" placeholder="{{ __('forms.placeholders.write_your_question_here') }}"
+                <input type="text" id="user-input"
+                    placeholder="{{ __('forms.placeholders.write_your_question_here') }}"
                     class="form-control rounded-pill flex-grow-1 mr-2 small" required>
                 <input type="hidden" id="conversation-id" value="">
 
@@ -170,7 +179,7 @@
                     <!-- 1. أيقونة الإرسال (تُعرض بشكل افتراضي) -->
                     <span id="send-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                            style="width: 20px; height: 20px; stroke-width: 2;">
+                            style="width: 20px; height: 20px; stroke-width: 2; {{ isRtl()?' transform: scale(-1, 1);':'' }}">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
                         </svg>
@@ -285,7 +294,7 @@
                 'p-3 bg-light text-muted rounded msg-ai-bubble mr-auto shadow-sm small font-italic';
             thinkingMessage.style.maxWidth = 'fit-content';
             thinkingMessage.innerHTML =
-                '{{ __("messages.thinking") }} <span class="dot1 animate-pulse">.</span><span class="dot2 animate-pulse delay-100">.</span><span class="dot3 animate-pulse delay-200">.</span>';
+                '{{ __('messages.thinking') }} <span class="dot1 animate-pulse">.</span><span class="dot2 animate-pulse delay-100">.</span><span class="dot3 animate-pulse delay-200">.</span>';
 
             thinkingContainer.appendChild(thinkingMessage);
             messagesContainer.appendChild(thinkingContainer);
@@ -314,7 +323,7 @@
 
             try {
                 // 3. إرسال الرسالة إلى الواجهة الخلفية لـ Laravel
-                const response = await fetch('{{ route("ai.chat") }}', {
+                const response = await fetch('{{ route('ai.chat') }}', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

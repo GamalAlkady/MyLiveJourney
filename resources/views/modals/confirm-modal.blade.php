@@ -29,7 +29,7 @@
                 </p>
             </div>
             <div class="modal-footer d-flex justify-content-around">
-                {!! Form::button('<i class="fa fa-fw fa-close" aria-hidden="true"></i> ' . trans('laravelblocker::laravelblocker.modals.btnCancel'), array('class' => 'btn btn-outline pull-left btn-light', 'type' => 'button', 'data-dismiss' => 'modal' )) !!}
+                {!! Form::button(' ' . trans('buttons.cancel'), array('class' => 'btn btn-outline pull-left btn-light', 'type' => 'button', 'data-dismiss' => 'modal' )) !!}
                 {!! Form::button('<i class="fa ' . $actionBtnIcon . '" aria-hidden="true"></i> ' . $btnSubmitText, array('class' => 'btn btn-' . $modalClass . '', 'type' => 'button', 'id' => 'confirm' )) !!}
             </div>
         </div>

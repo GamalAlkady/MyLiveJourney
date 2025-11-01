@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html>
+<html lang="{{ app('laravellocalization')->getCurrentLocale() }}"
+    dir="{{ app('laravellocalization')->getCurrentLocaleDirection() }}">
 
 <head>
     <meta charset="utf-8">
@@ -35,8 +36,14 @@
 
     @vite(['resources/assets/sass/app.scss', 'resources/assets/js/app.js'])
 
+    @if (app('laravellocalization')->getCurrentLocaleDirection() == 'rtl')
+        <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css"
+            integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
+    @endif
     <link rel="stylesheet" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/rtl.css') }}">
     @yield('css')
+    @stack('css')
     <style type="text/css">
         .help-block {
             color: rgb(247, 100, 100);
@@ -47,15 +54,17 @@
             font-family: 'Tahoma', sans-serif;
         }
     </style>
-
     @if (Auth::User() && Auth::User()->profile && Auth::User()->profile->avatar_status == 0)
         <style type="text/css">
             .user-avatar-nav {
                 background: url({{ Gravatar::get(Auth::user()->email) }}) 50% 50% no-repeat;
                 background-size: auto 100%;
+                width: 35px;
+                height: 35px;
             }
         </style>
     @endif
+
 
     {{-- Scripts --}}
     {{-- <script>
@@ -69,7 +78,8 @@
 </head>
 
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed"
+    dir="{{ app('laravellocalization')->getCurrentLocaleDirection() }}">
     <div class="wrapper" id="app">
 
         <!-- Navbar -->
@@ -111,9 +121,31 @@
 
     <x-a-i-assistant />
     @stack('modals')
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script>
+        $(document).ready(function() {
+            var sidebarState = localStorage.getItem('sidebarState');
+            if (sidebarState === 'true' && window.matchMedia('(min-width: 768px)').matches == true) {
+                $('body').addClass('sidebar-collapse');
+            }
+        })
+
+        $('#toggleSidebar,.overlay').click(function() {
+            if (window.matchMedia('(min-width: 768px)').matches == true) {
+                $('body').toggleClass('sidebar-collapse');
+                $('.main-sidebar,.main-header,.content-wrapper').attr('style',
+                    'transition: all 0.3s ease-in-out !important;');
+
+                localStorage.setItem('sidebarState', $('body').hasClass('sidebar-collapse'));
+            }
+            else{
+                $('.main-sidebar').toggleClass('sidebar-open');
+                $('.overlay').toggleClass('open');
+            }
+
+        })
+    </script>
     @yield('scripts')
     @stack('scripts')
 

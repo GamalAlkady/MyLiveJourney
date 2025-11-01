@@ -6,9 +6,8 @@
 
 @section('css')
     <link href="{{ asset('css/password.min.css') }}" rel="stylesheet">
-
 @endsection
-{{-- TODO: error when save changes --}}
+
 @section('content')
 
     <div class="col-12 my-2 mx-2">
@@ -32,6 +31,11 @@
                                         <a class="nav-link" data-toggle="pill" href=".edit-account-tab" role="tab"
                                             aria-controls="edit-settings-tab" aria-selected="false">
                                             {{ trans('profile.editAccountAdminTitle') }}
+                                        </a>
+
+                                        <a class="nav-link" data-toggle="pill" href=".change-language-tab" role="tab"
+                                            aria-controls="edit-settings-tab" aria-selected="false">
+                                            {{ trans('profile.changeLanguage') }}
                                         </a>
                                     </div>
                                 </div>
@@ -90,7 +94,7 @@
                                                                 <input type="radio" name="avatar_status" id="option1"
                                                                     autocomplete="off" value="0"
                                                                     @if ($user->profile->avatar_status == 0) checked @endif>
-                                                                Use Gravatar
+                                                                {{ __('buttons.use_gravatar') }}
                                                             </label>
                                                         </div>
                                                         <div class="col-6 col-xs-6 left-btn-container">
@@ -101,7 +105,7 @@
                                                                 <input type="radio" name="avatar_status" id="option2"
                                                                     autocomplete="off" value="1"
                                                                     @if ($user->profile->avatar_status == 1) checked @endif>
-                                                                Use My Image
+                                                                {{ __('buttons.use_image') }}
                                                             </label>
                                                         </div>
                                                     </div>
@@ -238,17 +242,17 @@
 
                                             <div
                                                 class="pt-4 pr-3 pl-2 form-group has-feedback row {{ $errors->has('name') ? ' has-error ' : '' }}">
-                                                {!! Form::label('name', trans('forms.create_user_label_username'), ['class' => 'col-md-3 control-label']) !!}
+                                                {!! Form::label('name', trans('forms.labels.username'), ['class' => 'col-md-3 control-label']) !!}
                                                 <div class="col-md-9">
                                                     <div class="input-group">
                                                         {!! Form::text('name', $user->name, [
                                                             'id' => 'name',
                                                             'class' => 'form-control',
-                                                            'placeholder' => trans('forms.create_user_ph_username'),
+                                                            'placeholder' => trans('forms.placeholders.username'),
                                                         ]) !!}
                                                         <div class="input-group-append">
                                                             <label class="input-group-text" for="name">
-                                                                <i class="fa fa-fw {{ trans('forms.create_user_icon_username') }}"
+                                                                <i class="fa fa-fw fa-user"
                                                                     aria-hidden="true"></i>
                                                             </label>
                                                         </div>
@@ -263,17 +267,17 @@
 
                                             <div
                                                 class="pr-3 pl-2 form-group has-feedback row {{ $errors->has('email') ? ' has-error ' : '' }}">
-                                                {!! Form::label('email', trans('forms.create_user_label_email'), ['class' => 'col-md-3 control-label']) !!}
+                                                {!! Form::label('email', trans('forms.labels.email'), ['class' => 'col-md-3 control-label']) !!}
                                                 <div class="col-md-9">
                                                     <div class="input-group">
                                                         {!! Form::text('email', $user->email, [
                                                             'id' => 'email',
                                                             'class' => 'form-control',
-                                                            'placeholder' => trans('forms.create_user_ph_email'),
+                                                            'placeholder' => trans('forms.placeholders.email'),
                                                         ]) !!}
                                                         <div class="input-group-append">
                                                             <label for="email" class="input-group-text">
-                                                                <i class="fa fa-fw {{ trans('forms.create_user_icon_email') }}"
+                                                                <i class="fa fa-fw fa-envelope"
                                                                     aria-hidden="true"></i>
                                                             </label>
                                                         </div>
@@ -288,17 +292,17 @@
 
                                             <div
                                                 class="pr-3 pl-2 form-group has-feedback row {{ $errors->has('first_name') ? ' has-error ' : '' }}">
-                                                {!! Form::label('first_name', trans('forms.create_user_label_firstname'), ['class' => 'col-md-3 control-label']) !!}
+                                                {!! Form::label('first_name', trans('forms.labels.first_name'), ['class' => 'col-md-3 control-label']) !!}
                                                 <div class="col-md-9">
                                                     <div class="input-group">
                                                         {!! Form::text('first_name', $user->first_name, [
                                                             'id' => 'first_name',
                                                             'class' => 'form-control',
-                                                            'placeholder' => trans('forms.create_user_ph_firstname'),
+                                                            'placeholder' => trans('forms.placeholders.enter_first_name'),
                                                         ]) !!}
                                                         <div class="input-group-append">
                                                             <label class="input-group-text" for="first_name">
-                                                                <i class="fa fa-fw {{ trans('forms.create_user_icon_firstname') }}"
+                                                                <i class="fa fa-fw fa-id-card"
                                                                     aria-hidden="true"></i>
                                                             </label>
                                                         </div>
@@ -313,17 +317,17 @@
 
                                             <div
                                                 class="pr-3 pl-2 form-group has-feedback row {{ $errors->has('last_name') ? ' has-error ' : '' }}">
-                                                {!! Form::label('last_name', trans('forms.create_user_label_lastname'), ['class' => 'col-md-3 control-label']) !!}
+                                                {!! Form::label('last_name', trans('forms.labels.last_name'), ['class' => 'col-md-3 control-label']) !!}
                                                 <div class="col-md-9">
                                                     <div class="input-group">
                                                         {!! Form::text('last_name', $user->last_name, [
                                                             'id' => 'last_name',
                                                             'class' => 'form-control',
-                                                            'placeholder' => trans('forms.create_user_ph_lastname'),
+                                                            'placeholder' => trans('forms.placeholders.enter_last_name'),
                                                         ]) !!}
                                                         <div class="input-group-append">
                                                             <label class="input-group-text" for="last_name">
-                                                                <i class="fa fa-fw {{ trans('forms.create_user_icon_lastname') }}"
+                                                                <i class="fas fa-fw fa-id-card"
                                                                     aria-hidden="true"></i>
                                                             </label>
                                                         </div>
@@ -355,6 +359,7 @@
                                             {!! Form::close() !!}
                                         </div>
 
+                                        {{-- Tab Passwords --}}
                                         <div class="tab-pane fade edit-account-tab" role="tabpanel"
                                             aria-labelledby="edit-account-tab">
                                             <ul
@@ -391,14 +396,14 @@
 
                                                         <div
                                                             class="form-group has-feedback row {{ $errors->has('password') ? ' has-error ' : '' }}">
-                                                            {!! Form::label('password', trans('forms.create_user_label_password'), ['class' => 'col-md-3 control-label']) !!}
+                                                            {!! Form::label('password', trans('forms.labels.password'), ['class' => 'col-md-3 control-label']) !!}
                                                             <div class="col-md-9">
                                                                 <div class="input-group" id="show_hide_password">
 
                                                                     {!! Form::password('password', [
                                                                         'id' => 'password',
                                                                         'class' => 'form-control ',
-                                                                        'placeholder' => trans('forms.create_user_ph_password'),
+                                                                        'placeholder' => trans('forms.placeholders.enter_password'),
                                                                         'autocomplete' => 'new-password',
                                                                     ]) !!}
 
@@ -414,14 +419,14 @@
 
                                                         <div
                                                             class="form-group has-feedback row {{ $errors->has('password_confirmation') ? ' has-error ' : '' }}">
-                                                            {!! Form::label('password_confirmation', trans('forms.create_user_label_pw_confirmation'), [
+                                                            {!! Form::label('password_confirmation', trans('forms.labels.confirm_password'), [
                                                                 'class' => 'col-md-3 control-label',
                                                             ]) !!}
                                                             <div class="col-md-9">
                                                                 {!! Form::password('password_confirmation', [
                                                                     'id' => 'password_confirmation',
                                                                     'class' => 'form-control',
-                                                                    'placeholder' => trans('forms.create_user_ph_pw_confirmation'),
+                                                                    'placeholder' => trans('forms.placeholders.enter_confirm_password'),
                                                                 ]) !!}
                                                                 <span id="pw_status"></span>
                                                                 @if ($errors->has('password_confirmation'))
@@ -501,6 +506,45 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="tab-pane fade active change-language-tab" role="tabpanel"
+                                            aria-labelledby="edit-profile-tab">
+                                            <div class="container">
+                                                <h3 class="text-center mb-4">{{ trans('profile.changeLanguage') }}</h3>
+
+                                                <div class="row justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <div class="list-group">
+                                                            {{-- @dd(App::currentLocale()) --}}
+                                                            @foreach (app('laravellocalization')->getSupportedLocales() as $localeCode => $properties)
+                                                                <a href="{{ LaravelLocalization::getLocalizedURL($localeCode) }}" 
+                                                                @class(["list-group-item list-group-item-action d-block mb-2", 
+                                                                'disabled bg-light' => app('laravellocalization')->getCurrentLocale() == $localeCode])>
+                                                                    <div
+                                                                        class="d-flex justify-content-between align-items-center">
+                                                                        <div class="d-flex align-items-center">
+                                                                            <span
+                                                                                class="flag-icon flag-icon-{{ $localeCode === 'en' ? 'us' : $localeCode }} mr-3"></span>
+                                                                            <span>{{ $properties['native'] }}</span>
+                                                                        </div>
+                                                                        <div class="custom-control custom-radio">
+                                                                            <input type="radio" name="localeCode"
+                                                                                value="{{ $localeCode }}"
+                                                                                class="custom-control-input"
+                                                                                id="lang_{{ $localeCode }}"
+                                                                                @checked(app('laravellocalization')->getCurrentLocale() == $localeCode)>
+                                                                            <label class="custom-control-label"
+                                                                                for="lang_{{ $localeCode }}"></label>
+                                                                        </div>
+                                                                    </div>
+                                                                </a>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                               
                                             </div>
                                         </div>
                                     </div>

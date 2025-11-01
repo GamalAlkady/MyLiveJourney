@@ -35,7 +35,10 @@
                     class="btn btn-outline-info">{{ trans('messages.details') }}</a>
                 @auth
                     @role('user')
-                         {!! Form::button(trans('buttons.book_now'), [
+                    <x-booking-button :tour_id="$tour->id" :remaining_seats="$tour->remaining_seats" class="btnprimary">
+                        {{ __('buttons.book_now') }}
+                    </x-booking-button>
+                         {{-- {!! Form::button(trans('buttons.book_now'), [
                             'class' => 'btn btn-outline-primary',
                             'type' => 'button',
                             'data-toggle' => 'modal',
@@ -45,7 +48,7 @@
                             'data-tour_id'=>$tour->id,
                             'data-max_seats'=>$tour->max_seats,
                             'data-remaining_seats'=>$tour->remaining_seats
-                        ]) !!}
+                        ]) !!} --}}
                     {{-- <a href="{{ route('tour.booking', $tour->id) }}" class="btn btn-outline-primary">
                         {!! trans('buttons.book_now') !!}</a> --}}
                     @endrole

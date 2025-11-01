@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class TourController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $searchTerm = $request->input('search');
@@ -29,10 +24,11 @@ class TourController extends Controller
 
         if (auth()->user()->isUser()) {
             $tours = $tours->whereStatus(TourStatus::Available->value);
-        } else {
+        } elseif (auth()->user()->isGuide()) {
             $tours = $tours->where('guide_id', Auth::user()->id)->whereNot('status', TourStatus::InProgress->value);
         }
 
+        //
         // if ($searchTerm) {
         //     $tours = $tours->where('name', 'LIKE', '%' . $searchTerm . '%')->paginate(config('usersmanagement.paginateListSize'));
         // } else {
@@ -162,12 +158,34 @@ class TourController extends Controller
         return view('pages.tour.running', compact('tours'));
     }
 
-    public function chat(Tour $tour)
+    public function completeTour(Tour $tour)
+    {
+        $tour->status = TourStatus::Completed;
+        $tour->save();
+        return back()->with('success', __('alerts.tour_status'));
+    }
+    /**
+     * Show the chat room of a tour.
+     *
+     * @param Tour $tour
+     * @return \Doctrine\DBAL\Driver\IBMDB2\Exception\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+     /*
+     * This function will show the chat room of a tour if it exists.
+     * It will return a view with the room and its messages.
+     * If the room does not exist, it will redirect to the tours index page
+     * with an error message.
+     */
+    public function chat(Tour $tour)    
     {
         // dd('show');
-        $messages = $tour->chatRoom->messages()->with('user')->get();
         $room = $tour->chatRoom;
+        if ($room) {
+            $messages = $room->messages()?->with('user')->get();
+            // $room = $tour->chatRoom;
 
-        return view('pages.chat.show', compact('room', 'messages'));
+            return view('pages.chat.show', compact('room', 'messages'));
+        }
+        return redirect(route('user.tours.index'))->with('error', __('alerts.no_chat_room_found'));
     }
 }

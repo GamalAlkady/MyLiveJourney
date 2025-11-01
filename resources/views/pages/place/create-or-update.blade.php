@@ -8,30 +8,49 @@
     {{ trans_choice('titles.create', $place->id ?? 0, ['name' => __('titles.place')]) }}
 @endsection
 
+@section('css')
+    <link href="{{ asset('css/trix.css') }}" rel="stylesheet">
+    <style>
+        .trix-container {
+            border: 1px solid #ced4da;
+            border-radius: 0.35rem;
+            padding: 0.5rem;
+        }
+
+        .trix-content {
+            min-height: 150px;
+        }
+
+        .form-control:focus {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+        }
+
+        .custom-file-input:focus~.custom-file-label {
+            border-color: #80bdff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
+        }
+
+        .custom-file-label::after {
+            content: "Browse";
+        }
+    </style>
+@endsection
 @section('content')
     <div class="container-fluid py-4">
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h1 class="h3 mb-0 text-gray-800">
-                        <i class="fas fa-map-plus text-primary mr-2"></i>
-                        {{ trans_choice('titles.create_or_edit', $place->id ?? 0, ['name' => __('titles.place')]) }}
-                    </h1>
-                    <a href="{{ route('user.places.index') }}" class="btn btn-primary">
-                        {{-- <i class="fas fa-arrow-left mr-2"></i> --}}
-                        {!! __('buttons.back_to', ['name' => __('titles.places')]) !!}
-                    </a>
-                </div>
-            </div>
-        </div>
+        <x-header :title="trans_choice('titles.create_or_edit', $place->id ?? 0, ['name' => __('titles.place')])">
+            <x-slot:link class="btn-light" href="{{ URL::previous() }}">
+                {!! __('buttons.back') !!}
+            </x-slot:link>
+        </x-header>
 
         <div class="row">
-            <div class="col-xl-9">
+            <div class="col-xl-12">
                 <div class="card shadow mb-4">
-                    <div class="card-header bg-primary py-3">
-                        <h6 class="m-0 font-weight-bold text-white">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-whit">
                             <i class="fas fa-plus-circle mr-1"></i>
-                            {{ __('titles.details') }}
+                            {{ __('messages.details') }}
                         </h6>
                     </div>
                     <div class="card-body">
@@ -54,7 +73,7 @@
                                             {!! Form::text('name', old('name', $isEdit ? $place->name : ''), [
                                                 'id' => 'name',
                                                 'class' => 'form-control',
-                                                'placeholder' => trans('forms.enter_name', ['name' => 'Place']),
+                                                'placeholder' => trans('forms.placeholders.enter_name', ['name' => 'Place']),
                                             ]) !!}
                                         </div>
                                         @if ($errors->has('name'))
@@ -122,25 +141,23 @@
                                     </div>
                                 </div>
 
-
-
-
-                                <div
-                                    class="col-md-12 form-group has-feedback row {{ $errors->has('description') ? ' has-error ' : '' }}">
-                                    <label for="description" class="col-md-12 control-label">
-                                        {!! trans('forms.labels.icon.description') !!}
+                                <div class="col-md-12">
+                                <div class="form-group mb-3">
+                                    <label for="description" class="form-label text-gray-700 font-medium">
+                                        {{-- <i class="fas fa-file-alt me-2 text-primary"></i> --}}
+                                        {!! __('forms.labels.icon.description') !!}
                                     </label>
-                                    <div class="col-md-12 mb-4">
-                                        <div class="input-group">
-                                            <textarea name="description" id="description" class="form-control" rows="5">{{ old('description', $isEdit ? $place->description : '') }}</textarea>
+                                    <input id="description" type="hidden" name="description"
+                                        value="{{ old('description', $isEdit ? $tour->description : '') }}" required>
+                                    <trix-editor input="description"></trix-editor>
+
+                                    @if ($errors->has('description'))
+                                        <div class="invalid-feedback d-block">
+                                            {{ $errors->first('description') }}
                                         </div>
-                                        @if ($errors->has('description'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('description') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
+                                    @endif
                                 </div>
+                            </div>
 
                                 <div
                                     class="col-md-12 form-group has-feedback row {{ $errors->has('image') ? ' has-error ' : '' }}">
@@ -149,7 +166,7 @@
                                     </label>
                                     <div class="col-md-12 mb-4">
                                         <div class="input-group">
-                                            <input type="file" id="file" class="custom-file-input"
+                                            <input type="file" id="file" class="form-control-file"
                                                 onchange="loadPreview(this);" name="image">
                                             <label class="custom-file-label"
                                                 for="file">{{ trans('forms.placeholders.choose_image') }}</label>
@@ -184,29 +201,12 @@
                 </div>
             </div>
 
-            <div class="col-xl-3">
-                <div class="card shadow mb-4">
-                    <div class="card-header bg-primary py-3">
-                        <h6 class="m-0 font-weight-bold text-white">
-                            <i class="fas fa-info-circle mr-1"></i>
-                            Tips
-                        </h6>
-                    </div>
-                    <div class="card-body">
-                        <ul class="pl-3">
-                            <li class="mb-2">Fill in all required fields</li>
-                            <li class="mb-2">Upload a high-quality image</li>
-                            <li class="mb-2">Write a detailed description</li>
-                            <li class="mb-2">Select appropriate district and type</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+
         </div>
     </div>
 @endsection
 
-@section('scripts')
+@push('scripts')
     <script src="{{ asset('js/trix.js') }}"></script>
     <script>
         // Update custom file input label
@@ -230,33 +230,4 @@
             }
         }
     </script>
-@endsection
-
-@section('css')
-    <link href="{{ asset('css/trix.css') }}" rel="stylesheet">
-    <style>
-        .trix-container {
-            border: 1px solid #ced4da;
-            border-radius: 0.35rem;
-            padding: 0.5rem;
-        }
-
-        .trix-content {
-            min-height: 150px;
-        }
-
-        .form-control:focus {
-            border-color: #80bdff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
-        }
-
-        .custom-file-input:focus~.custom-file-label {
-            border-color: #80bdff;
-            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, .25);
-        }
-
-        .custom-file-label::after {
-            content: "Browse";
-        }
-    </style>
-@endsection
+@endpush

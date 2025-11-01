@@ -11,8 +11,8 @@
                 <div class="modal-body">
                     @csrf
                     <div class="form-group">
-                        <label for="name"> Name: </label>
-                        <input type="text" class="form-control" placeholder="Enter Name" id="name"
+                        <label for="name"> {{__('forms.labels.name')}} </label>
+                        <input type="text" class="form-control" placeholder="{{ __('forms.placeholders.enter_name') }}" id="name"
                             name="name" >
                     </div>
 

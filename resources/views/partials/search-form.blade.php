@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-sm-8 offset-sm-4 col-md-6 offset-md-6 col-lg-5 offset-lg-7 col-xl-4 offset-xl-8">
+    <div class="col-sm-8 offset-sm-4 col-md-12 offset-md-0 col-lg-12 offset-lg-0 col-xl-8 offset-xl-4">
         {!! Form::open([
             'route' => "$route",
             'method' => 'GET',

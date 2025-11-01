@@ -8,7 +8,7 @@
       <div class="col-lg-4 col-md-6">
         <div class="footer-section">
           <h3 class="footer-title mb-4 text-uppercase">
-            {!! __('titles.models.placetypes') !!}
+            {!! __('titles.placetypes') !!}
           </h3>
           <div class="footer-links">
             {{-- <!-- @php
@@ -32,46 +32,46 @@
       </div>
 
       <!-- قسم الخدمات -->
-      <div class="col-lg-4 col-md-6">
+      <div class="col-md-6 col-lg-4">
         <div class="footer-section">
           <h3 class="footer-title mb-4 text-uppercase">
             <i class="fas fa-concierge-bell me-2"></i>{{ __('titles.our_services') }}
           </h3>
           <div class="footer-links">
             <div class="footer-link mb-2">
-              <a href="#" class="d-flex align-items-center">
+              <span class="d-flex align-items-center text-success">
                 <i class="fas fa-shield-alt me-2 text-success"></i>
                 <span>{{ __('titles.footer.safe_reliable') }}</span>
-              </a>
+              </span>
             </div>
             <div class="footer-link mb-2">
-              <a href="#" class="d-flex align-items-center">
-                <i class="fas fa-tag me-2 text-info"></i>
-                <span>{{ __('titles.footer.low-cost') }}</span>
-              </a>
+              <span href="#" class="d-flex align-items-center text-info">
+                <i class="fas fa-tag me-2 "></i>
+                <span>{{ __('titles.footer.low_cost') }}</span>
+              </span>
             </div>
             <div class="footer-link mb-2">
-              <a href="#" class="d-flex align-items-center">
-                <i class="fas fa-star me-2 text-warning"></i>
+              <span href="#" class="d-flex align-items-center text-warning">
+                <i class="fas fa-star me-2"></i>
                 <span>{{ trans_choice('titles.amazing_places', 0) }}</span>
-              </a>
+              </span>
             </div>
             <div class="footer-link mb-2">
-              <a href="#" class="d-flex align-items-center">
+              <span href="#" class="d-flex align-items-center text-danger">
                 <i class="fas fa-lock me-2 text-danger"></i>
                 <span>{{ __('titles.footer.secure') }}</span>
-              </a>
+              </span>
             </div>
             <div class="footer-link mb-2">
-              <a href="#" class="d-flex align-items-center">
+              <a href="#" class="d-flex align-items-center text-primary">
                 <i class="fas fa-user-tie me-2 text-primary"></i>
                 <span>{{ __('titles.footer.talented_guides') }}</span>
               </a>
             </div>
             <div class="footer-link mb-0">
-              <a href="#" class="d-flex align-items-center">
-                <i class="fas fa-headset me-2 text-secondary"></i>
-                <span>{{ __('titles.footer.suppor') }}</span>
+              <a href="#" class="d-flex align-items-center text-primary">
+                <i class="fas fa-headset me-2"></i>
+                <span>{{ __('titles.footer.support') }}</span>
               </a>
             </div>
           </div>
@@ -119,7 +119,7 @@
               </div>
             </div>
             <div class="social-links">
-              <h6 class="mb-3">{{ __('titles.follow_us') }}</h6>
+              <h6 class="mb-3">{{ __('messages.follow_us') }}</h6>
               <div class="d-flex gap-3">
                 <a href="#" class="social-icon">{!! icon('facebook', 'facebook-icon') !!}</a>
                 <a href="#" class="social-icon">{!! icon('twitter', 'twitter-icon') !!}</a>

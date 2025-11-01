@@ -105,7 +105,7 @@
     <div class="container my-5" style="padding-top: 120px">
         <div class="tour-header">
             <div class="d-flex justify-content-between align-items-center">
-                <h1 class="mb-0 w-50"><i class="fas fa-map-marked-alt "></i> {{ $tour->title }}</h1>
+                <h1 class="mb-0 w-50">{!! icon('tour') !!} {{ $tour->title }}</h1>
                 <a href="javascript:;" onclick="history.back()" class="back-button">
 
                     {!! trans('buttons.back') !!}
@@ -121,7 +121,7 @@
             <div class="tour-places">
                 @foreach ($tour->places as $place)
                     <a href="{{ route('place.details', $place->id) }}" class="place-tag">
-                        {!! icon('location','place-icon') !!} {{ $place->name }}
+                        {!! icon('place','place-icon') !!} {{ $place->name }}
                     </a>
                 @endforeach
             </div>
@@ -135,20 +135,22 @@
 
                 <div class="info-card">
                     {!! icon('users','info-icon') !!}
-                    <h4>{!! trans('forms.labels.group') !!}</h4>
+                    <h4>{!! trans('forms.labels.people') !!}</h4>
                     <p class="mb-0 fs-5"> {{(($tour->max_seats-$tour->remaining_seats).'/'. $tour->max_seats) }}</p>
                 </div>
 
                 <div class="info-card">
-                    {!! icon('date','info-icon') !!}
+                    {!! icon('date-alt','info-icon') !!}
                     <h4>{!! trans('forms.labels.start_date') !!}</h4>
-                    <p class="mb-0 fs-5">{{ $tour->start_date }} </p>
+                    <p class="mb-0 fs-5">{{ $tour->start_date_only }} </p>
+                    <span>{{ $tour->start_time }}</span>
                 </div>
              
                 <div class="info-card">
                     {!! icon('date','info-icon') !!}
                     <h4>{!! trans('forms.labels.end_date') !!}</h4>
-                    <p class="mb-0 fs-5">{{ $tour->end_date }} </p>
+                    <p class="mb-0 fs-5">{{ $tour->end_date_only }} </p>
+                    <span>{{ $tour->end_time }}</span>
                 </div>
             </div>
         </div>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Http\Requests\DeleteUserAccount;
 use App\Http\Requests\UpdateUserPasswordRequest;
 use App\Http\Requests\UpdateUserProfile;
@@ -47,11 +48,14 @@ class ProfilesController extends Controller
         return User::with('profile')->wherename($username)->firstOrFail();
     }
 
+
     /**
-     * Display the specified resource.
+     * Show the user profile.
      *
-     * @param  string  $username
-     * @return Response
+     * @param string $username
+     * @return \Illuminate\Contracts\View\View
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function show($username)
     {
@@ -110,7 +114,6 @@ class ProfilesController extends Controller
      * @param  $username
      * @return mixed
      *
-     * @throws Laracasts\Validation\FormValidationException
      */
     public function update(UpdateUserProfile $request, $username)
     {

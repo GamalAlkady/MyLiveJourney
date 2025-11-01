@@ -31,20 +31,16 @@ class UsersManagementController extends Controller
         $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function index(Request $request)
     {
         $searchTerm = $request->get('search');
         $type = $request->get('type');
 
         if ($type == 'guide')
-            $users = User::whereGuides();
+            $users = User::guides();
         elseif ($type == 'user')
-            $users = User::whereUuserssers();
+            $users = User::users();
         else
             $users = User::withoutAdmin();
 

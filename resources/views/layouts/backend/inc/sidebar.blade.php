@@ -1,6 +1,40 @@
-<aside class="main-sidebar elevation-4">
+<style>
+    .admin-tools .show {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        margin-inline-start: 0.5rem;
+    }
+
+    .rotated {
+        transform: rotate(180deg);
+        transition: transform 0.25s ease;
+    }
+
+    .main-sidebar .nav-item {
+        transition: width 0.3s ease-in-out !important;
+        width: 250px;
+        /* padding-left: 10px; */
+    }
+
+    .sidebar-collapse .main-sidebar .nav-item {
+        width: 3.3rem;
+    }
+
+    .sidebar-collapse .main-sidebar:hover .nav-item {
+        width: 250px;
+    }
+
+    .overlay {
+        background: #0e100fab;
+        position: fixed;
+        z-index: 1000;
+    }
+</style>
+<div class="overlay w-100 h-100 d-md-none"></div>
+<aside class="main-sidebar elevation-4 bg-light" style="transition: all 0.3s ease-in-out !important;">
     <!-- Brand Logo -->
-    <div class="user-panel mt-3 pb-3 mb-1 d-flex align-items-center shadow" style="padding-inline-start: 0.25rem;">
+    <div class="pr-1 user-panel mt-3 pb-3 mb-1 d-flex align-items-center shadow" style="padding-inline-start: 0.25rem;">
         <div class="image">
             <a href="{{ url('/profile/' . Auth::user()->name) }}">
                 @if (Auth::User()->profile && Auth::user()->profile->avatar_status == 1)
@@ -14,9 +48,9 @@
 
         </div>
         <div class="info">
-            <a href="{{ route('home') }}"
-                class="d-block font-weight-bold">{{ __('titles.home') }}</a>
+            <a href="{{ route('home') }}" class="d-block font-weight-bold">{{ __('titles.home') }}</a>
         </div>
+        {{-- <button class="btn btn-outline-light btn-sm rounded-circle ml-auto d-md-none" id="sidebarCollapse"><i class="fa fa-times text-danger"></i></button> --}}
     </div>
 
 
@@ -37,44 +71,45 @@
                 {{-- @dd($role) --}}
                 <li class="nav-item has-treeview">
                     <a href="{{ route($role . '.dashboard') }}"
-                        class="nav-link {{ Request::is($role . '/dashboard') ? 'active' : '' }}">
-                        {!! trans('titles.icon.dashboard') !!}
+                        class="nav-link {{ Request::routeIs($role . '.dashboard') ? 'active' : '' }}">
+                        {!! iconText('dashboard', class: 'fa-xl me-4') !!}
                     </a>
                 </li>
 
                 {{-- @permission('view.districts') --}}
-                    <div class="dropdown-divider"></div>
-                    <li class="nav-item has-treeview">
-                        <a href="{{ route($role . '.districts.index') }}"
-                            class="nav-link {{ Request::is($role . '/districts/*') ? 'active' : '' }}">
-                            {!! trans('titles.icon.districts') !!}
-                        </a>
-                    </li>
+                <div class="dropdown-divider"></div>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route($role . '.districts.index') }}"
+                        class="nav-link {{ Request::routeIs($role . '.districts.index') ? 'active' : '' }}">
+                        {!! iconText(name: 'districts', class: 'fa-xl me-4') !!}
+                    </a>
+                </li>
                 {{-- @endpermission --}}
 
                 {{-- @permission('view.placetypes') --}}
-                    <li class="nav-item has-treeview">
-                        <a href="{{ route($role . '.placetypes.index') }}"
-                            class="nav-link {{ Request::routeIs($role . '.placetypes.*') ? 'active' : '' }}">
-                            {!! trans('titles.icon.placetypes') !!}
-                        </a>
-                    </li>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route($role . '.placetypes.index') }}"
+                        class="nav-link {{ Request::routeIs($role . '.placetypes.*') ? 'active' : '' }}">
+                        {!! iconText('placetypes', class: 'fa-xl me-4') !!}
+                    </a>
+                </li>
                 {{-- @endpermission --}}
 
-                    <li class="nav-item has-treeview">
-                        <a href="{{ route($role . '.places.index') }}"
-                            class="nav-link {{ Request::routeIs($role . '.places.*') ? 'active' : '' }}">
-                            {!! trans('titles.icon.places') !!}
-                        </a>
-                    </li>
+                <li class="nav-item has-treeview">
+                    <a href="{{ route($role . '.places.index') }}"
+                        class="nav-link {{ Request::routeIs($role . '.places.*') ? 'active' : '' }}">
+                        {!! iconText('places', class: 'fa-xl me-4') !!}
+                    </a>
+                </li>
 
-                    <li class="nav-item has-treeview">
-                        <a href="{{ route('user.tours.index') }}"
-                            class="nav-link {{ Request::is('admin/tour*') ? 'active' : '' }}">
-                            {!! trans('titles.icon.tours') !!}
-                        </a>
-                    </li>
-{{--
+                <li class="nav-item has-treeview">
+                    <a href="{{ route('user.tours.index') }}"
+                        class="nav-link {{ Request::is('admin/tour*') ? 'active' : '' }}">
+                        {!! iconText('tours', class: 'fa-xl me-4') !!}
+                        {{-- {!! trans('titles.icon.tours') !!} --}}
+                    </a>
+                </li>
+                {{--
                 @role('admin')
                     <div class="dropdown-divider"></div>
                     <li class="nav-item has-treeview">
@@ -90,7 +125,7 @@
                     <li class="nav-item has-treeview">
                         <a href="{{ route('user.users.index') }}"
                             class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}">
-                            {!! trans('titles.icon.users') !!}
+                            {!! iconText('users', class: 'fa-xl me-4') !!}
                         </a>
                     </li>
                 @endpermission
@@ -101,21 +136,29 @@
                 <li class="nav-item has-treeview">
                     <a href="{{ route('user.chats.index') }}"
                         class="nav-link {{ Request::routeIs('user.chats.index') ? 'active' : '' }}">
-                        {!! trans('titles.icon.chats') !!}
+                        {!! iconText('chat', __('titles.room.chats'), class: 'fa-xl me-4') !!}
                     </a>
                 </li>
                 <div class="dropdown-divider"></div>
                 <li class="nav-item has-treeview">
+                    <a href="{{ route('user.bookings.index') }}"
+                        class="nav-link {{ Request::routeIs('user.bookings.index') ? 'active' : '' }}">
+                        {!! iconText('bookings', class: 'fa-xl me-4') !!}
+                    </a>
+                </li>
+
+                <li class="nav-item has-treeview">
                     <a href="{{ route('user.bookings.pending') }}"
                         class="nav-link {{ Request::routeIs('user.bookings.pending') ? 'active' : '' }}">
-                        {!! __('titles.icon.pendingBookings') !!}
+                        {!! iconText('booking', __('titles.pending_bookings'), 'fa-xl me-4') !!}
                     </a>
                 </li>
 
                 <li class="nav-item has-treeview">
                     <a href="{{ route('user.bookings.approved') }}"
                         class="nav-link {{ Request::routeIs('user.bookings.approved') ? 'active' : '' }}">
-                        {!! __('titles.icon.approved_bookings') !!}
+                        {!! iconText('approved_bookings', class: 'fa-xl me-4') !!}
+                        {{-- {!! __('titles.icon.approved_bookings') !!} --}}
                     </a>
                 </li>
 
@@ -124,7 +167,7 @@
                     <li class="nav-item has-treeview">
                         <a href="{{ route('user.tours.running') }}"
                             class="nav-link {{ Request::routeIs('user.tours.running') ? 'active' : '' }}">
-                            {!! trans('titles.icon.running_tours') !!}
+                            {!! iconText('tours', trans('titles.running_tours'), class: 'fa-xl me-4') !!}
                         </a>
                     </li>
                 @endrole
@@ -247,16 +290,3 @@
         })
     });
 </script>
-<style>
-    .admin-tools .show {
-        display: flex;
-        flex-direction: column;
-        align-items: start;
-        margin-inline-start: 0.5rem;
-    }
-
-    .rotated {
-        transform: rotate(180deg);
-        transition: transform 0.25s ease;
-    }
-</style>

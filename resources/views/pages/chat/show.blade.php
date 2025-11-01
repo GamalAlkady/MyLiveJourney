@@ -92,20 +92,6 @@
             background: #f1f1f1;
         }
 
-        .chat-footer button {
-            /* border: none;
-                                            background: #007bff;
-                                            color: #fff;
-                                            border-radius: 50%;
-                                            width: 40px;
-                                            height: 40px;
-                                            margin-right: 10px;
-                                            display: flex;
-                                            align-items: center;
-                                            justify-content: center;
-                                            cursor: pointer;
-                                            transition: background 0.3s; */
-        }
 
         .chat-footer button:hover {
             background: #0056b3;
@@ -138,7 +124,7 @@
                 <div>
                     <x-confirm-button :url="route('user.chat.empty', $room->id)" 
                         btnTextColor="text-white" :disabled="$room->messages->count() == 0"
-                        :buttonName="__('buttons.icon.text.empty')" modalClass="outline-danger" method="POST"
+                        :buttonName="__('buttons.clear')" modalClass="outline-danger" method="POST"
                         :tooltip="__('tooltips.emptyChat')" :modalTitle="__('modals.emptyChat')"
                         :modalMessage="__('modals.emptyMessage')" />
                 </div>

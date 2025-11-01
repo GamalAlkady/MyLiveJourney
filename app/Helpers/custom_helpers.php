@@ -60,8 +60,21 @@ if (!function_exists('rolePrefix')) {
 }
 
 if (!function_exists('icon')) {
-    function icon(string $name, ?string $class = null): string
+    function icon(string $name, ?string $class = null,$classOnly=false): string
     {
-        return IconHelper::get($name, $class);
+        return $classOnly?IconHelper::class($name): IconHelper::get($name, $class);
+    }
+}
+
+if (!function_exists('iconText')) {
+    function iconText(string $name,$text=null, ?string $class = null,$classText=''): string
+    {
+        return IconHelper::getWithText($name,$text, $class,$classText);
+    }
+}
+
+if(!function_exists('isRtl')) {
+    function isRtl(){
+        return app('laravellocalization')->getCurrentLocaleDirection() == 'rtl';
     }
 }

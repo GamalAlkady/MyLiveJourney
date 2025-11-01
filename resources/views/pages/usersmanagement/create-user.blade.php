@@ -19,6 +19,8 @@
 
 @section('content')
 
+<x-header :title="trans('usersmanagement.create-new-user')"/>
+
     <div class="col-xl-12 col-lg-12">
         <div class="card shadow-lg border-0 rounded-lg">
             <div class="card-header bg-white py-3">
@@ -50,11 +52,11 @@
                             <div class="form-group mb-3 {{ $errors->has('name') ? 'has-error' : '' }}">
                                 <label for="name" class="form-label text-gray-700 font-medium">
                                     <i class="fas fa-user me-2 text-primary"></i>
-                                    {!! trans('forms.create_user_label_username') !!}
+                                    {!! trans('forms.labels.username') !!}
                                 </label>
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-lg" id="name" name="name"
-                                        placeholder="{!! trans('forms.create_user_ph_username') !!}" value="{{ old('name') }}" required>
+                                        placeholder="{!! trans('forms.placeholders.enter_username') !!}" value="{{ old('name') }}" required>
                                     <span class="input-group-text bg-light">
                                         <i class="fas fa-user"></i>
                                     </span>
@@ -71,11 +73,11 @@
                             <div class="form-group mb-3 {{ $errors->has('email') ? 'has-error' : '' }}">
                                 <label for="email" class="form-label text-gray-700 font-medium">
                                     <i class="fas fa-envelope me-2 text-primary"></i>
-                                    {!! trans('forms.create_user_label_email') !!}
+                                    {!! trans('forms.labels.email') !!}
                                 </label>
                                 <div class="input-group">
                                     <input type="email" class="form-control form-control-lg" id="email" name="email"
-                                        placeholder="{!! trans('forms.create_user_ph_email') !!}" value="{{ old('email') }}" required>
+                                        placeholder="{!! trans('forms.placeholders.enter_email') !!}" value="{{ old('email') }}" required>
                                     <span class="input-group-text bg-light">
                                         <i class="fas fa-envelope"></i>
                                     </span>
@@ -93,12 +95,12 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3 {{ $errors->has('first_name') ? 'has-error' : '' }}">
                                 <label for="first_name" class="form-label text-gray-700 font-medium">
-                                    <i class="fas fa-id-card me-2 text-primary"></i>
-                                    {!! trans('forms.create_user_label_firstname') !!}
+                                    {{-- <i class="fas fa-id-card me-2 text-primary"></i> --}}
+                                    {!! trans('forms.labels.icon.first_name',['class'=>'text-primary']) !!}
                                 </label>
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-lg" id="first_name"
-                                        name="first_name" placeholder="{!! trans('forms.create_user_ph_firstname') !!}"
+                                        name="first_name" placeholder="{!! trans('forms.placeholders.enter_first_name') !!}"
                                         value="{{ old('first_name') }}" required>
                                     <span class="input-group-text bg-light">
                                         <i class="fas fa-id-card"></i>
@@ -115,12 +117,12 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3 {{ $errors->has('last_name') ? 'has-error' : '' }}">
                                 <label for="last_name" class="form-label text-gray-700 font-medium">
-                                    <i class="fas fa-id-card me-2 text-primary"></i>
-                                    {!! trans('forms.create_user_label_lastname') !!}
+                                    {{-- <i class="fas fa-id-card me-2 text-primary"></i> --}}
+                                    {!! trans('forms.labels.icon.last_name',['class'=>'text-primary']) !!}
                                 </label>
                                 <div class="input-group">
                                     <input type="text" class="form-control form-control-lg" id="last_name"
-                                        name="last_name" placeholder="{!! trans('forms.create_user_ph_lastname') !!}"
+                                        name="last_name" placeholder="{!! trans('forms.placeholders.enter_last_name') !!}"
                                         value="{{ old('last_name') }}" required>
                                     <span class="input-group-text bg-light">
                                         <i class="fas fa-id-card"></i>
@@ -136,15 +138,15 @@
                     </div>
 
                     <div class="row mb-4">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <div class="form-group mb-3 {{ $errors->has('role') ? 'has-error' : '' }}">
                                 <label for="role" class="form-label text-gray-700 font-medium">
-                                    <i class="fas fa-user-tag me-2 text-primary"></i>
-                                    {!! trans('forms.create_user_label_role') !!}
+                                    {{-- <i class="fas fa-user-tag me-2 text-primary"></i> --}}
+                                    {!! trans('forms.labels.icon.role',['class'=>'text-primary']) !!}
                                 </label>
                                 <div class="input-group">
                                     <select class="custom-select form-control" id="role" name="role" required>
-                                        <option value="">{!! trans('forms.create_user_ph_role') !!}</option>
+                                        <option value="">{!! trans('forms.placeholders.enter_role') !!}</option>
                                         @if ($roles)
                                             @foreach ($roles as $role)
                                                 <option value="{{ $role->id }}"
@@ -170,12 +172,12 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3 {{ $errors->has('password') ? 'has-error' : '' }}">
                                 <label for="password" class="form-label text-gray-700 font-medium">
-                                    <i class="fas fa-lock me-2 text-primary"></i>
-                                    {!! trans('forms.create_user_label_password') !!}
+                                    {{-- <i class="fas fa-lock me-2 text-primary"></i> --}}
+                                    {!! trans('forms.labels.icon.password',['class'=>'text-primary']) !!}
                                 </label>
                                 <div class="input-group">
                                     <input type="password" class="form-control form-control-lg" id="password"
-                                        name="password" placeholder="{!! trans('forms.create_user_ph_password') !!}" required>
+                                        name="password" placeholder="{!! trans('forms.placeholders.enter_password') !!}" required>
                                     <span class="input-group-text bg-light">
                                         <i class="fas fa-lock"></i>
                                     </span>
@@ -191,13 +193,13 @@
                         <div class="col-md-6">
                             <div class="form-group mb-3 {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
                                 <label for="password_confirmation" class="form-label text-gray-700 font-medium">
-                                    <i class="fas fa-lock me-2 text-primary"></i>
-                                    {!! trans('forms.create_user_label_pw_confirmation') !!}
+                                    {{-- <i class="fas fa-lock me-2 text-primary"></i> --}}
+                                    {!! trans('forms.labels.icon.confirm_password',['class'=>'text-primary']) !!}
                                 </label>
                                 <div class="input-group">
                                     <input type="password" class="form-control form-control-lg"
                                         id="password_confirmation" name="password_confirmation"
-                                        placeholder="{!! trans('forms.create_user_ph_pw_confirmation') !!}" required>
+                                        placeholder="{!! trans('forms.placeholders.enter_confirm_password') !!}" required>
                                     <span class="input-group-text bg-light">
                                         <i class="fas fa-lock"></i>
                                     </span>
@@ -213,8 +215,8 @@
 
                     <div class="d-flex justify-content-end mt-4">
                         <button type="submit" class="btn btn-primary px-4 py-2 rounded-lg shadow-sm hover-effect">
-                            <i class="fas fa-save me-2"></i>
-                            {!! trans('forms.create_user_button_text') !!}
+                            {{-- <i class="fas fa-save me-2"></i> --}}
+                            {!! trans('buttons.save') !!}
                         </button>
                     </div>
                 </form>

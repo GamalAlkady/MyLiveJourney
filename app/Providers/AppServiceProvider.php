@@ -6,6 +6,7 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Config;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,5 +29,9 @@ class AppServiceProvider extends ServiceProvider
         //Paginator::useBootstrapThree();
         Paginator::useBootstrap();
         Schema::defaultStringLength(191);
+
+          
+        // Config::set('locale', session('locale', Config::get('app.locale')));
+
     }
 }

@@ -44,13 +44,13 @@
             <p class="lead text-muted">{{ trans('titles.discover_the_destinations') }}</p>
         </div>
 
-        <div class="row">
+        {{-- <div class="row"> --}}
             <x-place-card :places="$places" />
-        </div>
+        {{-- </div> --}}
 
         <div class="text-center mt-4">
             <a href="{{ route('places') }}"
-                class="btn btn-outline-primary btn-lg">{!! trans('buttons.view_all') !!}</a>
+                class="btn btn-outline-primary btn-lg">{!! trans('buttons.more') !!}</a>
         </div>
     </div>
 
@@ -91,7 +91,7 @@
         </div>
 
         <div class="text-center mt-4">
-            <a href="{{ route('tours') }}" class="btn btn-outline-primary btn-lg">{{ trans('buttons.view_all') }}</a>
+            <a href="{{ route('tours') }}" class="btn btn-outline-primary btn-lg">{{ trans('buttons.more') }}</a>
         </div>
     </div>
 

@@ -41,7 +41,7 @@ return [
      * Pagination size
      */
     'enablePagination'              => env('ENABLE_PAGINATION', true),
-    'paginateListSize'              => env('PAGINATION_SIZE', 25),
+    'paginateListSize'              => env('PAGINATION_SIZE', default: 25),
 
     /*
      * User restore encryption key

@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="card-footer text-center py-4">
-                        <a href="{{ URL::previous() }}" class="back-button">
+                        <a href="{{ URL::previous() }}" class="btn btn-secondary">
                             {{-- {!! icon('back') !!} --}}
                             {!! trans('buttons.back') !!}
                         </a>

@@ -1,6 +1,6 @@
 @extends('layouts.frontend.master')
 @section('title')
-    Tourist Guide - About
+    {{ __('titles.aboutus') }}
 @endsection
 
 @section('css')
@@ -13,8 +13,10 @@
 
 <div class="container">
     <div class="row justify-content-center" style="margin-top: 130px">
-        <h1 class="about"><strong>About Us</strong></h1>
+        <h1 class="about mb-2"><strong>{{ __('titles.aboutus') }}</strong></h1>
     </div>
+    <br/>
+    <br/>
     <div class="row">
        @isset($about)
             <div class="row my-5 text-justify px-4">

@@ -8,7 +8,7 @@ return [
     'something_went_wrong' => 'Something went wrong, Please try again.',
     'access_denied' => 'Access Denied',
     'unauthorized_action' => 'Unauthorized Action',
-    'no_data_found' => '<i class="fas fa-exclamation-triangle text-danger me-1"></i> No :name Found',
+    'no_data_found' => '<i class="fas fa-exclamation-triangle text-danger me-1"></i> No Data Found',
     'no_results' => '<i class="fas fa-exclamation-triangle text-danger me-1"></i> No Results Found',
     'search' => 'Search',
     'search_results' => 'Search Results',
@@ -20,15 +20,8 @@ return [
     'bookingApproved' => 'Your booking request has been successfully Approved',
 
     'more' => 'More',
+    'data' => 'Data :name',
 
-    'available' => '<span class="badge badge-success">Available</span>',
-    'unavailable' => '<span class="badge badge-danger">Unavailable</span>',
-    'in_progress' => '<span class="badge badge-info">In Progress</span>',
-    'full' => '<span class="badge badge-success">Full</span>',
-    'pending' => '<span class="badge badge-warning">Pending</span>',
-    'completed' => '<span class="badge badge-success">Completed</span>',
-    'cancelled' => '<span class="badge badge-danger">Cancelled</span>',
-    'approved' => '<span class="badge badge-primary">Approved</span>',
     'features_section' => [
         'title' => 'My Live Journey',
         'description' => 'Explore the world around you through an interactive experience that blends reality and imagination.',

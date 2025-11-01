@@ -49,6 +49,7 @@ return [
     'no_results_found'=> 'No Results Found Right Now.',
     'no_available_placestypes' =>'There are no available places types currently.',
     'no_available_chat_rooms' => 'There are no available chat rooms currently.',
+    'no_chat_room_found' => 'No chat room found.',
 
 
 ];

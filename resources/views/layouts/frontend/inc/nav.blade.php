@@ -1,3 +1,11 @@
+<style>
+    .active {
+        background-color: #8e4103 !important;
+        color: #fff !important;
+        border-top-right-radius: 10px;
+        border-bottom-left-radius: 10px;
+    }
+</style>
 <section id="nav-bar" class="navigation-wrapper">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-gradient">
         <div class="container">
@@ -13,26 +21,28 @@
             <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('home') }}">
+                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
                             <i class="fas fa-home me-1"></i> {{ __('titles.home') }}
                         </a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('about') }}">
+                        <a class="nav-link {{ request()->routeIs('places', 'place.details') ? 'active' : '' }}"
+                            href="{{ route('places') }}">
+                            <i class="fas fa-map-marker-alt me-1"></i> {{ __('titles.places') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('tours', 'tour.details') ? 'active' : '' }}"
+                            href="{{ route('tours') }}">
+                            <i class="fas fa-route me-1"></i> {{ __('titles.tours') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
                             <i class="fas fa-info-circle me-1"></i> {{ __('titles.aboutus') }}
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('places') }}">
-                            <i class="fas fa-map-marker-alt me-1"></i> {{ __('titles.models.places') }}
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('tours') }}">
-                            <i class="fas fa-route me-1"></i> {{ __('titles.models.tours') }}
-                        </a>
-                    </li>
-
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">

@@ -43,12 +43,7 @@ class ThemesManagementController extends Controller
         return view('themesmanagement.add-theme');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function store(Request $request)
     {
         $input = $request->only('name', 'link', 'notes', 'status');

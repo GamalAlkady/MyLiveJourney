@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center">
                 <h1 class="h3 mb-0 text-gray-800">
-                    {!! trans('titles.icon.place') !!} {{ __('titles.details') }}
+                    {!! trans('titles.icon.place') !!} {{ __('messages.details') }}
                 </h1>
                 <a href="{{ route('user.places.index') }}" class="btn btn-light btn-sm px-3 py-2 rounded hover-effect me-2">
                     {!! __('buttons.back_to', ['name' => __('titles.places')]) !!}
@@ -48,56 +48,49 @@
                 <div class="card-body">
                     <div class="mb-4">
                         <h4 class=" mb-2">{{ $place->name }}</h4>
-                        <div class="text-muted small">
-                            <i class="fas fa-user mr-1"></i>
-                            Added by <strong>{{ $place->addedBy }}</strong>
-                            <br>
-                            <i class="fas fa-clock mr-1"></i>
-                            {{ $place->created_at->format('M d, Y') }}
-                        </div>
                     </div>
 
                     <hr>
 
                     <div class="mb-3">
-                        <span class=" font-weight-bold">District:</span>
+                        <span class=" font-weight-bold">{!! __('titles.icon.district') !!}</span>
                         <p class="mb-0">{{ $place->district->name }}</p>
                     </div>
 
                     <div class="mb-3">
-                        <span class=" font-weight-bold">Place Type:</span>
+                        <span class=" font-weight-bold">{!!  __('titles.icon.placetype') !!}</span>
                         <p class="mb-0">{{ $place->placetype->name }}</p>
                     </div>
 
                     <div class="mb-3">
-                        <span class="font-weight-bold">Created:</span>
+                        <span class="font-weight-bold">{!!  __('forms.labels.icon.added') !!}</span>
                         <p class="mb-0">{{ $place->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
             </div>
         </div>
-        </div>
+    </div>
 
 
 
 
-        <div class="row">
-            <div class="col-12">
-                <div class="card shadow mb-4">
-                    <div class="card-header bg-primary py-3">
-                        <h6 class="m-0 font-weight-bold text-white">
-                            {{-- <i class="fas fa-file-alt mr-1"></i> --}}
-                            {!! __('forms.labels.icon.description') !!}
-                        </h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="description-content">
-                            <p style="text-align: justify">{!! $place->description !!}</p>
-                        </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary py-3">
+                    <h6 class="m-0 font-weight-bold text-white">
+                        {{-- <i class="fas fa-file-alt mr-1"></i> --}}
+                        {!! __('forms.labels.icon.description') !!}
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="description-content">
+                        <p style="text-align: justify">{!! $place->description !!}</p>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
 
 @endsection

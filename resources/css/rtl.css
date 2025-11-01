@@ -1,0 +1,156 @@
+/* RTL (Right-to-Left) Support */
+[dir="rtl"] .text-right {
+    text-align: left;
+}
+
+[dir="rtl"] .text-left {
+    text-align: right;
+}
+
+[dir="rtl"] .float-left {
+    float: right;
+}
+
+[dir="rtl"] .float-right {
+    float: left;
+}
+
+[dir="rtl"] .ml-1, [dir="rtl"] .mx-1 {
+    margin-left: 0;
+    margin-right: 0.25rem;
+}
+
+[dir="rtl"] .mr-1, [dir="rtl"] .mx-1 {
+    margin-left: 0.25rem;
+    margin-right: 0;
+}
+
+[dir="rtl"] .ms-1, [dir="rtl"] .my-1 {
+    margin-left: 0.25rem;
+    margin-right: 0.25rem;
+}
+
+[dir="rtl"] .me-1, [dir="rtl"] .mx-2 {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+[dir="rtl"] .ps-1, [dir="rtl"] .py-1 {
+    padding-left: 0.25rem;
+    padding-right: 0;
+}
+
+[dir="rtl"] .pe-1, [dir="rtl"] .py-1 {
+    padding-left: 0;
+    padding-right: 0.25rem;
+}
+
+[dir="rtl"] .pl-1, [dir="rtl"] .py-2 {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+[dir="rtl"] .pr-1, [dir="rtl"] .px-2 {
+    padding-left: 2px;
+    padding-right: 0;
+}
+
+[dir="rtl"] .pr-2, [dir="rtl"] .px-4 {
+    padding-left: 4px;
+    padding-right: 0;
+}
+
+/* Arabic Font */
+[dir="rtl"] body {
+    font-family: 'Noto Sans Arabic', 'Tahoma', sans-serif;
+}
+
+/* Adjustments for Arabic language */
+[dir="rtl"] .hero-content {
+    text-align: right;
+}
+
+[dir="rtl"] .feature-card {
+    text-align: right;
+}
+
+[dir="rtl"] .district-btn {
+    margin: 0 0.5rem;
+}
+
+/* Form adjustments for RTL */
+[dir="rtl"] .form-control {
+    text-align: right;
+}
+
+[dir="rtl"] .input-group-text {
+    border-left: 1px solid #ced4da;
+    border-right: none;
+    border-radius: 0 0.25rem 0.25rem 0 0.25rem;
+}
+
+[dir="rtl"] .input-group-prepend {
+    border-right: 1px solid #ced4da;
+    border-left: none;
+    border-radius: 0.25rem 0 0 0.25rem 0.25rem;
+}
+
+[dir="rtl"] .input-group-append {
+    border-right: 1px solid #ced4da;
+    border-left: none;
+    border-radius: 0 0.25rem 0.25rem 0 0.25rem;
+}
+
+[dir="rtl"] .custom-select {
+    text-align: right;
+}
+
+[dir="rtl"] .custom-control {
+    right: 0;
+    left: auto;
+}
+
+/* Table adjustments for RTL */
+[dir="rtl"] .table {
+    text-align: right;
+}
+
+[dir="rtl"] .table th {
+    text-align: right;
+}
+
+/* Navigation adjustments for RTL */
+[dir="rtl"] .navbar-nav {
+    padding-right: 0;
+    padding-left: 1rem;
+}
+
+[dir="rtl"] .dropdown-menu {
+    right: 0;
+    left: auto;
+    text-align: right;
+}
+
+[dir="rtl"] .dropdown-item {
+    text-align: right;
+}
+
+/* Card adjustments for RTL */
+[dir="rtl"] .card {
+    text-align: right;
+}
+
+[dir="rtl"] .card-body {
+    text-align: right;
+}
+
+/* Button adjustments for RTL */
+[dir="rtl"] .btn {
+    margin: 0 0.25rem;
+}
+
+/* Badge adjustments for RTL */
+[dir="rtl"] .badge {
+    margin-right: 0.25rem;
+    margin-left: 0;
+}

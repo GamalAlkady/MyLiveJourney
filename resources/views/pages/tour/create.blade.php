@@ -3,7 +3,7 @@
     $isEdit = isset($tour);
 @endphp
 @section('title')
-{{ trans_choice('titles.create',$tour->id??0,['name'=>__('titles.tour')]) }}
+    {{ trans_choice('titles.create', $tour->id ?? 0, ['name' => __('titles.tour')]) }}
 @endsection
 
 @section('css')
@@ -13,22 +13,12 @@
 
 {{-- Edit this desing   --}}
 @section('content')
-    <div class="row mb-4">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center">
-                <h1 class="h3 mb-0 text-gray-800">
-                    {{-- <i class="fas fa-map-plus text-primary mr-2"></i> --}}
-                    {!! $isEdit
-                        ? __('buttons.edit_name', ['name' => $tour->name])
-                        : __('buttons.create_new', ['name' => __('titles.tour')]) !!}
-                </h1>
-                <a href="{{ route('user.tours.index') }}" class="btn btn-light">
-                    {{-- <i class="fas fa-arrow-left mr-2"></i> --}}
-                    {!! __('buttons.back_to', ['name' => __('titles.tours')]) !!}
-                </a>
-            </div>
-        </div>
-    </div>
+    <x-header :title="trans_choice('titles.create_or_edit', $tour->id ?? 0, ['name' => __('titles.tour')])">
+        <x-slot:link class="btn-light" href="{{ URL::previous() }}">
+            {!! __('buttons.back') !!}
+        </x-slot:link>
+    </x-header>
+    
 
     <div class="row">
         <div class="col-lg-12">
@@ -37,9 +27,9 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="card-title d-flex align-items-center">
                             <div class="bg-primary rounded-circle p-2 me-3">
-                                <i class="fas fa-map-marked-alt text-white fs-4"></i>
+                                <i class="fas {{ icon('tour','',true) }} text-white fs-4"></i>
                             </div>
-                            <h3 class="mb-0">{{ __('titles.tour') . ' ' . __('forms.form') }}</h3>
+                            <h3 class="mb-0">{{ trans_choice('messages.data',1,['name'=>__('titles.tour')])}}</h3>
                         </div>
 
                     </div>
@@ -62,8 +52,8 @@
                                         {!! trans('forms.labels.icon.title') !!}
                                     </label>
                                     <div class="input-group">
-                                        <input type="text" class="form-control" id="title" name="title" aria-label="title"
-                                            placeholder="{!! trans('forms.placeholders.enter_title') !!}"
+                                        <input type="text" class="form-control" id="title" name="title"
+                                            aria-label="title" placeholder="{!! trans('forms.placeholders.enter_title') !!}"
                                             value="{{ old('title', $isEdit ? $tour->title : '') }}" required>
 
                                     </div>
@@ -170,7 +160,9 @@
                                         multiple required>
                                         @php
                                             // get id places
-                                            $idPlaces = $isEdit ? $tour->places()->pluck('places.id')->toArray() : old('places', []);
+                                            $idPlaces = $isEdit
+                                                ? $tour->places()->pluck('places.id')->toArray()
+                                                : old('places', []);
                                         @endphp
 
                                         @foreach ($places as $place)

@@ -85,4 +85,6 @@ return [
     'errorRestoreUserTime' => 'Sorry, account cannot be restored',
     'successUserRestore'   => 'Welcome back :username! Account Successfully Restored',
 
+    'changeLanguage' => 'Change Language',
+    
 ];

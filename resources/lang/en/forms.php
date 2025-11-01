@@ -51,6 +51,10 @@ return [
         'username' => 'Username',
         'email' => 'Email',
         'name' => 'Name',
+        'first_name' => 'First Name',
+        'last_name'=> 'Last Name',
+        'password' => 'Password',
+        'confirm_password' => 'Confirm Password',
         'title' => 'Title',
         'all' => 'All',
         'added_by' => 'Added By',
@@ -101,7 +105,7 @@ return [
             'deleted' => '<i class="fas fa-trash me-1"></i> Deleted',
             'activeInactive' => '<i class="fas fa-info-circle me-1"></i> Active/Inactive',
             'added' => '<i class="fas fa-calendar-plus me-1"></i> Added',
-            'placeCount' => '<i class="fas fa-map-marker-alt me-1"></i> Place Count',
+            'place_count' => '<i class="fas fa-map-marker-alt me-1"></i> Place Count',
             'theme' => '<i class="fas fa-paint-brush me-1"></i> Theme',
             'default' => '<i class="fas fa-check-circle me-1"></i> Default',
             'yes' => '<i class="fas fa-check me-1"></i> Yes',
@@ -206,7 +210,7 @@ return [
     'username-icon' => 'fa-user',
     'useremail-icon' => 'fa-envelope-o',
 
-    'change-pw' => 'Change Password',
+    'change_pw' => 'Change Password',
 
     // Search Users Form
     'search-users-ph' => 'Search Users',

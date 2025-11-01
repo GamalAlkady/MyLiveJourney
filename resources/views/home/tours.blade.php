@@ -11,10 +11,10 @@
                 @each('partials.tour-card', $tours, 'tour', 'partials.empty')
             </div>
             <div class="d-flex justify-content-between">
-                <div>
+                {{-- <div>
                     <a href="{{ route('home') }}"
                         class="btn btn-light my-5">{!! trans('buttons.back_to', ['name' => __('titles.home')]) !!}</a>
-                </div>
+                </div> --}}
                 <div class="my-5">
                     {{ $tours->links() }}
                 </div>

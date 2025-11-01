@@ -1,5 +1,5 @@
 <div class="form-group has-feedback row">
-    {!! Form::label('note', trans('laravelblocker::laravelblocker.forms.blockedNoteLabel'), array('class' => 'col-md-3 control-label')); !!}
+    {!! Form::label('note', trans('laravelblocker::laravelblocker.forms.blockedNoteLabel'), array('class' => 'col-md-3 control-label')) !!}
     <div class="col-md-9">
         <div class="input-group">
             @isset($item)

@@ -1,4 +1,3 @@
-@props(['text_button'=>''])
 {!! Form::open([
     'url' => $url,
     'class' => 'd-inline-block flex-fill me-1',
@@ -6,7 +5,7 @@
     'title' => trans('titles.delete', ['name' => __($itemName)]),
 ]) !!}
 {!! Form::hidden('_method', 'DELETE') !!}
-{!! Form::button(trans("buttons.delete".$text_button??""), [
+{!! Form::button(trans("buttons.icon.delete"), [
     'class' => 'btn btn-danger d-inline-block w-100',
     'type' => 'button',
     'data-toggle' => 'modal',
@@ -20,7 +19,8 @@
       @include('modals.confirm-modal', [
         'formTrigger' => 'confirmDelete',
         'modalClass' => 'danger',
-        'actionBtnIcon' => 'fa-times',
+        // 'actionBtnIcon' => '',
+        'btnSubmitText' => trans('buttons.delete'),
     ])
 @endPushOnce
   

@@ -92,7 +92,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'ar',
 
     /*
     |--------------------------------------------------------------------------
@@ -195,6 +195,7 @@ return [
         /*
          * Package Service Providers...
          */
+        Mcamara\LaravelLocalization\LaravelLocalizationServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -222,14 +223,16 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        'Redis'     => Redis::class,
-        'Form'      => FormFacade::class,
-        'HTML'      => HtmlFacade::class,
+        'Redis' => Redis::class,
+        'Form' => FormFacade::class,
+        'HTML' => HtmlFacade::class,
         'Socialite' => Socialite::class,
         // 'Input'     => Input::class,
-        'Gravatar'  => Gravatar::class,
-        'Image'     => Image::class,
-        'Uuid'      => Uuid::class,
+        'Gravatar' => Gravatar::class,
+        'Image' => Image::class,
+        'Uuid' => Uuid::class,
+        'LaravelLocalization' => Mcamara\LaravelLocalization\Facades\LaravelLocalization::class,
+
     ])->toArray(),
 
 ];
