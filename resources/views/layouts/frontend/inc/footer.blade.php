@@ -1,4 +1,4 @@
-<x-aiassistant />
+<x-a-i-assistant />
 
 
 <footer class="bg-dark text-white py-5 mt-5">
