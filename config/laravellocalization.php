@@ -309,7 +309,7 @@ return [
     // again if the session expires.
     //
     // If false, system will take app.php locale attribute
-    'useAcceptLanguageHeader' => true,
+    'useAcceptLanguageHeader' => false,
 
     // Set default locale to Arabic
     'defaultLocale' => 'ar',
