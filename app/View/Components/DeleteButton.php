@@ -17,7 +17,7 @@ class DeleteButton extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct($url, $itemName, $itemId=NULL)
+    public function __construct($url, $itemName, $itemId=NULL,public $btnText='icon.delete')
     {
         $this->url = $url;
         $this->itemName = $itemName;

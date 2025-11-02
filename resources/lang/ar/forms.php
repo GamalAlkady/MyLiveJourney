@@ -43,6 +43,7 @@ return [
 
     // Form Labels
     'labels' => [
+        'id' => 'المعرف',
         'details' => 'التفاصيل',
         'username' => 'اسم المستخدم',
         'email' => 'البريد الإلكتروني',
@@ -81,6 +82,9 @@ return [
         'phone' => 'الهاتف',
         'pending_bookings' => 'الحجوزات المعلقة',
         'role' => 'الصلاحية',
+        'duration' => 'المدة',
+        'end_time' => 'وقت الانتهاء',
+        'start_time' => 'وقت البدء',
 
         // Label Icons
         'icon' => [
@@ -133,6 +137,7 @@ return [
             'end_date' => '<i class="fas fa-calendar-alt me-1 :class"></i> تاريخ الانتهاء',
             'end_time' => '<i class="fas fa-clock me-1 :class"></i> وقت الانتهاء',
             'group_size' => '<i class="fas fa-users me-1"></i> حجم المجموعة',
+            'duration' => '<i class="fas fa-stopwatch me-1"></i> المدة',
         ],
     ],
 

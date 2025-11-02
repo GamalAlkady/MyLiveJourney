@@ -59,6 +59,7 @@ return [
 
     'tour' => 'Tour',
     'tours' => 'Tours',
+    'booking' => 'Booking',
     'bookings' => 'Bookings',
     'all_tours' => 'All Tours',
     'tour_image' => 'Tour Image',
@@ -77,6 +78,8 @@ return [
     'chat_room' => 'Chat Room',
 
     'manage' => 'Manage :name',
+    'details' => 'Details :name',
+    'information' => 'Information :name',
     'explore_available_tours' => 'Explore Available Tours',
     'view_all_tours' => 'View All Tours',
     'placeDetails' => 'Place Details',
@@ -98,7 +101,6 @@ return [
     'choose_package' => 'Choose from Our Various Packages',
     'price' => 'Price',
     'people' => 'Number of People',
-    'details' => 'Details',
     'book_now' => 'Book Now',
     'no_packages' => 'No packages found. Please add some packages.',
     'view_all_packages' => 'View All Packages',
@@ -119,11 +121,12 @@ return [
     'users_data' => 'Users Data',
     'deleted_user' => 'Deleted User',
     'deleted_users' => 'Deleted Users',
+    'guide' => 'Guide',
     'guides' => 'Guides',
     'theme' => 'Theme',
     'themes' => 'Themes',
-    'role' => 'Role',
 
+    'tourist'=> 'Tourist',
     'data' => 'Data',
     'list' => 'List',
     'all' => 'All',

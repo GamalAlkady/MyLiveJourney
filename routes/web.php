@@ -170,6 +170,7 @@ Route::group([
         // Booking Management
         Route::group(['prefix' => 'booking'], function () {
             Route::get('/', 'BookingController@index')->name('bookings.index');
+            Route::get('/show/{booking}', 'BookingController@show')->name('bookings.show');
             Route::get('/pending', 'BookingController@pendingBookings')->name('bookings.pending');
             Route::get('/approved', 'BookingController@approvedBookings')->name('bookings.approved');
         });

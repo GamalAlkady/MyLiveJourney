@@ -5,7 +5,7 @@
     'title' => trans('titles.delete', ['name' => __($itemName)]),
 ]) !!}
 {!! Form::hidden('_method', 'DELETE') !!}
-{!! Form::button(trans("buttons.icon.delete"), [
+{!! Form::button(trans("buttons.$btnText"), [
     'class' => 'btn btn-danger d-inline-block w-100',
     'type' => 'button',
     'data-toggle' => 'modal',

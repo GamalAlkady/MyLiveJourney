@@ -45,7 +45,8 @@ class IconHelper
         'place' => 'fas fa-map-marker-alt',
         'places' => 'fas fa-map-marker-alt',
         'booking_now'=>'fas fa-calendar-check',
-        'send'=>'fas fa-send'
+        'send'=>'fas fa-send',
+        'duration'=>'fas fa-stopwatch',
 
     ];
 

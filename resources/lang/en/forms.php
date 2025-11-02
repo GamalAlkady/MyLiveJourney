@@ -47,6 +47,7 @@ return [
 
     ],
     'labels' => [
+        'id' => 'ID',
         'details' => 'Details',
         'username' => 'Username',
         'email' => 'Email',
@@ -84,6 +85,8 @@ return [
         'address' => 'Address',
         'phone' => 'Phone',
         'pending_bookings' => 'Pending Bookings',
+        'end_time' => 'End Time',
+        
 
         'icon' => [
             'id' => '<i class="fas fa-hashtag me-1"></i> ID',

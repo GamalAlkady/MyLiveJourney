@@ -26,7 +26,7 @@
                     <td>{{ $place->addedBy }}</td>
                     <td>{{ $place->district->name }}</td>
                     <td>{{ $place->placetype->name }}</td>
-                    <td>
+                    <td class="hidden-sm hidden-xs">
                         <img style="width:50px;height:50px;" class="img-fluid"
                             src="{{ asset('storage/place/' . $place->image) }}" alt="image">
                     </td>
@@ -34,11 +34,11 @@
                         {{-- Button for show user --}}
 
                         <a href="{{ route('user.places.show', $place->id) }}"
-                            class="btn btn-success flex-fill me-1">{!! trans('buttons.show') !!}</a>
+                            class="btn btn-success flex-fill me-1">{!! trans('buttons.icon.show') !!}</a>
 
                         @permission('update.places')
                             <a href="{{ route('user.places.edit', $place->id) }}"
-                                class="btn btn-info flex-fill me-1">{!! trans('buttons.edit') !!}</a>
+                                class="btn btn-info flex-fill me-1">{!! trans('buttons.icon.edit') !!}</a>
                         @endpermission
 
                         {{-- Button for delete user --}}
@@ -50,7 +50,7 @@
                                 'title' => 'Delete',
                             ]) !!}
                             {!! Form::hidden('_method', 'DELETE') !!}
-                            {!! Form::button(trans('buttons.delete'), [
+                            {!! Form::button(trans('buttons.icon.delete'), [
                                 'class' => 'btn btn-danger w-100',
                                 'type' => 'button',
                                 'data-toggle' => 'modal',

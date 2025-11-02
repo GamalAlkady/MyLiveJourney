@@ -305,7 +305,7 @@
 }
 
 [dir="ltr"] .overlay {
-    left: -400px;
+    left: -100%;
 }
 [dir="ltr"] .overlay.open {
     left: 0;

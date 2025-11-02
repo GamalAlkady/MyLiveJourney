@@ -27,4 +27,7 @@ return [
     'bookingTour' => 'Booking Tour',
     'emptyChat' => 'Empty Chat',
 
+    'approve_booking' => 'Approve Booking',
+    'reject_booking' => 'Reject Booking',
+
 ];

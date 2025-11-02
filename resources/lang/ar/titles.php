@@ -52,6 +52,9 @@ return [
     'adminThemesAdd' => 'إضافة مظهر جديد',
 
     'manage' => '{0} ادارة :name|[1,*]إدارة ال:name',
+    'details' => '{0} تفاصيل :name|[1,*]تفاصيل ال:name',
+    'information' => '{0} معلومات :name|[1,*]معلومات ال:name',
+    
     // CRUD Operations
     'create' => 'إنشاء :name',
     'create_or_edit' => '{0} إنشاء :name|[1,*] تعديل :name',
@@ -73,6 +76,9 @@ return [
     'guide_image' => 'صورة المرشد',
     'guide_history' => 'سجل المرشدين',
 
+    // Tourists
+    'tourist' => 'سائح',
+    'tourists' => 'السائحون',
     // Tours
     'tour' => 'جولة',
     'tours' => 'الجولات',

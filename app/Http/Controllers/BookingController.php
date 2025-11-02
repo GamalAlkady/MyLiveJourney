@@ -34,6 +34,12 @@ class BookingController extends Controller
         return view('pages.booking.index', compact('bookings'));
     }
 
+    public function show(Booking $booking)
+    {
+        $booking->load('tour');
+        // return $booking;
+        return view('pages.booking.show', compact('booking'));
+    }
     public function pendingBookings()
     {
         $bookings = Auth::user()->bookings();

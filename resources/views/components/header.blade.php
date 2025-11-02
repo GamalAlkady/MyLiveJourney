@@ -2,18 +2,23 @@
 <div class="tours-header">
     <div class="d-flex align-items-center justify-content-between">
         <div class="flex-fill">
-            <h1 class="display-5 fw-bold mb-2">
+            @if (!is_string($title) && $title->hasActualContent())
                 {{ $title }}
-            </h1>
+            @else
+                <h1 class="display-5 fw-bold mb-2">
+                    {{ $title }}
+                </h1>
+            @endif
+
         </div>
         <div class="text-md-end mt-3 mt-md-0">
             @if (!empty($link))
                 <a {{ $link->attributes->class(['btn']) }}>
                     {{ $link }}
                 </a>
-                @else
+            @else
                 <a href="{{ URL::previous() }}" class="btn btn-light">
-                    {!!__('buttons.back') !!}
+                    {!! __('buttons.back') !!}
                 </a>
             @endif
             @if (!empty($actionHeader))

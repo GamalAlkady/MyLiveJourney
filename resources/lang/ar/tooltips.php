@@ -27,4 +27,6 @@ return [
     'bookingTour' => 'حجز جولة',
     'emptyChat' => 'إفراغ المحادثة',
 
+    'approve_booking' => 'قبول الحجز',
+    'reject_booking' => 'رفض الحجز',
 ];
