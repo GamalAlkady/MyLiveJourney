@@ -298,7 +298,7 @@
 }
 
 [dir="rtl"] .overlay {
-    right: -400px;
+    right: -100%;
 }
 [dir="rtl"] .overlay.open {
     right: 0;

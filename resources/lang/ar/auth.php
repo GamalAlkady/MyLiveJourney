@@ -35,7 +35,7 @@ return [
     'someProblems'    => 'كانت هناك بعض المشاكل في إدخالك.',
     'email'           => 'البريد الإلكتروني',
     'password'        => 'كلمة المرور',
-    'rememberMe'      => ' تذكرني',
+    'remember_me'      => ' تذكرني',
     'login'           => 'تسجيل الدخول',
     'logout'           => 'تسجيل الخروج',
     'forgot'          => 'نسيت كلمة المرور؟',
@@ -45,6 +45,7 @@ return [
     'last_name'       => 'الاسم الأخير',
     'confirmPassword' => 'تأكيد كلمة المرور',
     'register'        => 'تسجيل',
+    'already_have_acc' => 'لديك حساب؟',
 
     // Placeholders
     'ph_name'          => 'اسم المستخدم',

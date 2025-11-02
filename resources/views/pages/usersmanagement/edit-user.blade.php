@@ -10,6 +10,7 @@
         .pw-change-container {
             display: none;
         }
+
         .form-control:focus,
         .custom-select:focus {
             border-color: #80bdff;
@@ -47,7 +48,7 @@
 
 @section('content')
 
-<x-header :title="trans('usersmanagement.editUser')"/>
+    <x-header :title="trans('usersmanagement.editUser')" />
 
 
     <div class="row">
@@ -74,98 +75,6 @@
                         @method('PUT')
 
                         <div class="row mb-4">
-                            <div class="col-md-6">
-                                <div class="form-group mb-3 {{ $errors->has('name') ? 'has-error' : '' }}">
-                                    <label for="name" class="form-label text-gray-700 font-medium">
-                                        {{-- <i class="fas fa-user me-2"></i> --}}
-                                        {!! trans('forms.labels.icon.username') !!}
-                                    </label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-lg" id="name"
-                                            name="name" value="{{ old('name', $user->name) }}"
-                                            placeholder="{!! trans('forms.labels.username') !!}" required>
-                                        <span class="input-group-text bg-ligh">
-                                            <i class="fas fa-user"></i>
-                                        </span>
-                                    </div>
-                                    @if ($errors->has('name'))
-                                        <div class="invalid-feedback d-block">
-                                            {{ $errors->first('name') }}
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group mb-3 {{ $errors->has('email') ? 'has-error' : '' }}">
-                                    <label for="email" class="form-label text-gray-700 font-medium">
-                                        {{-- <i class="fas fa-envelope me-2"></i> --}}
-                                        {!! trans('forms.labels.icon.email') !!}
-                                    </label>
-                                    <div class="input-group">
-                                        <input type="email" class="form-control form-control-lg" id="email"
-                                            name="email" value="{{ old('email', $user->email) }}"
-                                            placeholder="{!! trans('forms.labels.email') !!}" required>
-                                        <span class="input-group-text bg-ligh">
-                                            <i class="fas fa-envelope"></i>
-                                        </span>
-                                    </div>
-                                    @if ($errors->has('email'))
-                                        <div class="invalid-feedback d-block">
-                                            {{ $errors->first('email') }}
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
-                            <div class="col-md-6">
-                                <div class="form-group mb-3 {{ $errors->has('first_name') ? 'has-error' : '' }}">
-                                    <label for="first_name" class="form-label text-gray-700 font-medium">
-                                        {{-- <i class="fas fa-id-card me-2"></i> --}}
-                                        {!! trans('forms.labels.icon.first_name') !!}
-                                    </label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-lg" id="first_name"
-                                            name="first_name" value="{{ old('first_name', $user->first_name) }}"
-                                            placeholder="{!! trans('forms.placeholders.enter_first_name') !!}" required>
-                                        <span class="input-group-text bg-ligh">
-                                            <i class="fas fa-id-card"></i>
-                                        </span>
-                                    </div>
-                                    @if ($errors->has('first_name'))
-                                        <div class="invalid-feedback d-block">
-                                            {{ $errors->first('first_name') }}
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="form-group mb-3 {{ $errors->has('last_name') ? 'has-error' : '' }}">
-                                    <label for="last_name" class="form-label text-gray-700 font-medium">
-                                        {{-- <i class="fas fa-user-tag me-2"></i> --}}
-                                        {!! trans('forms.labels.icon.last_name') !!}
-                                    </label>
-                                    <div class="input-group">
-                                        <input type="text" class="form-control form-control-lg" id="last_name"
-                                            name="last_name" value="{{ old('last_name', $user->last_name) }}"
-                                            placeholder="{!! trans('forms.placeholders.enter_last_name') !!}" required>
-                                        <span class="input-group-text bg-ligh">
-                                            <i class="fas fa-user-tag"></i>
-                                        </span>
-                                    </div>
-                                    @if ($errors->has('last_name'))
-                                        <div class="invalid-feedback d-block">
-                                            {{ $errors->first('last_name') }}
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-4">
                             <div class="col-12">
                                 <div class="form-group mb-3 {{ $errors->has('role') ? 'has-error' : '' }}">
                                     <label for="role" class="form-label text-gray-700 font-medium">
@@ -179,7 +88,7 @@
                                             @if ($roles)
                                                 @foreach ($roles as $role)
                                                     <option value="{{ $role->id }}"
-                                                        {{ old('role', $currentRole->id) == $role->id ? 'selected="selected"' : '' }}>
+                                                        @selected(old('role', $currentRole->id) == $role->id)>
                                                         {{ $role->name }}</option>
                                                 @endforeach
                                             @endif
@@ -196,85 +105,24 @@
                                 </div>
                             </div>
                         </div>
+      
 
-                        <div class="border-bottom mb-4"></div>
 
-                        <div class="pw-change-container">
-                            <h5 class="mb-4 text-gray-700 font-medium">
-                                <i class="fas fa-key me-2"></i>
-                                {!! trans('forms.change_pw') !!}
-                            </h5>
+                <div class="row">
 
-                            <div class="row mb-4">
-                                <div class="col-12">
-                                    <div class="form-group mb-3 {{ $errors->has('password') ? 'has-error' : '' }}">
-                                        <label for="password" class="form-label text-gray-700 font-medium">
-                                            {{-- <i class="fas fa-lock me-2"></i> --}}
-                                            {!! trans('forms.labels.icon.password') !!}
-                                        </label>
-                                        <div class="input-group">
-                                            <input type="password" class="form-control form-control-lg" id="password"
-                                                name="password" placeholder="{!! trans('forms.placeholders.enter_password') !!}">
-                                            <span class="input-group-text bg-light">
-                                                <i class="fas fa-lock"></i>
-                                            </span>
-                                        </div>
-                                        @if ($errors->has('password'))
-                                            <div class="invalid-feedback d-block">
-                                                {{ $errors->first('password') }}
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row mb-4">
-                                <div class="col-12">
-                                    <div
-                                        class="form-group mb-3 {{ $errors->has('password_confirmation') ? 'has-error' : '' }}">
-                                        <label for="password_confirmation" class="form-label text-gray-700 font-medium">
-                                            {{-- <i class="fas fa-lock me-2"></i> --}}
-                                            {!! trans('forms.labels.icon.confirm_password') !!}
-                                        </label>
-                                        <div class="input-group">
-                                            <input type="password" class="form-control form-control-lg"
-                                                id="password_confirmation" name="password_confirmation"
-                                                placeholder="{!! trans('forms.placeholders.enter_confirm_password') !!}">
-                                            <span class="input-group-text bg-light">
-                                                <i class="fas fa-lock"></i>
-                                            </span>
-                                        </div>
-                                        @if ($errors->has('password_confirmation'))
-                                            <div class="invalid-feedback d-block">
-                                                {{ $errors->first('password_confirmation') }}
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-12 col-sm-6 mb-2">
-                                <a href="#" class="btn btn-outline-secondary btn-block btn-change-pw mt-3"
-                                    title="{{ trans('forms.change_pw') }}">
-                                    <i class="fas fa-lock me-2"></i>
-                                    {!! trans('forms.change_pw') !!}
-                                </a>
-                            </div>
-                            <div class="col-12 col-sm-6">
-                                <button type="button" class="btn btn-success btn-block mt-3 mb-2 btn-save"
-                                    data-toggle="modal" data-target="#confirmSave" data-title="{!! trans('modals.edit_user__modal_text_confirm_title') !!}"
-                                    data-message="{!! trans('modals.edit_user__modal_text_confirm_message') !!}">
-                                    {!! trans('buttons.save') !!}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    <div class="col-12 col-sm-6">
+                        <button type="button" class="btn btn-success btn-block mt-3 mb-2 btn-save" data-toggle="modal"
+                            data-target="#confirmSave" data-title="{!! trans('modals.edit_user__modal_text_confirm_title') !!}"
+                            data-message="{!! trans('modals.edit_user__modal_text_confirm_message') !!}">
+                            {!! trans('buttons.save') !!}
+                        </button>
+                    </div>
                 </div>
+                </form>
             </div>
-
         </div>
+
+    </div>
     </div>
     @include('modals.modal-save')
     @include('modals.modal-delete')

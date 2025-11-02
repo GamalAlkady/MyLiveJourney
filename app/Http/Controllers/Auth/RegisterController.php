@@ -99,13 +99,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // dd($data);
         $ipAddress = new CaptureIpTrait();
 
         if (config('settings.activation')) {
-            $role = Role::where('slug', '=', 'unverified')->first();
+            // $role = Role::where('slug', '=', 'unverified')->first();
             $activated = false;
         } else {
-            $role = Role::where('slug', '=', 'user')->first();
+            // $role = Role::where('slug', '=', 'user')->first();
             $activated = true;
         }
 
@@ -120,7 +121,7 @@ class RegisterController extends Controller
             'activated'         => $activated,
         ]);
 
-        $user->attachRole($role);
+        $user->attachRole($data['role']);
         $this->initiateEmailActivation($user);
 
         $profile = new Profile();

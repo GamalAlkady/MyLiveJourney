@@ -111,6 +111,7 @@ return [
     'bookNow' => 'Book Now',
     'booked' => 'Booked',
 
+    'role' => 'Role',
     'approved_bookings' => 'Approved Bookings',
     'pending_bookings' => 'Pending Bookings',
     'user' => 'User',

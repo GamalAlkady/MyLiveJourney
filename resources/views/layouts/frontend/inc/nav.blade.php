@@ -45,12 +45,12 @@
                     </li>
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">
+                            <a class="nav-link {{ request()->routeIs('login')? 'active' : '' }}" href="{{ route('login') }}">
                                 <i class="fas fa-sign-in-alt me-1"></i> {{ __('titles.login') }}
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="btn btn-primary nav-btn" href="{{ route('register') }}">
+                            <a class="nav-link {{ request()->routeIs('register')? 'active' : '' }}" href="{{ route('register') }}">
                                 <i class="fas fa-user-plus me-1"></i> <b>{{ __('titles.signup') }}</b>
                             </a>
                         </li>

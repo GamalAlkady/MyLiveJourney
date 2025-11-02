@@ -35,7 +35,7 @@ return [
     'someProblems'    => 'There were some problems with your input.',
     'email'           => 'E-Mail Address',
     'password'        => 'Password',
-    'rememberMe'      => ' Remember Me',
+    'remember_me'      => ' Remember Me',
     'login'           => 'Login',
     'logout'           => 'Logout',
     'forgot'          => 'Forgot Your Password?',
@@ -45,6 +45,7 @@ return [
     'last_name'       => 'Last Name',
     'confirmPassword' => 'Confirm Password',
     'register'        => 'Register',
+    'already_have_acc' => 'Already have an account?',
 
     // Placeholders
     'ph_name'          => 'Username',

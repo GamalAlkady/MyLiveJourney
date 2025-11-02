@@ -13,7 +13,7 @@ class IconHelper
         'name' => 'fa fa-tag',
         'email' => 'fa fa-envelope',
         'phone' => 'fa fa-phone',
-        'password' => 'fa fa-key',
+        'password' => 'fa fa-lock',
         'mony' => 'fa fa-money-bill',
         'date-alt' => 'fa fa-calendar-alt',
         'date' => 'fa fa-calendar',
@@ -57,7 +57,7 @@ class IconHelper
      */
     public static function get(string $name, ?string $class = null): string
     {
-        $icon = static::$icons[$name] ?? static::$icons['default'];
+        $icon = static::$icons[$name] ?? "fa fa-$name";
 
         return '<i class="'.$icon.' '.($class ?? '').'"></i>';
     }
@@ -73,7 +73,7 @@ class IconHelper
      */
     public static function class(string $name): string
     {
-        return static::$icons[$name] ?? static::$icons['default'];
+        return static::$icons[$name] ?? "fa fa-$name";
     }
 
     /**

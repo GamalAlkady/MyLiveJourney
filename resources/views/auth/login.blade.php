@@ -1,76 +1,60 @@
-@extends('layouts.app')
+@extends('layouts.frontend.master')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+    <div class="container py-5" style="margin-top: 50px;">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                <div class="card shadow-lg border-0 rounded-lg overflow-hidden">
+                    <div class="card-header bg-gradient-primary py-4">
+                        <h1 class="text-center font-weight-light my-2">{{ __('auth.login') }}</h1>
+                    </div>
+                    <div class="card-body p-4 p-md-5">
+                        <form method="POST" action="{{ route('login') }}">
+                            @csrf
+                            <div class="row justify-content-center">
+                                <x-input class="col-md-8" type="email" name="email" :placeholder="__('forms.placeholders.enter_email')" :icon="icon('email')"
+                                    :autofocus="true" />
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
+                                <x-input class="col-md-8" type="password" name="password" :placeholder="__('forms.placeholders.enter_password')"
+                                    :icon="icon('password')" />
                             </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> {{ __('Remember Me') }}
-                                    </label>
+                            <div class="form-group row">
+                                <div class="col-md-8 offset-md-2">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                            {{ __('auth.remember_me') }}
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group row mb-4">
-                            <div class="col-md-8 offset-md-4">
+                            <div class="d-flex flex-column align-items-center">
+
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
+                                    {{ __('auth.login') }}
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('auth.forgot') }}
-                                </a>
-                            </div>
-                        </div>
+                                <div class="">
+                                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        {{ __('auth.forgot') }}
+                                    </a>
+                                </div>
 
-                        {{-- <p class="text-center mb-3">
+                            </div>
+
+                            {{-- <p class="text-center mb-3">
                             Or Login with
                         </p>
 
                         @include('partials.socials-icons') --}}
 
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection

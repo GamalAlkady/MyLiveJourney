@@ -54,12 +54,6 @@ class UsersManagementController extends Controller
 
         return View('pages.usersmanagement.show-users', compact('users'));
     }
-
-    public function guideList()
-    {
-        $guides = User::whereRoleIs('admin')->paginate(15);
-        return view('pages.users.guideList', compact('guides'));
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -180,7 +174,7 @@ class UsersManagementController extends Controller
 
         // foreach ($user->roles as $userRole) {
             // $currentRole = $roles[1];
-            $currentRole = auth()->user()->roles()->first();
+            $currentRole = $user->roles()->first();
         // }
 
         // if($user->isUser())

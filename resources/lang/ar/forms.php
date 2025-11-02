@@ -80,6 +80,7 @@ return [
         'address' => 'العنوان',
         'phone' => 'الهاتف',
         'pending_bookings' => 'الحجوزات المعلقة',
+        'role' => 'الصلاحية',
 
         // Label Icons
         'icon' => [
