@@ -67,27 +67,29 @@
 
                             @if ($tour->status != TourStatus::Full)
                                 @if (auth()->user()->canChat($tour))
-                                    <a href="{{ route('user.tours.chat', $tour->id) }}" class="btn btn-sm btn-info flex-fill me-1"
-                                        data-toggle="tooltip" title="Chat">
+                                    <a href="{{ route('user.tours.chat', $tour->id) }}"
+                                        class="btn btn-sm btn-info flex-fill me-1" data-toggle="tooltip" title="Chat">
                                         <i class="fas fa-comments"></i>
                                     </a>
                                 @endif
 
                                 @if (auth()->id() == $tour->guide_id)
-                                    <a href="{{ route('user.tours.edit', $tour->id) }}" class="btn btn-sm btn-primary flex-fill me-1"
-                                        data-toggle="tooltip" title="Edit">
+                                    <a href="{{ route('user.tours.edit', $tour->id) }}"
+                                        class="btn btn-sm btn-primary flex-fill me-1" data-toggle="tooltip" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <x-delete-button :url="route('user.tours.destroy', $tour->id)" :itemName="$tour->title" />
+                                @elseif(auth()->user()->hasRole('user'))
+                                    {{-- @role('user') --}}
+                                    <x-booking-button :tour_id="$tour->id" :remaining_seats="$tour->remaining_seats" />
                                 @else
-                                    @role('user')
-                                        <x-booking-button :tour_id="$tour->id" :remaining_seats="$tour->remaining_seats" />
-                                    @else
-                                        <span>---------</span>
-                                    @endrole
+                                    <span>---------</span>
+                                    {{-- @endrole --}}
                                     {{-- @unless ()
                                     @endunless --}}
                                 @endif
+                            @else
+                                <span>---------</span>
                             @endif
                         </div>
                     </td>

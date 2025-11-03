@@ -93,7 +93,7 @@
                                             <select class="custom-select form-control" name="district_id" id="district"
                                                 required>
                                                 <option value="">
-                                                    {{ __('forms.placeholders.select', ['type' => __('titles.models.district')]) }}
+                                                    {{ __('forms.placeholders.select', ['type' => __('titles.district')]) }}
                                                 </option>
                                                 @foreach ($districts as $district)
                                                     <option value="{{ $district->id }}"
@@ -123,7 +123,7 @@
                                             <select class="custom-select form-control" name="placetype_id" id="placetype"
                                                 required>
                                                 <option value="">
-                                                    {{ __('forms.placeholders.select', ['type' => __('titles.models.placetype')]) }}
+                                                    {{ __('forms.placeholders.select', ['type' => __('titles.placetype')]) }}
                                                 </option>
                                                 @foreach ($placetypes as $placetype)
                                                     <option value="{{ $placetype->id }}"

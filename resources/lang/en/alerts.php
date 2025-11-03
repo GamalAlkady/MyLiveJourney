@@ -44,7 +44,7 @@ return [
 
 
     'no_items_found'=> 'No :type Found Right Now.',
-    'no_item_in_ditrict'=> 'No :type Found In This District Right Now.',
+    'no_item_in_district'=> 'No :type Found In This District Right Now.',
     'no_item_in_type'=> 'No :type Found In This Type Right Now.',
     'no_results_found'=> 'No Results Found Right Now.',
     'no_available_placestypes' =>'There are no available places types currently.',

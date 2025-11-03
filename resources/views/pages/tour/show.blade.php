@@ -10,7 +10,7 @@
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1 class="h3 mb-0 text-gray-800">
-                    {!! trans('titles.icon.tour') !!} {{ __('titles.details') }}
+                    {!! trans('titles.icon.tour') !!} {{ __('titles.details', ['name' => $tour->title]) }}
                 </h1>
                 <a href="{{ route('user.tours.index') }}" class="btn btn-light btn-sm px-3 py-2 rounded hover-effect me-2">
                     {!! trans('buttons.back_to', ['name' => __('titles.tours')]) !!}
@@ -26,7 +26,7 @@
         <div class="col-lg-12 mb-4">
             <div class="card shadow h-100">
                 <div class="card-header bg-primary py-3">
-                    <h4 class="mb-0 text-center ">{{ __('titles.details') }}</h4>
+                    <h4 class="mb-0 text-center ">{{ __('titles.details', ['name' => '']) }}</h4>
                 </div>
                 <div class="card-body">
                     <div class="row">
