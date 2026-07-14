@@ -1,96 +1,95 @@
-# رحلتي الحية - MyLiveJourney
+Here is the English translation of your Markdown file, maintaining the exact formatting, badges, and code blocks:
+MyLiveJourney
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Laravel Version](https://img.shields.io/badge/Laravel-10.x-red.svg)](https://laravel.com)
+MyLiveJourney is an integrated tourism management system built using the Laravel 10 framework. The system provides a platform that connects tourists with tour guides, integrating artificial intelligence technologies to streamline the user experience.
+🚀 Key Features
+🌍 Tourism Management System
 
-**MyLiveJourney** هو نظام متكامل لإدارة الرحلات السياحية مبني باستخدام إطار العمل **Laravel 10**. يوفر النظام منصة تربط السياح بالمرشدين السياحيين، مع دمج تقنيات الذكاء الاصطناعي لتسهيل تجربة المستخدم.
+    Destination Exploration: Browse tourist attractions categorized by regions and types.
 
-![الصفحة الرئيسية](public/images/homepage.png)
-![لوحة التحكم](public/images/dashboard.png)
-![إعدادات](public/images/settings.png)
+    Guided Tours: View tour details, pricing, and schedules.
 
----
+    Booking Management: An integrated system for requesting and booking tours with real-time status tracking (Pending, Accepted, Rejected).
 
-## 🚀 المميزات الرئيسية
+🤖 AI Assistant
 
-### 🌍 نظام إدارة السياحة
-- **استكشاف الوجهات:** تصفح الأماكن السياحية وتصنيفها حسب المناطق والأنواع.
-- **جولات سياحية:** عرض تفاصيل الرحلات، الأسعار، والمواعيد.
-- **إدارة الحجوزات:** نظام متكامل لطلب وحجز الرحلات مع تتبع حالة الحجز (قيد الانتظار، مقبول، مرفوض).
+    Integrated Google Gemini AI technology to provide smart answers and personalized travel recommendations to users.
 
-### 🤖 المساعد الذكي (AI Assistant)
-- دمج تقنية **Google Gemini AI** لتقديم إجابات ذكية وتوصيات سياحية مخصصة للمستخدمين.
+💬 Real-Time Chat System
 
-### 💬 نظام المحادثة الفورية
-- غرف دردشة مباشرة بين المرشدين والسياح باستخدام **Pusher**.
-- إشعارات فورية وتحديثات حالة الرحلات.
+    Live chat rooms between guides and tourists powered by Pusher.
 
-### 🔐 الأمان وإدارة المستخدمين
-- **تعدد الأدوار (ACL):** نظام متقدم للأدوار (مسؤول، مرشد، مستخدم).
-- **التحقق بخطوتين (2FA):** دعم التحقق بخطوتين لزيادة أمان الحسابات.
-- **سجلات النشاط:** مراقبة كافة التحركات والعمليات داخل النظام.
-- **التسجيل الاجتماعي:** دعم الدخول عبر Google, Facebook, Twitter وغيرها.
+    Real-time notifications and tour status updates.
 
-### 🎨 واجهة المستخدم
-- تصميم عصري يجمع بين **Bootstrap** و **Tailwind CSS**.
-- دعم تعدد اللغات (العربية، الإنجليزية، إلخ).
-- نظام إدارة القوالب (Themes) لتغيير مظهر المنصة.
+🔐 Security & User Management
 
+    Role-Based Access Control (ACL): An advanced role system (Admin, Guide, User).
 
-## 🛠 التقنيات المستخدمة
+    Two-Factor Authentication (2FA): Support for 2FA to enhance account security.
 
-- **Backend:** Laravel 10.x, PHP 8.1+
-- **Frontend:** Blade, Vite, Tailwind CSS, Bootstrap 4
-- **Database:** MySQL
-- **Real-time:** Pusher
-- **AI:** Google Gemini PHP Client
-- **Localization:** Mcamara Laravel Localization
+    Activity Logs: Monitoring of all actions and operations within the system.
 
----
+    Social Login: Support for logging in via Google, Facebook, Twitter, and more.
 
-## ⚙️ تعليمات التثبيت
+🎨 User Interface
 
-1. قم بتحميل المشروع:
-   ```bash
-   git clone https://github.com/your-repo/MyLiveJourney.git
-   ```
+    A modern design combining Bootstrap and Tailwind CSS.
 
-2. قم بتثبيت التبعات (Dependencies):
-   ```bash
-   composer install
-   npm install
-   ```
+    Multi-language support (Arabic, English, etc.).
 
-3. قم بإنشاء ملف الإعدادات:
-   ```bash
-   cp .env.example .env
-   ```
+    Theme management system to easily change the appearance of the platform.
 
-4. قم بتوليد مفتاح التطبيق:
-   ```bash
-   php artisan key:generate
-   ```
+🛠 Tech Stack
 
-5. قم بإعداد قاعدة البيانات في ملف `.env` ثم قم بتهجير الجداول وبذر البيانات:
-   ```bash
-   php artisan migrate --seed
-   ```
+    Backend: Laravel 10.x, PHP 8.1+
 
-6. قم ببناء الأصول (Assets):
-   ```bash
-   npm run dev
-   ```
+    Frontend: Blade, Vite, Tailwind CSS, Bootstrap 4
 
----
+    Database: MySQL
 
-## 👥 بيانات التجربة (Seeded Users)
+    Real-time: Pusher
 
-| البريد الإلكتروني | كلمة المرور | الصلاحية |
-| :--- | :--- | :--- |
-| `admin@admin.com` | `password` | مسؤول (Admin) |
-| `user@user.com` | `password` | مستخدم (User) |
+    AI: Google Gemini PHP Client
 
----
+    Localization: Mcamara Laravel Localization
 
-## 📜 الترخيص
-المشروع مرخص بموجب رخصة [MIT](LICENSE).
+⚙️ Installation Instructions
+
+    Clone the repository:
+    Bash
+
+    git clone https://github.com/your-repo/MyLiveJourney.git
+
+    Install dependencies:
+    Bash
+
+    composer install
+    npm install
+
+    Create the configuration file:
+    Bash
+
+    cp .env.example .env
+
+    Generate the application key:
+    Bash
+
+    php artisan key:generate
+
+    Set up the database in your .env file, then run migrations and seed the database:
+    Bash
+
+    php artisan migrate --seed
+
+    Build the assets:
+    Bash
+
+    npm run dev
+
+👥 Demo Credentials (Seeded Users)
+Email	Password	Role
+admin@admin.com	password	Admin
+user@user.com	password	User
+📜 License
+
+This project is licensed under the MIT License.
